@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/thebrazenbeard/wip/schemas/repository-policy.schema.json",
+  "title": "WIP Repository Storage Policy V1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "repository_class", "live_workspace_policy"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "repository_class": {"enum": ["PUBLIC_REFERENCE", "PRIVATE_WIP_ROOT"]},
+    "live_workspace_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["allowed_privacy_classes", "allowed_storage_profiles"],
+      "properties": {
+        "allowed_privacy_classes": {
+          "type": "array",
+          "items": {"enum": ["PUBLIC_SAFE", "PRIVATE"]}
+        },
+        "allowed_storage_profiles": {
+          "type": "array",
+          "items": {"enum": ["PUBLIC_GITHUB", "PRIVATE_GITHUB", "PRIVATE_PROVIDER"]}
+        }
+      }
+    }
+  }
+}
