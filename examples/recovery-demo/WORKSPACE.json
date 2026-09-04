@@ -10,6 +10,7 @@
     "route": "WIP documentation example"
   },
   "privacy_class": "PUBLIC_SAFE",
+  "storage_profile": "PUBLIC_GITHUB",
   "checkpoint_policy": {
     "tool_call_interval": 5,
     "exclude_wip_bookkeeping": true,
