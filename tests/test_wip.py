@@ -27,6 +27,7 @@ def make_workspace(root: Path, *, lifecycle: str = "ACTIVE", head_checkpoint: st
             "created_at": "2026-09-04T14:00:00Z",
             "created_by": {"label": "test-worker", "route": "tests"},
             "privacy_class": "PUBLIC_SAFE",
+            "storage_profile": "PUBLIC_GITHUB",
             "checkpoint_policy": {
                 "tool_call_interval": 5,
                 "exclude_wip_bookkeeping": True,
