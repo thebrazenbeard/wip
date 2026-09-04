@@ -110,6 +110,46 @@ class WipCliTests(unittest.TestCase):
             self.assertTrue((workspace / "operations" / "op-000001-02-reconciled.json").is_file())
             self.assertEqual(wip.validate_workspace(workspace), [])
 
+    def test_cli_can_record_deterministic_failure(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            parent = Path(tmp)
+            common_writer = ["--writer-label", "cli-worker", "--writer-route", "tests/cli"]
+            self.assertEqual(
+                wip.main([
+                    "start", str(parent),
+                    "--workspace-id", "cli-failed",
+                    "--title", "CLI failure",
+                    "--purpose", "Prove deterministic failure has a first-class CLI path.",
+                    *common_writer,
+                ]),
+                0,
+            )
+            workspace = parent / "cli-failed"
+            common_operation = [
+                *common_writer,
+                "--action-class", "file_write",
+                "--target-kind", "file",
+                "--target-locator", "external/result.txt",
+                "--intent-summary", "Create one result file.",
+            ]
+            self.assertEqual(
+                wip.main(["prepare", str(workspace), "--expected-generation", "0", *common_operation]),
+                0,
+            )
+            self.assertEqual(
+                wip.main([
+                    "failed", str(workspace),
+                    "--expected-generation", "1",
+                    "--operation-id", "op-000001",
+                    *common_operation,
+                    "--recovery-instruction", "no_retry_required",
+                    "--result-summary", "Provider rejected the request deterministically.",
+                ]),
+                0,
+            )
+            self.assertTrue((workspace / "operations" / "op-000001-02-failed.json").is_file())
+            self.assertEqual(wip.validate_workspace(workspace), [])
+
 
 if __name__ == "__main__":
     unittest.main()
