@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/thebrazenbeard/wip/schemas/checkpoint.schema.json",
+  "title": "WIP Checkpoint V1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "workspace_id",
+    "checkpoint_id",
+    "parent_checkpoint_id",
+    "created_at",
+    "writer",
+    "reason",
+    "tool_calls_since_previous",
+    "objective",
+    "observed",
+    "inferred",
+    "completed",
+    "unfinished",
+    "next_action",
+    "do_not_repeat",
+    "target_snapshots"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "workspace_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{1,63}$"},
+    "checkpoint_id": {"type": "string", "pattern": "^cp-[0-9]{6}$"},
+    "parent_checkpoint_id": {
+      "oneOf": [
+        {"type": "null"},
+        {"type": "string", "pattern": "^cp-[0-9]{6}$"}
+      ]
+    },
+    "created_at": {"type": "string", "format": "date-time"},
+    "writer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label", "route"],
+      "properties": {
+        "label": {"type": "string", "minLength": 1, "maxLength": 120},
+        "route": {"type": "string", "minLength": 1, "maxLength": 240}
+      }
+    },
+    "reason": {
+      "enum": [
+        "TOOL_INTERVAL",
+        "VERIFIED_WRITE",
+        "PHASE_COMPLETE",
+        "BLOCKER",
+        "SCOPE_CHANGE",
+        "TARGET_MOVED",
+        "PRE_RISKY_SUBTASK",
+        "MANUAL",
+        "RECOVERY_RECONCILIATION"
+      ]
+    },
+    "tool_calls_since_previous": {"type": "integer", "minimum": 0},
+    "objective": {"type": "string", "minLength": 1, "maxLength": 2000},
+    "observed": {"type": "array", "items": {"type": "string"}},
+    "inferred": {"type": "array", "items": {"type": "string"}},
+    "completed": {"type": "array", "items": {"type": "string"}},
+    "unfinished": {"type": "array", "items": {"type": "string"}},
+    "next_action": {"type": "string", "minLength": 1, "maxLength": 2000},
+    "do_not_repeat": {"type": "array", "items": {"type": "string"}},
+    "target_snapshots": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind", "locator"],
+        "properties": {
+          "kind": {"type": "string", "minLength": 1, "maxLength": 80},
+          "locator": {"type": "string", "minLength": 1, "maxLength": 500},
+          "immutable_ref": {"type": "string", "minLength": 1, "maxLength": 500},
+          "note": {"type": "string", "maxLength": 1000}
+        }
+      }
+    }
+  }
+}
