@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "example-workspace",
+  "operation_id": "op-000001",
+  "sequence": 1,
+  "state": "PREPARED",
+  "created_at": "2026-09-04T14:00:00Z",
+  "writer": {
+    "label": "example-worker",
+    "route": "example-chat-or-project"
+  },
+  "action_class": "example_non_idempotent_write",
+  "target": {
+    "kind": "example-target",
+    "locator": "opaque-public-safe-locator",
+    "expected_precondition": "Target is in the expected pre-write state."
+  },
+  "intent_summary": "Demonstrate recording intent before a consequential external effect.",
+  "recovery_instruction": "inspect_before_retry",
+  "previous_event": null
+}
