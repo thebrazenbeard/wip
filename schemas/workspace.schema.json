@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/thebrazenbeard/wip/schemas/workspace.schema.json",
+  "title": "WIP Workspace V1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "protocol_version",
+    "workspace_id",
+    "title",
+    "purpose",
+    "created_at",
+    "created_by",
+    "privacy_class",
+    "checkpoint_policy"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "protocol_version": {"const": "1.0"},
+    "workspace_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]{1,63}$"
+    },
+    "title": {"type": "string", "minLength": 1, "maxLength": 160},
+    "purpose": {"type": "string", "minLength": 1, "maxLength": 2000},
+    "created_at": {"type": "string", "format": "date-time"},
+    "created_by": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label", "route"],
+      "properties": {
+        "label": {"type": "string", "minLength": 1, "maxLength": 120},
+        "route": {"type": "string", "minLength": 1, "maxLength": 240}
+      }
+    },
+    "privacy_class": {"const": "PUBLIC_SAFE"},
+    "checkpoint_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tool_call_interval", "exclude_wip_bookkeeping", "immediate_after_verified_write"],
+      "properties": {
+        "tool_call_interval": {"type": "integer", "minimum": 1, "maximum": 50, "default": 5},
+        "exclude_wip_bookkeeping": {"const": true},
+        "immediate_after_verified_write": {"const": true}
+      }
+    },
+    "destination": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type"],
+      "properties": {
+        "type": {"enum": ["UNKNOWN", "GITHUB_REPOSITORY", "OTHER"]},
+        "locator": {"type": "string", "minLength": 1, "maxLength": 500}
+      }
+    }
+  }
+}
