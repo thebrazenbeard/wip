@@ -2,7 +2,9 @@ name: validate-wip
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+      - work/wip-hardening-v1-20260904
   pull_request:
 
 permissions:
