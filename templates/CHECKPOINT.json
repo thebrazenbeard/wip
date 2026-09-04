@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "example-workspace",
+  "checkpoint_id": "cp-000001",
+  "parent_checkpoint_id": null,
+  "created_at": "2026-09-04T14:00:00Z",
+  "writer": {
+    "label": "example-worker",
+    "route": "example-chat-or-project"
+  },
+  "reason": "MANUAL",
+  "tool_calls_since_previous": 0,
+  "objective": "Demonstrate the WIP checkpoint format.",
+  "observed": [
+    "WIP workspace identity and HEAD projection exist."
+  ],
+  "inferred": [],
+  "completed": [
+    "Initial workspace setup."
+  ],
+  "unfinished": [
+    "Continue substantive work."
+  ],
+  "next_action": "Perform the next safe substantive action and checkpoint again at the configured trigger.",
+  "do_not_repeat": [
+    "Do not recreate the initial workspace records under the same ids."
+  ],
+  "target_snapshots": []
+}
