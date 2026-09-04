@@ -60,6 +60,16 @@ ALLOWED_TRANSITIONS = {
     "CONFLICT": set(),
 }
 
+CLI_OPERATION_STATES = {
+    "prepare": "PREPARED",
+    "attempted": "ATTEMPTED",
+    "verify": "VERIFIED",
+    "ambiguous": "AMBIGUOUS",
+    "absent": "ABSENT",
+    "reconcile": "RECONCILED",
+    "conflict": "CONFLICT",
+}
+
 SCHEMA_FILES = {
     "workspace": "workspace.schema.json",
     "head": "head.schema.json",
@@ -876,7 +886,7 @@ def _cmd_operation(args: argparse.Namespace) -> int:
         args.workspace,
         expected_generation=args.expected_generation,
         operation_id=args.operation_id,
-        state=args.command.upper(),
+        state=CLI_OPERATION_STATES[args.command],
         writer_label=args.writer_label,
         writer_route=args.writer_route,
         action_class=args.action_class,
@@ -946,7 +956,7 @@ def build_parser() -> argparse.ArgumentParser:
         checkpoint.add_argument(f"--{flag}", action="append")
 
     for command in ("prepare", "attempted", "verify", "ambiguous", "absent", "reconcile", "conflict"):
-        operation = sub.add_parser(command, help=f"append a {command.upper()} operation event")
+        operation = sub.add_parser(command, help=f"append a {CLI_OPERATION_STATES[command]} operation event")
         _add_operation_args(operation, operation_id_required=(command != "prepare"))
 
     return parser
@@ -966,7 +976,7 @@ def main(argv: list[str] | None = None) -> int:
             return _cmd_start(args)
         if args.command == "checkpoint":
             return _cmd_checkpoint(args)
-        if args.command in {"prepare", "attempted", "verify", "ambiguous", "absent", "reconcile", "conflict"}:
+        if args.command in CLI_OPERATION_STATES:
             return _cmd_operation(args)
     except (JsonLoadError, WipMutationError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
