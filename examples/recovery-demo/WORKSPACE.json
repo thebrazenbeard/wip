@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "protocol_version": "1.0",
+  "workspace_id": "recovery-demo",
+  "title": "Failed-message recovery demonstration",
+  "purpose": "Demonstrate how WIP prevents a chat from blindly repeating an external write after the response disappears.",
+  "created_at": "2026-09-04T14:20:00Z",
+  "created_by": {
+    "label": "example-worker",
+    "route": "WIP documentation example"
+  },
+  "privacy_class": "PUBLIC_SAFE",
+  "checkpoint_policy": {
+    "tool_call_interval": 5,
+    "exclude_wip_bookkeeping": true,
+    "immediate_after_verified_write": true
+  },
+  "destination": {
+    "type": "UNKNOWN"
+  }
+}
