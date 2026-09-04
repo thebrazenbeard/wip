@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "repository_class": "PUBLIC_REFERENCE",
+  "live_workspace_policy": {
+    "allowed_privacy_classes": ["PUBLIC_SAFE"],
+    "allowed_storage_profiles": ["PUBLIC_GITHUB"]
+  }
+}
