@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "example-workspace",
+  "generation": 1,
+  "lifecycle": "ACTIVE",
+  "latest_checkpoint": "cp-000001",
+  "latest_operation_event": null,
+  "updated_at": "2026-09-04T14:00:00Z"
+}
