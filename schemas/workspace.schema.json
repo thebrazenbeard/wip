@@ -13,6 +13,7 @@
     "created_at",
     "created_by",
     "privacy_class",
+    "storage_profile",
     "checkpoint_policy"
   ],
   "properties": {
@@ -34,7 +35,8 @@
         "route": {"type": "string", "minLength": 1, "maxLength": 240}
       }
     },
-    "privacy_class": {"const": "PUBLIC_SAFE"},
+    "privacy_class": {"enum": ["PUBLIC_SAFE", "PRIVATE"]},
+    "storage_profile": {"enum": ["PUBLIC_GITHUB", "PRIVATE_GITHUB", "PRIVATE_PROVIDER"]},
     "checkpoint_policy": {
       "type": "object",
       "additionalProperties": false,
