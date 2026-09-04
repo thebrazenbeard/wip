@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "protocol_version": "1.0",
+  "workspace_id": "example-workspace",
+  "title": "Example workspace",
+  "purpose": "Replace this public-safe example with the durable objective of the workspace.",
+  "created_at": "2026-09-04T14:00:00Z",
+  "created_by": {
+    "label": "example-worker",
+    "route": "example-chat-or-project"
+  },
+  "privacy_class": "PUBLIC_SAFE",
+  "checkpoint_policy": {
+    "tool_call_interval": 5,
+    "exclude_wip_bookkeeping": true,
+    "immediate_after_verified_write": true
+  },
+  "destination": {
+    "type": "UNKNOWN"
+  }
+}
