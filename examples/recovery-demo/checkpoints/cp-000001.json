@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "recovery-demo",
+  "checkpoint_id": "cp-000001",
+  "parent_checkpoint_id": null,
+  "created_at": "2026-09-04T14:25:00Z",
+  "writer": {
+    "label": "recovery-worker",
+    "route": "WIP documentation example"
+  },
+  "reason": "RECOVERY_RECONCILIATION",
+  "tool_calls_since_previous": 0,
+  "objective": "Recover safely after a failed message around a consequential external write.",
+  "observed": [
+    "A PREPARED event exists for op-000001.",
+    "An ATTEMPTED event exists for op-000001.",
+    "Fresh target inspection found the exact intended external effect."
+  ],
+  "inferred": [
+    "The original response likely failed after the external effect landed and before conversational confirmation could be trusted."
+  ],
+  "completed": [
+    "Reconciled op-000001 from target readback without repeating it."
+  ],
+  "unfinished": [
+    "Continue the hypothetical project after the recovered write."
+  ],
+  "next_action": "Continue with the next hypothetical read-only project step after the recovered write.",
+  "do_not_repeat": [
+    "Do not issue op-000001 again; target inspection already proved the effect exists."
+  ],
+  "target_snapshots": [
+    {
+      "kind": "example-object",
+      "locator": "example://target/document-1",
+      "immutable_ref": "sha256:example-reconciled-effect",
+      "note": "Documentation-only simulated target."
+    }
+  ]
+}
