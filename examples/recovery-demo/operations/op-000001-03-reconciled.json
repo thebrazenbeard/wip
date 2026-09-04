@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "recovery-demo",
+  "operation_id": "op-000001",
+  "sequence": 3,
+  "state": "RECONCILED",
+  "created_at": "2026-09-04T14:24:00Z",
+  "writer": {
+    "label": "recovery-worker",
+    "route": "WIP documentation example"
+  },
+  "action_class": "example_non_idempotent_write",
+  "target": {
+    "kind": "example-object",
+    "locator": "example://target/document-1",
+    "expected_precondition": "document-1 does not yet contain marker build-42"
+  },
+  "intent_summary": "Create marker build-42 exactly once.",
+  "recovery_instruction": "inspect_before_retry",
+  "previous_event": "op-000001-02-attempted",
+  "result_summary": "Fresh target inspection found marker build-42 already present, so recovery adopted the existing effect and did not repeat the write.",
+  "effect_receipt": {
+    "kind": "target-readback",
+    "value": "sha256:example-reconciled-effect",
+    "readback": "marker build-42 present"
+  }
+}
