@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "recovery-demo",
+  "operation_id": "op-000001",
+  "sequence": 2,
+  "state": "ATTEMPTED",
+  "created_at": "2026-09-04T14:22:00Z",
+  "writer": {
+    "label": "original-worker",
+    "route": "WIP documentation example"
+  },
+  "action_class": "example_non_idempotent_write",
+  "target": {
+    "kind": "example-object",
+    "locator": "example://target/document-1",
+    "expected_precondition": "document-1 does not yet contain marker build-42"
+  },
+  "intent_summary": "Create marker build-42 exactly once.",
+  "recovery_instruction": "inspect_before_retry",
+  "previous_event": "op-000001-01-prepared",
+  "result_summary": "The external write call was issued, but durable target verification was not completed before the response was lost."
+}
