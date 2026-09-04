@@ -11,7 +11,9 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import shutil
 import sys
+import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -623,6 +625,60 @@ def render_resume(workspace: Path | str) -> str:
     )
 
 
+def repair_projections(workspace: Path | str, *, expected_generation: int) -> dict[str, Any]:
+    """Rebuild HEAD/RESUME from append-only history after an interrupted WIP write.
+
+    The candidate projections are first validated in a shadow workspace. Only
+    valid append-only history can advance the live projections.
+    """
+
+    workspace = Path(workspace)
+    head = _load_json(workspace / "HEAD.json")
+    actual_generation = head.get("generation")
+    if actual_generation != expected_generation:
+        raise StaleGenerationError(
+            f"stale HEAD generation: expected {expected_generation}, current {actual_generation}"
+        )
+
+    checkpoints = _checkpoint_files(workspace)
+    latest_checkpoint = checkpoints[-1].stem if checkpoints else None
+    operation_files = _operation_files(workspace)
+    latest_operation_event = operation_files[-1].stem if operation_files else None
+
+    candidate_head = dict(head)
+    candidate_head["generation"] = expected_generation + 1
+    candidate_head["latest_checkpoint"] = latest_checkpoint
+    candidate_head["latest_operation_event"] = latest_operation_event
+    candidate_head["updated_at"] = _utcnow()
+
+    with tempfile.TemporaryDirectory() as tmp:
+        shadow = Path(tmp) / "workspace"
+        shadow.mkdir()
+        shutil.copy2(workspace / "WORKSPACE.json", shadow / "WORKSPACE.json")
+        for directory_name in ("checkpoints", "operations"):
+            source = workspace / directory_name
+            target = shadow / directory_name
+            if source.is_dir():
+                shutil.copytree(source, target)
+            else:
+                target.mkdir()
+        _write_json_atomic(shadow / "HEAD.json", candidate_head)
+        candidate_resume = render_resume(shadow)
+        _write_text_atomic(shadow / "RESUME.md", candidate_resume)
+        errors = validate_workspace(shadow)
+        if errors:
+            raise WipMutationError(
+                "append-only history cannot produce valid projections: " + "; ".join(errors)
+            )
+
+    _write_json_atomic(workspace / "HEAD.json", candidate_head)
+    _write_text_atomic(workspace / "RESUME.md", candidate_resume)
+    errors = validate_workspace(workspace)
+    if errors:
+        raise WipMutationError("projection repair left invalid workspace: " + "; ".join(errors))
+    return candidate_head
+
+
 def start_workspace(
     parent: Path | str,
     *,
@@ -935,6 +991,10 @@ def build_parser() -> argparse.ArgumentParser:
     resume = sub.add_parser("resume", help="render the current recovery card")
     resume.add_argument("workspace", type=Path)
 
+    repair = sub.add_parser("repair", help="rebuild HEAD/RESUME from validated append-only history")
+    repair.add_argument("workspace", type=Path)
+    repair.add_argument("--expected-generation", required=True, type=int)
+
     start = sub.add_parser("start", help="create a new local WIP workspace")
     start.add_argument("parent", type=Path)
     start.add_argument("--workspace-id", required=True)
@@ -971,6 +1031,9 @@ def main(argv: list[str] | None = None) -> int:
             return _cmd_status(args.workspace)
         if args.command == "resume":
             print(render_resume(args.workspace), end="")
+            return 0
+        if args.command == "repair":
+            print(json.dumps(repair_projections(args.workspace, expected_generation=args.expected_generation), indent=2, sort_keys=True))
             return 0
         if args.command == "start":
             return _cmd_start(args)
