@@ -66,6 +66,7 @@ CLI_OPERATION_STATES = {
     "prepare": "PREPARED",
     "attempted": "ATTEMPTED",
     "verify": "VERIFIED",
+    "failed": "FAILED",
     "ambiguous": "AMBIGUOUS",
     "absent": "ABSENT",
     "reconcile": "RECONCILED",
@@ -1015,7 +1016,7 @@ def build_parser() -> argparse.ArgumentParser:
     for flag in ("observed", "inferred", "completed", "unfinished", "do-not-repeat"):
         checkpoint.add_argument(f"--{flag}", action="append")
 
-    for command in ("prepare", "attempted", "verify", "ambiguous", "absent", "reconcile", "conflict"):
+    for command in CLI_OPERATION_STATES:
         operation = sub.add_parser(command, help=f"append a {CLI_OPERATION_STATES[command]} operation event")
         _add_operation_args(operation, operation_id_required=(command != "prepare"))
 
