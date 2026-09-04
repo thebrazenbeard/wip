@@ -23,7 +23,7 @@
     "workspace_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{1,63}$"},
     "operation_id": {"type": "string", "pattern": "^op-[0-9]{6}$"},
     "sequence": {"type": "integer", "minimum": 1, "maximum": 99},
-    "state": {"enum": ["PREPARED", "ATTEMPTED", "VERIFIED", "FAILED", "AMBIGUOUS", "RECONCILED"]},
+    "state": {"enum": ["PREPARED", "ATTEMPTED", "VERIFIED", "FAILED", "AMBIGUOUS", "ABSENT", "RECONCILED", "CONFLICT"]},
     "created_at": {"type": "string", "format": "date-time"},
     "writer": {
       "type": "object",
@@ -53,7 +53,7 @@
         {"type": "string", "pattern": "^op-[0-9]{6}-[0-9]{2}-[a-z]+$"}
       ]
     },
-    "result_summary": {"type": "string", "maxLength": 2000},
+    "result_summary": {"type": "string", "minLength": 1, "maxLength": 2000},
     "effect_receipt": {
       "type": "object",
       "additionalProperties": false,
@@ -69,6 +69,10 @@
     {
       "if": {"properties": {"state": {"enum": ["VERIFIED", "RECONCILED"]}}},
       "then": {"required": ["effect_receipt", "result_summary"]}
+    },
+    {
+      "if": {"properties": {"state": {"enum": ["ABSENT", "CONFLICT"]}}},
+      "then": {"required": ["result_summary"]}
     },
     {
       "if": {"properties": {"state": {"const": "PREPARED"}}},
