@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "chat-bus-recovery-20260905",
+  "operation_id": "op-000001",
+  "sequence": 3,
+  "state": "VERIFIED",
+  "created_at": "2026-09-05T17:06:45Z",
+  "writer": {
+    "label": "Codex",
+    "route": "ChatGPT Work / Chat Communication Bus"
+  },
+  "action_class": "wip_checkpoint_projection",
+  "target": {
+    "kind": "github-files",
+    "locator": "https://github.com/thebrazenbeard/wip/tree/wip/chat-bus-recovery-20260905-v2/workspaces/chat-bus-recovery-20260905"
+  },
+  "intent_summary": "Verify exact readback of all WIP recovery records.",
+  "recovery_instruction": "no_retry_required",
+  "previous_event": "op-000001-02-attempted",
+  "result_summary": "All workspace records and the registry entry read back successfully from the isolated branch.",
+  "effect_receipt": {
+    "kind": "github-file-readback",
+    "value": "7 paths verified",
+    "readback": "WORKSPACE, checkpoint, three operation events, HEAD, RESUME, and registry were read back from the branch."
+  }
+}
