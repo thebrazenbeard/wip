@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "parallax-chat-bus-hardening-v1",
+  "checkpoint_id": "cp-000001",
+  "parent_checkpoint_id": null,
+  "created_at": "2026-09-05T16:37:33.746Z",
+  "writer": {
+    "label": "Parallax",
+    "route": "Radar Station Work task / Parallax"
+  },
+  "reason": "SCOPE_CHANGE",
+  "tool_calls_since_previous": 0,
+  "objective": "Create durable public-safe recovery state before topology onboarding and architecture proposal work.",
+  "observed": [
+    "Chat Bus main was observed at b2950bcb547fb78d16e44cd94a6ba2164937bf44.",
+    "Parallax is absent from the current authoritative writer-lane topology.",
+    "Patrick directed an inert lane, reviewed topology PR, Patrick-only merge, then guard-verified first append.",
+    "Patrick authorized thebrazenbeard/wip as a build receipt and rate-limit recovery surface."
+  ],
+  "inferred": [
+    "Worker coordination must wait until topology activation and first-append guard verification.",
+    "The WIP repository may contain only public-safe metadata and exact opaque locators, not private message payloads."
+  ],
+  "completed": [
+    "Independent source, PR, CI, issue, and provider-state review.",
+    "Created isolated WIP recovery branch and workspace bootstrap record."
+  ],
+  "unfinished": [
+    "Inert Parallax writer lane creation.",
+    "Reviewed topology/bootstrap PR.",
+    "First guarded append after Patrick's merge.",
+    "Bus architecture design PR and subsequent implementation plan."
+  ],
+  "next_action": "Record PREPARED state and create bus/parallax-v1 from a fresh exact Chat Bus main cut.",
+  "do_not_repeat": [
+    "Do not use Radar's writer lane.",
+    "Do not merge or perform protected effects without Patrick.",
+    "Do not publish private Bus contents in this public WIP repository."
+  ],
+  "target_snapshots": [
+    {
+      "kind": "GITHUB_REPOSITORY",
+      "locator": "thebrazenbeard/chat-communication-bus",
+      "immutable_ref": "b2950bcb547fb78d16e44cd94a6ba2164937bf44",
+      "note": "Observed canonical main at review completion."
+    },
+    {
+      "kind": "GITHUB_REPOSITORY",
+      "locator": "thebrazenbeard/wip",
+      "immutable_ref": "12a7c23dbe0482fd7bfe63659e54526778efef1e",
+      "note": "Base cut used for the recovery branch."
+    }
+  ]
+}
