@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "chat-bus-recovery-20260905",
+  "checkpoint_id": "cp-000001",
+  "parent_checkpoint_id": null,
+  "created_at": "2026-09-05T17:06:17Z",
+  "writer": {
+    "label": "Codex",
+    "route": "ChatGPT Work / Chat Communication Bus"
+  },
+  "reason": "MANUAL",
+  "tool_calls_since_previous": 0,
+  "objective": "Preserve the verified Chat Bus frontier and cross-chat coordination state in public-safe WIP storage.",
+  "observed": [
+    "Chat Bus main was verified at b2950bcb547fb78d16e44cd94a6ba2164937bf44.",
+    "bus/parallax-v1 compares identical to main at that canonical cut; no append was observed.",
+    "PR #20 is open, draft, unmerged, and currently heads at 917de4a3b579afef54cf75c61e707f704cec8e85.",
+    "CI run 33978861425 for PR #20 completed successfully on Python 3.11 and 3.12.",
+    "PR #21 is an open draft design review at ee9d40fdd89f43369e41c1564f4a595af419b56c.",
+    "A coordination note was posted to PR #21 as GitHub comment 5553329559."
+  ],
+  "inferred": [
+    "The shared GitHub repository and PRs are the durable coordination surface for the Work chats."
+  ],
+  "completed": [
+    "Saved the Chat Bus frontier, Parallax gate, architecture review, and communication capability boundary."
+  ],
+  "unfinished": [
+    "Patrick review and merge of PR #20 remain pending.",
+    "After merge, exactly one Parallax append and current Writer Lane Guard verification remain before worker coordination.",
+    "PR #21 remains design-only; implementation requires a bounded plan and fresh verification.",
+    "No provider deployment, migration, credential/ruleset change, force-push, or merge was performed."
+  ],
+  "next_action": "Refresh Chat Bus main, PR #20, PR #21, and CI before the next implementation or activation step.",
+  "do_not_repeat": [
+    "Do not append to bus/parallax-v1 before topology onboarding is merged.",
+    "Do not enable Parallax worker coordination before the first append passes the current Writer Lane Guard.",
+    "Do not claim direct messages were sent to the linked Work chats; no conversation-send action was exposed in this runtime.",
+    "Do not copy private chat content, credentials, or protected repository payloads into this public WIP repository."
+  ],
+  "target_snapshots": [
+    {
+      "kind": "chat-bus-main",
+      "locator": "https://github.com/thebrazenbeard/chat-communication-bus/tree/main",
+      "immutable_ref": "b2950bcb547fb78d16e44cd94a6ba2164937bf44",
+      "note": "Mutable target; refresh before reuse."
+    },
+    {
+      "kind": "parallax-inert-lane",
+      "locator": "https://github.com/thebrazenbeard/chat-communication-bus/tree/bus/parallax-v1",
+      "immutable_ref": "b2950bcb547fb78d16e44cd94a6ba2164937bf44",
+      "note": "Exact canonical cut; no append observed."
+    },
+    {
+      "kind": "parallax-topology-pr",
+      "locator": "https://github.com/thebrazenbeard/chat-communication-bus/pull/20",
+      "immutable_ref": "917de4a3b579afef54cf75c61e707f704cec8e85",
+      "note": "Open draft; Patrick merge required."
+    },
+    {
+      "kind": "parallax-architecture-pr",
+      "locator": "https://github.com/thebrazenbeard/chat-communication-bus/pull/21",
+      "immutable_ref": "ee9d40fdd89f43369e41c1564f4a595af419b56c",
+      "note": "Open draft design review; no implementation implied."
+    }
+  ]
+}
