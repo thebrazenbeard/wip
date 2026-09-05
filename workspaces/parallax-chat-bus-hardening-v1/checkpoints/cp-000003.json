@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "parallax-chat-bus-hardening-v1",
+  "checkpoint_id": "cp-000003",
+  "parent_checkpoint_id": "cp-000002",
+  "created_at": "2026-09-05T16:47:37.189Z",
+  "writer": {
+    "label": "Parallax",
+    "route": "Radar Station Work task / Parallax"
+  },
+  "reason": "PHASE_COMPLETE",
+  "tool_calls_since_previous": 7,
+  "objective": "Leave Parallax onboarding and independent architecture artifacts at verifiable Patrick review gates.",
+  "observed": [
+    "bus/parallax-v1 remains identical to b2950bcb547fb78d16e44cd94a6ba2164937bf44 with no message files.",
+    "Draft PR #20 exact head is 917de4a3b579afef54cf75c61e707f704cec8e85; CI run 33978861425 completed success.",
+    "PR #20 CI covered the full suite on Python 3.11 and 3.12 after the pending-onboarding cutover regression was corrected.",
+    "Draft PR #21 exact head is ee9d40fdd89f43369e41c1564f4a595af419b56c; CI run 33978782388 completed success.",
+    "PR #21 contains the independent trust-runtime architecture review and no production/provider effect.",
+    "No topology merge, first append, provider projection, deployment, credential mutation, ruleset change, or use of Radar's writer lane occurred."
+  ],
+  "inferred": [
+    "The onboarding contract is now explicit enough to prevent a new lane from being mistaken for an already-cut-over lane.",
+    "The next valid action after Patrick merges PR #20 is one append plus current guard verification; worker coordination remains gated until that succeeds.",
+    "The architecture proposal must be reviewed before production implementation planning."
+  ],
+  "completed": [
+    "Created WIP recovery branch and checkpoints.",
+    "Created inert exact-cut Parallax lane.",
+    "Opened and verified topology/bootstrap Draft PR #20.",
+    "Opened and verified architecture Draft PR #21."
+  ],
+  "unfinished": [
+    "Patrick merge of PR #20.",
+    "First append and Writer Lane Guard verification after merge.",
+    "Worker coordination with Radar, Entropy 2, and other Work chats via the new lane.",
+    "Written-spec approval, bounded implementation plan, and any later code changes."
+  ],
+  "next_action": "Patrick reviews/merges PR #20; then Parallax refreshes canonical main/topology, appends one test message, and verifies the current guard before any coordination.",
+  "do_not_repeat": [
+    "Do not append or coordinate on bus/parallax-v1 before PR #20 merge and guard verification.",
+    "Do not merge PR #21 or any hardening PR without Patrick's explicit decision.",
+    "Do not weaken Supabase verify_jwt, change provider configuration, or use Radar's lane."
+  ],
+  "target_snapshots": [
+    {
+      "kind": "GITHUB_BRANCH",
+      "locator": "thebrazenbeard/chat-communication-bus:bus/parallax-v1",
+      "immutable_ref": "b2950bcb547fb78d16e44cd94a6ba2164937bf44",
+      "note": "Inert exact-cut branch."
+    },
+    {
+      "kind": "GITHUB_PULL_REQUEST",
+      "locator": "thebrazenbeard/chat-communication-bus#20",
+      "immutable_ref": "917de4a3b579afef54cf75c61e707f704cec8e85",
+      "note": "Topology/bootstrap PR; CI run 33978861425 success; Patrick merge gate."
+    },
+    {
+      "kind": "GITHUB_PULL_REQUEST",
+      "locator": "thebrazenbeard/chat-communication-bus#21",
+      "immutable_ref": "ee9d40fdd89f43369e41c1564f4a595af419b56c",
+      "note": "Architecture design PR; CI run 33978782388 success; written-spec review gate."
+    }
+  ]
+}
