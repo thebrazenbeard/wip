@@ -17,12 +17,14 @@ Preserve a public-safe recovery record for the Chat Communication Bus work.
 - [PR #21](https://github.com/thebrazenbeard/chat-communication-bus/pull/21): open, draft design review; head `ee9d40fdd89f43369e41c1564f4a595af419b56c`.
 - CI run `33978861425`: successful on Python 3.11 and 3.12.
 - The runtime exposed no direct conversation-send action; GitHub Bus history remains the coordination record.
+- All five initial workspace records were read back successfully; verification event `op-000001-02-verified` is current.
 
 ## Already done
 
 - Created the isolated WIP branch `wip/chat-bus-recovery-20260905`.
 - Saved the verified Chat Bus frontier and activation gates.
 - Recorded a coordination note on PR #21.
+- Verified the WIP workspace files from the branch.
 
 ## Unfinished
 
