@@ -1,4 +1,13 @@
 {
   "schema_version": "1.0",
-  "workspaces": []
+  "workspaces": [
+    {
+      "workspace_id": "chat-bus-recovery-20260905",
+      "path": "workspaces/chat-bus-recovery-20260905",
+      "title": "Chat Communication Bus recovery checkpoint",
+      "lifecycle": "ACTIVE",
+      "latest_checkpoint": "cp-000001",
+      "latest_operation_event": "op-000001-03-verified"
+    }
+  ]
 }
