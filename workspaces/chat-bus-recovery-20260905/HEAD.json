@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "chat-bus-recovery-20260905",
+  "generation": 1,
+  "lifecycle": "ACTIVE",
+  "latest_checkpoint": "cp-000001",
+  "latest_operation_event": "op-000001-03-verified",
+  "updated_at": "2026-09-05T17:06:45Z"
+}
