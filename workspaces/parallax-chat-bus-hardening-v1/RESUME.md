@@ -1,6 +1,6 @@
 # Resume
 
-<!-- wip:latest_checkpoint=cp-000001 -->
+<!-- wip:latest_checkpoint=cp-000002 -->
 
 Workspace: `parallax-chat-bus-hardening-v1`
 Lifecycle: `ACTIVE`
@@ -11,7 +11,7 @@ Independently harden the Chat Communication Bus, beginning with reviewed Paralla
 
 ## Verified position
 
-- Latest checkpoint: `cp-000001`
+- Latest checkpoint: `cp-000002`
 - WIP recovery branch: `wip/parallax-chat-bus-hardening-v1`
 - Chat Bus canonical cut observed: `b2950bcb547fb78d16e44cd94a6ba2164937bf44`
 - No merge, deployment, credential, provider, branch-protection, or ruleset mutation has been performed.
@@ -36,4 +36,4 @@ Independently harden the Chat Communication Bus, beginning with reviewed Paralla
 
 ## Next safe action
 
-Create a write-ahead operation event, then create `bus/parallax-v1` from a freshly verified canonical Chat Bus main SHA.
+Verify the latest PR #20 CI run; do not append to `bus/parallax-v1` until Patrick merges the topology PR.
