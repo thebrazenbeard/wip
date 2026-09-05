@@ -1,4 +1,12 @@
 {
   "schema_version": "1.0",
-  "workspaces": []
+  "workspaces": [
+    {
+      "workspace_id": "parallax-chat-bus-hardening-v1",
+      "path": "workspaces/parallax-chat-bus-hardening-v1",
+      "lifecycle": "ACTIVE",
+      "title": "Parallax Chat Bus hardening and architecture review",
+      "updated_at": "2026-09-05T16:37:33.746Z"
+    }
+  ]
 }
