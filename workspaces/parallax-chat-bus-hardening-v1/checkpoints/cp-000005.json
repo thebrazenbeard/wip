@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "parallax-chat-bus-hardening-v1",
+  "checkpoint_id": "cp-000005",
+  "parent_checkpoint_id": "cp-000004",
+  "created_at": "2026-09-05T17:13:46.335Z",
+  "writer": {
+    "label": "Parallax",
+    "route": "Radar Station Work task / Parallax"
+  },
+  "reason": "IMPLEMENTATION_SLICE_VERIFIED",
+  "tool_calls_since_previous": 10,
+  "objective": "Advance source-only Bus hardening with exact-delta projection and durable telemetry heartbeat.",
+  "observed": [
+    "Draft PR #22 is open at exact head 7cfe41e68f174323873b8a2d5b94ffb15338371d.",
+    "PR #22 CI run 33980199378 succeeded on Python 3.11 and 3.12: pytest, compileall, and source-hash verification.",
+    "PR #22 now includes durable SQLite-backed routed/dropped/DLQ counters and a deterministic 60-second system/telemetry heartbeat with source/provider evidence.",
+    "The exact-delta regression and telemetry persistence/interval tests are included in the full green matrix.",
+    "No merge, provider deployment/migration/configuration, credential mutation, ruleset/branch-protection change, force-push, or Parallax-lane append occurred.",
+    "WIP branch briefly received a concurrent safe-action commit from another worker; Parallax rebased its public receipt by fast-forwarding from the fresh branch head rather than forcing."
+  ],
+  "inferred": [
+    "The source candidate now addresses the 500-file full-mailbox failure mode for ordinary non-zero-base pushes and implements the heartbeat contract locally.",
+    "Live provider issue #16, trusted projector/source reachability, and provider-side heartbeat ingestion remain unverified until separate protected integration work.",
+    "Parallax coordination remains gated by PR #20 merge and first current Writer Lane Guard verification."
+  ],
+  "completed": [
+    "Exact-delta projection implementation and verification.",
+    "Durable telemetry counter/heartbeat implementation and verification.",
+    "Updated PR #22 body and WIP recovery receipt."
+  ],
+  "unfinished": [
+    "Trusted projector root, lane-derived sender, source reachability binding.",
+    "Wire telemetry counters into live routing/queue/DLQ paths.",
+    "Patrick merge of PR #20, first guarded Parallax append, and Bus coordination with Radar/Entropy 2.",
+    "Patrick review/merge decisions for PRs #15, #17, #18, and #22."
+  ],
+  "next_action": "Refresh PR #20/main/topology. If #20 is merged, append one minimal Parallax message and verify the current guard; otherwise continue source-only hardening without writing bus/parallax-v1.",
+  "do_not_repeat": [
+    "Do not append or coordinate on bus/parallax-v1 before PR #20 merge and current guard verification.",
+    "Do not merge PR #22 or any hardening PR without Patrick's explicit decision.",
+    "Do not redeploy github-bus-ingest or change verify_jwt/provider configuration."
+  ],
+  "target_snapshots": [
+    {
+      "kind": "GITHUB_PULL_REQUEST",
+      "locator": "thebrazenbeard/chat-communication-bus#22",
+      "immutable_ref": "7cfe41e68f174323873b8a2d5b94ffb15338371d",
+      "note": "Exact-delta + telemetry source slice; CI 33980199378 success."
+    },
+    {
+      "kind": "GITHUB_PULL_REQUEST",
+      "locator": "thebrazenbeard/chat-communication-bus#20",
+      "immutable_ref": "917de4a3b579afef54cf75c61e707f704cec8e85",
+      "note": "Topology/bootstrap PR; Patrick merge gate."
+    }
+  ]
+}
