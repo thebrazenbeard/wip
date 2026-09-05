@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "parallax-chat-bus-hardening-v1",
+  "operation_id": "op-000001",
+  "sequence": 1,
+  "state": "PREPARED",
+  "created_at": "2026-09-05T16:37:33.746Z",
+  "writer": {
+    "label": "Parallax",
+    "route": "Radar Station Work task / Parallax"
+  },
+  "action_class": "WIP_WORKSPACE_BOOTSTRAP",
+  "target": {
+    "kind": "GITHUB_BRANCH",
+    "locator": "thebrazenbeard/wip:wip/parallax-chat-bus-hardening-v1",
+    "expected_precondition": "Branch begins at 12a7c23dbe0482fd7bfe63659e54526778efef1e."
+  },
+  "intent_summary": "Initialize a public-safe recovery workspace for Parallax Chat Bus work.",
+  "recovery_instruction": "inspect_before_retry",
+  "previous_event": null
+}
