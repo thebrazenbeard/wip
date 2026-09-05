@@ -1,39 +1,41 @@
 # Resume
 
-<!-- wip:latest_checkpoint=cp-000003 -->
+<!-- wip:latest_checkpoint=cp-000004 -->
 
-Workspace: `parallax-chat-bus-hardening-v1`
-Lifecycle: `ACTIVE`
+Workspace: parallax-chat-bus-hardening-v1
+Lifecycle: ACTIVE
 
 ## Objective
 
-Independently harden the Chat Communication Bus, beginning with reviewed Parallax topology onboarding and an evidence-backed target architecture.
+Independently harden the Chat Communication Bus and coordinate through a topology-registered Parallax lane only after its onboarding guard gate.
 
 ## Verified position
 
-- Latest checkpoint: `cp-000003`
-- WIP recovery branch: `wip/parallax-chat-bus-hardening-v1`
-- Chat Bus canonical cut observed: `b2950bcb547fb78d16e44cd94a6ba2164937bf44`
-- No merge, deployment, credential, provider, branch-protection, or ruleset mutation has been performed.
+- Latest checkpoint: cp-000004
+- WIP recovery branch: wip/parallax-chat-bus-hardening-v1
+- Chat Bus main: b2950bcb547fb78d16e44cd94a6ba2164937bf44
+- Draft PR #22: 72785573260ff77537c72d67d4c945ee44316767
+- CI run 33979959646: Python 3.11/3.12 tests, compileall, and source-hash verification succeeded.
+- No protected effect has been performed.
 
-## Already done
+## Implemented
 
-- Independently reviewed current Bus source, PRs #15, #17, #18, issue #16, exact CI evidence, and read-only provider state.
-- Established public-safe recovery records for this Work task.
+- PR #18 source-local runtime hardening carried into an isolated Parallax branch.
+- Exact-delta projection for non-zero-base pushes, with FULL_COMPAT fallback when no base is supplied.
+- Execution plan covering admission/DLQ, routing/liveness, priority-0, telemetry heartbeat, trusted projector, and Parallax onboarding.
 
 ## Unfinished
 
-- Create inert `bus/parallax-v1` from an exact canonical cut.
-- Open a reviewed Bus-local topology/bootstrap PR for Parallax.
-- After Patrick merges, verify the first guarded append before worker coordination.
-- Publish the architecture design as a separate Draft PR and stop at the written-spec review gate.
+- Patrick merge of PR #20; then one append and current Writer Lane Guard verification.
+- Bus coordination with Radar, the linked Parallax review chat, and Entropy 2 after the guard gate.
+- Durable telemetry heartbeat/DLQ counter implementation.
+- Trusted projector root and source reachability binding.
+- Patrick review/merge decisions for PRs #15, #17, #18, and #22.
 
-## Do not repeat
+## Authority
 
-- Do not write through Radar's lane or impersonate Radar.
-- Do not merge, deploy, mutate credentials/provider configuration, or change branch protections/rulesets without Patrick's explicit authorization.
-- Do not treat provider projection absence as proof of no Git source message while issue #16 remains unresolved.
+Patrick remains sole merge/protected-effect authority. No merge, provider deployment/migration/configuration, credential/ruleset/branch-protection mutation, force-push, or history rewrite is authorized by this receipt.
 
-## Next safe action
+## Safe next action
 
-Patrick reviews/merges PR #20; then refresh exact main/topology, append one test message, and verify the current Writer Lane Guard before coordination.
+Refresh current PR #20/main/topology state. If #20 is merged, append one minimal Parallax message and verify the current guard. Otherwise continue source-only hardening without writing bus/parallax-v1.

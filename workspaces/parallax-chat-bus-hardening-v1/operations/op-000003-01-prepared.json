@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "parallax-chat-bus-hardening-v1",
+  "operation_id": "op-000003",
+  "sequence": 1,
+  "state": "PREPARED",
+  "created_at": "2026-09-05T17:02:40.356Z",
+  "writer": {
+    "label": "Parallax",
+    "route": "Radar Station Work task / Parallax"
+  },
+  "action_class": "CHAT_BUS_RUNTIME_HARDENING",
+  "target": {
+    "kind": "GITHUB_REPOSITORY",
+    "locator": "thebrazenbeard/chat-communication-bus",
+    "expected_precondition": "Fresh canonical main and PR #18 head will be re-read before action; no protected effect."
+  },
+  "intent_summary": "Create an isolated implementation branch from the reviewed hardening candidate and add exact-delta projection plus execution plan.",
+  "recovery_instruction": "If branch or head changed, stop and rebuild operation from fresh main; do not force-push.",
+  "previous_event": "op-000002-03-verified",
+  "result_summary": "Write-ahead record for bounded source-only implementation. No merge/deploy/provider mutation.",
+  "effect_receipt": {
+    "kind": "PLANNED_SOURCE_ONLY_BRANCH_AND_DRAFT_PR",
+    "value": "parallax/runtime-hardening-v1",
+    "readback": "Pending action and verification."
+  }
+}

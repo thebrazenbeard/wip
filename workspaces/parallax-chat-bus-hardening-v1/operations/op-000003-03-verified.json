@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "parallax-chat-bus-hardening-v1",
+  "operation_id": "op-000003",
+  "sequence": 3,
+  "state": "VERIFIED",
+  "created_at": "2026-09-05T17:08:51.115Z",
+  "writer": {
+    "label": "Parallax",
+    "route": "Radar Station Work task / Parallax"
+  },
+  "action_class": "CHAT_BUS_RUNTIME_HARDENING",
+  "target": {
+    "kind": "GITHUB_REPOSITORY",
+    "locator": "thebrazenbeard/chat-communication-bus",
+    "expected_precondition": "PR #18 exact hardening head and main b2950bcb were used as stated."
+  },
+  "intent_summary": "Verify exact-delta projection implementation and preserve an exact-head build receipt.",
+  "recovery_instruction": "no_retry_required",
+  "previous_event": "op-000003-02-attempted",
+  "result_summary": "Draft PR #22 is open at exact head 7278557326...; exact-delta regression and full CI passed on Python 3.11/3.12 with compile and source-hash checks.",
+  "effect_receipt": {
+    "kind": "GITHUB_DRAFT_PR_VERIFIED",
+    "value": "thebrazenbeard/chat-communication-bus#22",
+    "readback": "PR #22 open Draft; CI run 33979959646 success on both matrices."
+  }
+}
