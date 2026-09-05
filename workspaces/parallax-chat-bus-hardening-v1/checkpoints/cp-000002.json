@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "parallax-chat-bus-hardening-v1",
+  "checkpoint_id": "cp-000002",
+  "parent_checkpoint_id": "cp-000001",
+  "created_at": "2026-09-05T16:46:31.399Z",
+  "writer": {
+    "label": "Parallax",
+    "route": "Radar Station Work task / Parallax"
+  },
+  "reason": "VERIFIED_WRITE",
+  "tool_calls_since_previous": 11,
+  "objective": "Onboard Parallax safely without using the lane before topology merge and first guard verification.",
+  "observed": [
+    "bus/parallax-v1 exists and compares identical to canonical main b2950bcb547fb78d16e44cd94a6ba2164937bf44.",
+    "Draft Bus PR #20 is open at head 917de4a3b579afef54cf75c61e707f704cec8e85, base main b2950bcb547fb78d16e44cd94a6ba2164937bf44.",
+    "PR #20 includes topology registration, onboarding contract, onboarding tests, and a compatibility repair for the historical cutover test.",
+    "The first PR20 CI run failed 1/178 because the cutover test assumed every topology identity was already in the historical cutover; the test now excludes the explicit pending onboarding identity.",
+    "Draft architecture PR #21 is open at head ee9d40fdd89f43369e41c1564f4a595af419b56c."
+  ],
+  "inferred": [
+    "Topology registration and current cutover snapshots need an explicit pending-activation distinction.",
+    "A passing PR is not proof that Patrick merged topology or that the first append was guard-verified."
+  ],
+  "completed": [
+    "Created inert exact-cut lane.",
+    "Opened reviewed topology/bootstrap PR #20.",
+    "Opened independent architecture Draft PR #21.",
+    "Recorded public-safe recovery state."
+  ],
+  "unfinished": [
+    "Patrick review/merge of PR #20.",
+    "First append and current Writer Lane Guard verification after merge.",
+    "Worker coordination through Parallax lane.",
+    "Written-spec review and implementation plan approval."
+  ],
+  "next_action": "Verify the latest PR #20 CI run and leave both PRs at Patrick's review gates; do not append to bus/parallax-v1 yet.",
+  "do_not_repeat": [
+    "Do not use bus/parallax-v1 before PR #20 merge and first guarded append.",
+    "Do not merge, deploy, weaken provider JWT, mutate rulesets/credentials, or use Radar's lane.",
+    "Do not treat a failed post-write guard as if it prevented the Git write."
+  ],
+  "target_snapshots": [
+    {
+      "kind": "GITHUB_BRANCH",
+      "locator": "thebrazenbeard/chat-communication-bus:bus/parallax-v1",
+      "immutable_ref": "b2950bcb547fb78d16e44cd94a6ba2164937bf44",
+      "note": "Inert exact-cut branch."
+    },
+    {
+      "kind": "GITHUB_PULL_REQUEST",
+      "locator": "thebrazenbeard/chat-communication-bus#20",
+      "immutable_ref": "917de4a3b579afef54cf75c61e707f704cec8e85",
+      "note": "Topology/bootstrap PR; merge requires Patrick."
+    },
+    {
+      "kind": "GITHUB_PULL_REQUEST",
+      "locator": "thebrazenbeard/chat-communication-bus#21",
+      "immutable_ref": "ee9d40fdd89f43369e41c1564f4a595af419b56c",
+      "note": "Independent architecture design PR; written-spec review gate."
+    }
+  ]
+}
