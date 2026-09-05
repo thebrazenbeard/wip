@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "parallax-chat-bus-hardening-v1",
+  "generation": 1,
+  "lifecycle": "ACTIVE",
+  "latest_checkpoint": "cp-000001",
+  "latest_operation_event": "op-000001-02-verified",
+  "updated_at": "2026-09-05T16:37:33.746Z"
+}
