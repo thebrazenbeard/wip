@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "protocol_version": "1.0",
+  "workspace_id": "chat-bus-recovery-20260905",
+  "title": "Chat Communication Bus recovery checkpoint",
+  "purpose": "Public-safe recovery record for Chat Bus coordination, Parallax onboarding, architecture review, and capability boundaries.",
+  "created_at": "2026-09-05T17:06:17Z",
+  "created_by": {
+    "label": "Codex",
+    "route": "ChatGPT Work / Chat Communication Bus"
+  },
+  "privacy_class": "PUBLIC_SAFE",
+  "checkpoint_policy": {
+    "tool_call_interval": 5,
+    "exclude_wip_bookkeeping": true,
+    "immediate_after_verified_write": true
+  },
+  "destination": {
+    "type": "GITHUB_REPOSITORY",
+    "locator": "https://github.com/thebrazenbeard/chat-communication-bus"
+  }
+}
