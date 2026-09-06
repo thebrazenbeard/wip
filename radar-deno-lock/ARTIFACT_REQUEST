@@ -1,0 +1,1 @@
+Generate the Deno 2.9.6 dependency lock from this branch's pinned config, verify it with deno ci and deno check, and upload only deno.lock.
