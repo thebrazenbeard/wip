@@ -1,0 +1,32 @@
+name: radar-deno-lock-generator
+
+on:
+  push:
+    branches:
+      - "radar/deno-lock-generator-v1-20260906"
+
+permissions:
+  contents: read
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: denoland/setup-deno@22d081ff2d3a40755e97629de92e3bcbfa7cf2ed
+        with:
+          deno-version: 2.9.6
+      - name: Generate and verify Radar Edge dependency lock
+        working-directory: radar-deno-lock
+        run: |
+          set -euo pipefail
+          rm -f deno.lock
+          deno install --entrypoint deps.ts --frozen=false
+          deno ci
+          deno check deps.ts
+          echo "RADAR_DENO_LOCK_BEGIN"
+          cat deno.lock
+          echo "RADAR_DENO_LOCK_END"
