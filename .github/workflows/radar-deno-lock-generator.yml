@@ -27,6 +27,9 @@ jobs:
           deno install --entrypoint deps.ts --frozen=false
           deno ci
           deno check deps.ts
-          echo "RADAR_DENO_LOCK_BEGIN"
-          cat deno.lock
-          echo "RADAR_DENO_LOCK_END"
+      - name: Upload verified lockfile
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: radar-deno-lock
+          path: radar-deno-lock/deno.lock
+          if-no-files-found: error
