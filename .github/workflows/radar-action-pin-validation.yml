@@ -1,0 +1,33 @@
+name: radar-action-pin-validation
+
+on:
+  push:
+    branches:
+      - "radar/deno-lock-generator-v1-20260906"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: "3.11"
+      - uses: denoland/setup-deno@22d081ff2d3a40755e97629de92e3bcbfa7cf2ed
+        with:
+          deno-version: 2.9.6
+      - uses: supabase/setup-cli@46f7f98c7f948ad727d22c1e67fab04c223a0520
+        with:
+          version: 2.116.0
+      - name: Verify exact toolchain
+        run: |
+          set -euo pipefail
+          python --version
+          deno --version
+          test "$(supabase --version)" = "2.116.0"
