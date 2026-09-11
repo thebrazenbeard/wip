@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "checkpoint_id": "cp-000004",
+  "workspace_id": "vera-model-state-adapter-v1",
+  "created_at": "2026-09-11T18:58:00Z",
+  "parent_checkpoint": "cp-000003",
+  "source_branch": "work/vera-model-state-adapter-v1-20260911",
+  "source_parent_commit": "edefa1479e362865e6cb855410cdb2fe6add5b6b",
+  "trigger": "self-hostile causal receipt consistency review",
+  "repair": {
+    "finding": "A universal response_or_run_id requirement contradicted lower evidence levels where no response exists yet.",
+    "change": "Causal receipt now has common fields plus evidence-level-specific required fields. RESPONSE_BOUND alone requires response_or_run_id and response_binding_evidence.",
+    "claim_effect": "No evidence promotion; weaker causal levels remain representable without fabricated response identifiers."
+  },
+  "contract_blob": "560a0eab42c265e12fac698e4724af7af65a5ab2",
+  "claim_ceiling": "WIP_RESEARCH_NOT_CANONICAL_NO_IMPLEMENTATION_OR_QUALIFICATION"
+}

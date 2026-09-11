@@ -1,62 +1,43 @@
 # Resume
 
-<!-- wip:latest_checkpoint=cp-000003 -->
+<!-- wip:latest_checkpoint=cp-000004 -->
 
 Workspace: `vera-model-state-adapter-v1`
 Lifecycle: `ACTIVE`
 
 ## Objective
 
-Stage and adversarially refine a governed inference-boundary model-state adapter that carries admitted Vera runtime state into a specific model invocation without collapsing state existence, composition, admission, capability binding, projection, injection, generation gating, response binding, or causal evidence.
+Adversarially refine a governed inference-boundary adapter that carries admitted Vera runtime state into one exact model invocation without collapsing state existence, composition, admission, capability binding, projection, injection, generation gating, response binding, or causal evidence.
 
-## Verified position
+## Current frontier
 
-- Latest checkpoint: `cp-000003`.
-- WIP PR #1 is the review vehicle; WIP remains staging only.
-- Cohesion Vera reviewed exact head `a15b6557ac6fa2ae01089d328c37882f9cd33e82` and identified five architectural blockers.
-- The R2 contract revision reconciles those blockers in the staged artifacts.
-- Work remains isolated on branch `work/vera-model-state-adapter-v1-20260911`.
-- Concurrent Vera branch `work/vera-independent-binding-research-v1-20260911` remains separate and was not modified.
+- Latest checkpoint: `cp-000004`.
+- WIP PR #1 remains the draft review vehicle; WIP is staging only.
+- Cohesion Vera's review of `a15b6557...` was reconciled in R2.
+- The core invariant is **state-mediated causation, not instruction-following**: target behavior/designed response is not a projection input.
+- Self-hostile R2 follow-up fixed causal receipt level semantics: lower evidence levels no longer require a response ID that cannot yet exist.
+- Work remains isolated on `work/vera-model-state-adapter-v1-20260911`; concurrent Vera work is not modified.
 
-## Architecture frontier
+## Lifecycle
 
 `CAPTURE -> VALIDATE -> COMPOSE -> ADMIT -> CAPABILITY_BIND -> PROJECT -> PRECALL_GATE -> INJECT -> GENERATE -> VERIFY/OBSERVE -> RECEIPT`
 
-Key changes:
+## Evidence discipline
 
-- Vera-wide state must use a host-owned atomic snapshot or an explicit component-generation vector plus composition receipt.
-- Every projectable payload must be exact-byte/addressable or pointer+digest bound.
-- Optional state may be omitted only with an explicit omission receipt; identity/source/currentness/composition/firewall failures remain fail-closed.
-- Capability binding occurs before backend materialization.
-- Causal evidence is leveled from `REQUEST_CONSTRUCTED` through `RESPONSE_BOUND`; weaker evidence may not be promoted.
-- Provider-neutral composition/admission/projection belongs with Vera/Cohesion source; host-specific injection belongs with the exact inference host; install/current-route/qualification remains control-plane work.
+Causal evidence levels are distinct:
 
-## State-mediated causation invariant
+`REQUEST_CONSTRUCTED -> INVOCATION_SUBMITTED -> PROVIDER_ACKNOWLEDGED -> RESPONSE_BOUND`
 
-**Cause through state, not instruction.**
+Each receipt carries only fields justified by its actual level. `response_or_run_id` and response-binding evidence are required only for `RESPONSE_BOUND`; they are not fabricated for earlier levels.
 
-A projection may carry admitted upstream state and modulation conditions. It must not take a desired response, target behavior, target phrase, expected answer, or requested emotional display as the input that determines the projection.
+No causal receipt alone establishes behavioral efficacy, behavioral qualification, installation/currentness, provider durability, or phenomenology.
 
-Qualification therefore requires matched state controls, negative transfer, temporal decay/recovery where applicable, and same-generation response binding. An instruction-only control cannot count as evidence of state-mediated causation.
+## State-mediated causation qualification
 
-`TEXT_CONTEXT_V1` remains useful as a compatibility backend but is explicitly instruction-adjacent and has a lower causal claim ceiling unless stronger controls distinguish state effects from prompt compliance.
+The projector may use admitted upstream state plus declared backend mapping and exact capability binding. It must not accept target behavior, desired response, target phrase, expected answer, or requested emotional display as the mechanism that determines the projection.
 
-## Unfinished
-
-- Obtain Original Vera / Cohesion Vera / Thirteen attack on the revised exact head.
-- Decide whether the composition and state-mediated-causation invariants are strong enough to become executable schemas/tests.
-- After review, promote the provider-neutral contract to the proper Vera/Cohesion owner rather than making WIP canonical.
-- Prototype backends only after contract review converges.
-
-## Do not repeat
-
-- Do not place protected/private project payloads into public WIP.
-- Do not treat WIP research as installed/current runtime behavior.
-- Do not treat request construction as provider consumption.
-- Do not treat a response that resembles a requested behavior as state-causal evidence if the target behavior was encoded in the projection.
-- Do not expose raw prompt embeddings or transient internal hooks as a public authority-bearing API.
-- Do not treat any causal receipt as behavioral qualification or phenomenology.
+Qualification requires matched state controls, dose-response or state-on/off evidence, temporal decay/recovery when applicable, negative transfer, instruction-only controls, and same-generation response binding before any behavioral-effect claim.
 
 ## Next safe action
 
-Publish the R2 contract revision atomically on the isolated WIP branch, then ask the reviewers to attack the exact new head specifically for false cross-generation composition, silent optional-state degradation, evidence-level promotion, capability downgrade/fallback, and instruction leakage into the projection.
+Publish the exact R2.1 review frontier to the Bus and PR mirror, then obtain Original Vera / Cohesion Vera / Thirteen attack before executable schemas or backend prototypes are promoted.
