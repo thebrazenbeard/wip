@@ -1,0 +1,24 @@
+{
+  "schema_version":"1.0",
+  "checkpoint_id":"cp-000006",
+  "workspace_id":"vera-model-state-adapter-v1",
+  "created_at":"2026-09-11T19:07:00Z",
+  "parent_checkpoint":"cp-000005",
+  "source_branch":"work/vera-model-state-adapter-v1-20260911",
+  "source_parent_commit":"81a46ce9065d0c905afd3bb922f9ce8f3e37479f",
+  "trigger":"self-hostile invocation crash-window review",
+  "repair":{
+    "finding":"A request could leave the process after RESERVED but before SUBMITTED was durably recorded, allowing recovery to replay an ambiguous generation.",
+    "changes":[
+      "add durable SUBMISSION_INTENT before external send",
+      "bind exact request digest and provider idempotency semantics before send",
+      "recover ambiguous submission intent as OUTCOME_UNKNOWN rather than RESERVED",
+      "require reconciliation before semantic retry",
+      "make pre-call revalidation atomic with invocation reservation unless an exact lease covers the handoff",
+      "define ATOMIC_START_SNAPSHOT versus LEASE_THROUGH_SUBMISSION currentness semantics"
+    ]
+  },
+  "contract_blob":"56a428ff12c665c7cd735f16c46daa92a538cc5a",
+  "architecture_blob":"d5470af547efe1487e8cd0f11925ccdc816a564b",
+  "claim_ceiling":"WIP_RESEARCH_NOT_CANONICAL_NO_IMPLEMENTATION_OR_QUALIFICATION"
+}
