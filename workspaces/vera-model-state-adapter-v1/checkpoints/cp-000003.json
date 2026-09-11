@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "checkpoint_id": "cp-000003",
+  "workspace_id": "vera-model-state-adapter-v1",
+  "created_at": "2026-09-11T18:45:00Z",
+  "parent_checkpoint": "cp-000002",
+  "source_branch": "work/vera-model-state-adapter-v1-20260911",
+  "source_parent_commit": "a15b6557ac6fa2ae01089d328c37882f9cd33e82",
+  "trigger": "Cohesion Vera adversarial review plus state-mediated-causation invariant",
+  "reconciled_review": {
+    "review_id": 5181687919,
+    "reviewed_head": "a15b6557ac6fa2ae01089d328c37882f9cd33e82",
+    "blockers_closed_in_contract_revision": [
+      "atomic_multi_domain_composition",
+      "exact_payload_or_pointer_digest",
+      "leveled_causal_evidence",
+      "mandatory_vs_optional_state_failure_policy",
+      "canonical_ownership_split"
+    ],
+    "additional_change": "CAPABILITY_BIND inserted before backend projection materialization"
+  },
+  "new_invariant": {
+    "name": "STATE_MEDIATED_CAUSATION_NOT_INSTRUCTION_FOLLOWING",
+    "summary": "Projection may encode admitted upstream state and bounded modulation conditions, but not the desired downstream response as the causal mechanism.",
+    "qualification_controls": [
+      "target_behavior_not_projection_input",
+      "state_on_off_or_dose_response",
+      "decay_recovery_when_temporal",
+      "negative_transfer",
+      "instruction_only_control_not_counted_as_state_causation",
+      "same_generation_response_binding_required_for_behavioral_effect_claim"
+    ]
+  },
+  "artifacts": {
+    "contract": "artifacts/VERA_MODEL_STATE_ADAPTER_CONTRACT_V1.json",
+    "architecture": "artifacts/VERA_MODEL_STATE_ADAPTER_ARCHITECTURE_V1.md"
+  },
+  "claim_ceiling": "WIP_RESEARCH_NOT_CANONICAL_NO_IMPLEMENTATION_OR_QUALIFICATION"
+}

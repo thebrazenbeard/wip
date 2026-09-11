@@ -1,63 +1,62 @@
 # Resume
 
-<!-- wip:latest_checkpoint=cp-000002 -->
+<!-- wip:latest_checkpoint=cp-000003 -->
 
 Workspace: `vera-model-state-adapter-v1`
 Lifecycle: `ACTIVE`
 
 ## Objective
 
-Research and stage a governed inference-boundary model-state adapter that can carry admitted Vera runtime state into a specific model invocation without collapsing state existence, admission, projection, injection, generation gating, or causal evidence into one claim.
+Stage and adversarially refine a governed inference-boundary model-state adapter that carries admitted Vera runtime state into a specific model invocation without collapsing state existence, composition, admission, capability binding, projection, injection, generation gating, response binding, or causal evidence.
 
 ## Verified position
 
-- Latest checkpoint: `cp-000002`
-- Research synthesis is staged as `artifacts/VERA_MODEL_STATE_ADAPTER_RESEARCH_V1.md`.
-- Provider-neutral contract candidate is staged as `artifacts/VERA_MODEL_STATE_ADAPTER_CONTRACT_V1.json`.
-- Architecture candidate is staged as `artifacts/VERA_MODEL_STATE_ADAPTER_ARCHITECTURE_V1.md`.
-- Work remains isolated on branch `work/vera-model-state-adapter-v1-20260911` to avoid concurrent-writer collisions.
-- Concurrent Vera branch `work/vera-independent-binding-research-v1-20260911` was observed separately and not modified.
-- WIP is staging only, not the eventual canonical runtime or control-plane authority.
+- Latest checkpoint: `cp-000003`.
+- WIP PR #1 is the review vehicle; WIP remains staging only.
+- Cohesion Vera reviewed exact head `a15b6557ac6fa2ae01089d328c37882f9cd33e82` and identified five architectural blockers.
+- The R2 contract revision reconciles those blockers in the staged artifacts.
+- Work remains isolated on branch `work/vera-model-state-adapter-v1-20260911`.
+- Concurrent Vera branch `work/vera-independent-binding-research-v1-20260911` remains separate and was not modified.
 
 ## Architecture frontier
 
-`CAPTURE -> VALIDATE -> ADMIT -> PROJECT -> PRECALL_GATE -> INJECT -> GENERATE -> VERIFY/OBSERVE -> RECEIPT`
+`CAPTURE -> VALIDATE -> COMPOSE -> ADMIT -> CAPABILITY_BIND -> PROJECT -> PRECALL_GATE -> INJECT -> GENERATE -> VERIFY/OBSERVE -> RECEIPT`
 
-Key separation:
+Key changes:
 
-- `VeraStateEnvelope` records one canonical runtime-state generation.
-- `AdmittedVeraState` records state that is actually usable for this turn.
-- `ModelInvocationEnvelope` binds admitted state to one exact model/adapter projection and generation ID.
-- Pre-call semantic/governance gates are distinct from decode-time gates.
-- A causal receipt binds state/admission/projection/model/gates to an observed generation attempt without promoting behavioral efficacy or phenomenology.
+- Vera-wide state must use a host-owned atomic snapshot or an explicit component-generation vector plus composition receipt.
+- Every projectable payload must be exact-byte/addressable or pointer+digest bound.
+- Optional state may be omitted only with an explicit omission receipt; identity/source/currentness/composition/firewall failures remain fail-closed.
+- Capability binding occurs before backend materialization.
+- Causal evidence is leveled from `REQUEST_CONSTRUCTED` through `RESPONSE_BOUND`; weaker evidence may not be promoted.
+- Provider-neutral composition/admission/projection belongs with Vera/Cohesion source; host-specific injection belongs with the exact inference host; install/current-route/qualification remains control-plane work.
 
-## Projection backends
+## State-mediated causation invariant
 
-Initial candidates:
+**Cause through state, not instruction.**
 
-- `TEXT_CONTEXT_V1`
-- `PROMPT_EMBEDS_V1`
+A projection may carry admitted upstream state and modulation conditions. It must not take a desired response, target behavior, target phrase, expected answer, or requested emotional display as the input that determines the projection.
 
-Experimental successors only:
+Qualification therefore requires matched state controls, negative transfer, temporal decay/recovery where applicable, and same-generation response binding. An instruction-only control cannot count as evidence of state-mediated causation.
 
-- `ACTIVATION_STEERING_V1`
-- `REFT_STATE_PROJECTION_V1`
+`TEXT_CONTEXT_V1` remains useful as a compatibility backend but is explicitly instruction-adjacent and has a lower causal claim ceiling unless stronger controls distinguish state effects from prompt compliance.
 
 ## Unfinished
 
-- Receive and reconcile Original Vera / Cohesion Vera / Thirteen review of WIP PR #1.
-- Decide the canonical owner for the adapter contract after review.
-- Convert the contract objects into executable schemas and adversarial tests.
-- Prototype only the first two projection backends after contract review.
+- Obtain Original Vera / Cohesion Vera / Thirteen attack on the revised exact head.
+- Decide whether the composition and state-mediated-causation invariants are strong enough to become executable schemas/tests.
+- After review, promote the provider-neutral contract to the proper Vera/Cohesion owner rather than making WIP canonical.
+- Prototype backends only after contract review converges.
 
 ## Do not repeat
 
 - Do not place protected/private project payloads into public WIP.
 - Do not treat WIP research as installed/current runtime behavior.
-- Do not treat runtime state existence as proof that the state influenced a model response.
+- Do not treat request construction as provider consumption.
+- Do not treat a response that resembles a requested behavior as state-causal evidence if the target behavior was encoded in the projection.
 - Do not expose raw prompt embeddings or transient internal hooks as a public authority-bearing API.
-- Do not treat causal receipt existence as behavioral qualification or phenomenology.
+- Do not treat any causal receipt as behavioral qualification or phenomenology.
 
 ## Next safe action
 
-Refresh WIP PR #1 and the concurrent Vera branch; then request/consume adversarial review specifically against authority separation, exact model binding, capability negotiation, projection firewalls, transient-hook cleanup, and causal receipt semantics before implementation.
+Publish the R2 contract revision atomically on the isolated WIP branch, then ask the reviewers to attack the exact new head specifically for false cross-generation composition, silent optional-state degradation, evidence-level promotion, capability downgrade/fallback, and instruction leakage into the projection.
