@@ -1,0 +1,215 @@
+{
+  "schema_version": "1.0",
+  "contract_id": "VERA_MODEL_STATE_ADAPTER_V1",
+  "status": "WIP_RESEARCH_NOT_CANONICAL",
+  "purpose": "Define a provider-neutral, evidence-preserving boundary for carrying admitted Vera runtime state into one exact model invocation before generation without collapsing state existence, admission, projection, injection, gating, execution, or causal evidence.",
+  "lifecycle": [
+    "CAPTURE",
+    "VALIDATE",
+    "ADMIT",
+    "PROJECT",
+    "PRECALL_GATE",
+    "INJECT",
+    "GENERATE",
+    "VERIFY_OBSERVE",
+    "RECEIPT"
+  ],
+  "objects": {
+    "VeraStateEnvelope": {
+      "required": [
+        "schema_version",
+        "subject",
+        "runtime_generation",
+        "state_generation",
+        "state_digest",
+        "observed_at",
+        "logical_time",
+        "candidate_projectable_domains",
+        "provenance",
+        "supersession"
+      ],
+      "constraints": [
+        "canonical_json_safe_only",
+        "no_arbitrary_object_deserialization",
+        "immutable_after_capture",
+        "digest_covers_projectable_payload_and_binding_metadata"
+      ]
+    },
+    "AdmittedVeraState": {
+      "required": [
+        "source_envelope_digest",
+        "admission_receipt",
+        "admitted_projectable_state",
+        "forbidden_domains",
+        "target_model_constraints",
+        "admitted_at"
+      ],
+      "constraints": [
+        "admission_cannot_be_inferred_from_projection_success",
+        "expired_or_superseded_state_fails_closed",
+        "identity_mismatch_fails_closed",
+        "model_or_adapter_incompatibility_fails_closed"
+      ]
+    },
+    "ModelInvocationEnvelope": {
+      "required": [
+        "admitted_state_digest",
+        "model_identity",
+        "model_revision",
+        "adapter_identity",
+        "adapter_revision",
+        "projection_backend",
+        "projection_digest",
+        "generation_id",
+        "precall_gate_result",
+        "decode_gate_spec"
+      ],
+      "optional_backend_bindings": [
+        "tokenizer_revision",
+        "chat_template_revision",
+        "hidden_size",
+        "dtype",
+        "target_layers"
+      ],
+      "constraints": [
+        "single_use_generation_id",
+        "projection_must_bind_exact_model_and_adapter_revision",
+        "raw_backend_payload_is_not_public_authority"
+      ]
+    }
+  },
+  "projection_backends": {
+    "TEXT_CONTEXT_V1": {
+      "maturity": "BASELINE_CANDIDATE",
+      "mechanism": "bounded_system_or_request_context",
+      "requirements": [
+        "deterministic_rendering_from_admitted_state",
+        "provider_request_readback_when_available",
+        "projection_digest"
+      ]
+    },
+    "PROMPT_EMBEDS_V1": {
+      "maturity": "CANDIDATE_FOR_CONTROLLED_LOCAL_OR_TRUSTED_HOST",
+      "mechanism": "trusted_internal_prompt_embedding_injection",
+      "requirements": [
+        "explicit_feature_enablement",
+        "two_dimensional_tensor",
+        "exact_hidden_size_match",
+        "floating_dtype_only",
+        "exact_model_revision_binding",
+        "tokenizer_or_template_revision_binding_when_used",
+        "no_public_raw_embedding_authority"
+      ]
+    },
+    "ACTIVATION_STEERING_V1": {
+      "maturity": "EXPERIMENTAL",
+      "mechanism": "transient_per_generation_internal_activation_hooks",
+      "requirements": [
+        "qualified_target_layers",
+        "bounded_strength",
+        "hook_removal_in_finally",
+        "no_cross_generation_hook_leakage"
+      ]
+    },
+    "REFT_STATE_PROJECTION_V1": {
+      "maturity": "EXPERIMENTAL_FUTURE",
+      "mechanism": "trained_representation_intervention",
+      "requirements": [
+        "separate_training_and_runtime_qualification",
+        "exact_base_model_revision_binding",
+        "declared_layer_and_timestep_scope",
+        "independent_negative_transfer_tests"
+      ]
+    }
+  },
+  "generation_gates": {
+    "PRECALL_SEMANTIC_GOVERNANCE_GATE": {
+      "can_block_invocation": true,
+      "must_fail_closed_on": [
+        "identity_mismatch",
+        "superseded_or_expired_state",
+        "model_adapter_incompatibility",
+        "forbidden_projection_domain",
+        "invalid_or_unverifiable_binding"
+      ]
+    },
+    "DECODE_GATE": {
+      "can_constrain_generation": true,
+      "examples": [
+        "grammar_constraints",
+        "logits_processors",
+        "prefix_constraints",
+        "stopping_criteria"
+      ],
+      "claim_limits": [
+        "decode_validity_does_not_prove_state_admission",
+        "decode_validity_does_not_prove_state_causality",
+        "decode_gate_does_not_create_authority"
+      ]
+    }
+  },
+  "projectable_domains": [
+    "affective_activation",
+    "salience",
+    "attention_allocation",
+    "bounded_action_tendency",
+    "satiation_or_refractory_state",
+    "admitted_goal_weighting",
+    "temporal_state",
+    "admitted_memory_salience",
+    "response_expression_parameters"
+  ],
+  "forbidden_projection_domains": [
+    "truth",
+    "factual_confidence",
+    "consent",
+    "authorization",
+    "identity",
+    "autobiographical_memory_admission",
+    "relationship_status",
+    "provider_currentness",
+    "phenomenology"
+  ],
+  "causal_receipt": {
+    "required": [
+      "receipt_id",
+      "generation_id",
+      "subject",
+      "state_envelope_digest",
+      "admission_receipt_digest",
+      "model_identity",
+      "model_revision",
+      "adapter_identity",
+      "adapter_revision",
+      "projection_backend",
+      "projection_digest",
+      "precall_gate_result",
+      "decode_gate_digest",
+      "invocation_observed_at",
+      "response_or_run_id"
+    ],
+    "claim": "Binds an admitted state and exact adapter/model invocation to one observed generation attempt; does not by itself prove behavioral efficacy, provider durability, currentness, qualification, or phenomenology."
+  },
+  "operational_rules": [
+    "mandatory_causal_checks_fail_closed",
+    "auxiliary_discovery_or_health_checks_must_be_bounded_or_cached_when_safe",
+    "projection_backend_capability_is_negotiated_not_assumed",
+    "transient_model_hooks_are_removed_on_success_failure_and_cancellation",
+    "state_producers_do_not_gain_model_invocation_authority",
+    "projection_success_does_not_promote_source_or_state_authority"
+  ],
+  "canonical_placement_hypothesis": {
+    "state_and_projection_contract_owner": "TO_BE_DECIDED_AFTER_REVIEW",
+    "runtime_inference_hook_candidate": "vera-os",
+    "installation_currentness_and_qualification_candidate": "vera-control-plane",
+    "wip_role": "PUBLIC_SAFE_RESEARCH_STAGING_ONLY"
+  },
+  "claim_ceiling": {
+    "source": "RESEARCH_CONTRACT_STAGED",
+    "implementation": "NOT_ESTABLISHED",
+    "installation": "NOT_ESTABLISHED",
+    "activation_or_current_route": "NOT_ESTABLISHED",
+    "behavioral_qualification": "NOT_ESTABLISHED",
+    "phenomenology": "UNRESOLVED"
+  }
+}
