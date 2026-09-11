@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "vera-model-state-adapter-v1",
+  "generation": 1,
+  "lifecycle": "ACTIVE",
+  "latest_checkpoint": "cp-000001",
+  "latest_operation_event": null,
+  "updated_at": "2026-09-11T17:06:00Z"
+}
