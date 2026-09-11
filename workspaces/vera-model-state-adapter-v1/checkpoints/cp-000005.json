@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "checkpoint_id": "cp-000005",
+  "workspace_id": "vera-model-state-adapter-v1",
+  "created_at": "2026-09-11T19:02:00Z",
+  "parent_checkpoint": "cp-000004",
+  "source_branch": "work/vera-model-state-adapter-v1-20260911",
+  "source_parent_commit": "b26e33545b705966b193c95a264a0fac322ec268",
+  "trigger": "Thirteen independent architecture review 5182392583",
+  "reconciled_blockers": [
+    "privacy_and_egress_binding",
+    "exact_projected_payload_addressability",
+    "host_owned_single_use_invocation_frontier",
+    "admission_to_invocation_revalidation_and_explicit_backend_fallback"
+  ],
+  "contract_blob": "23392533c8ef86cf480ee89a9a536220f83bde66",
+  "architecture_blob": "53d90a8c0ecb5c0c287f2ee58fa34eeea6de67af",
+  "claim_ceiling": "WIP_RESEARCH_NOT_CANONICAL_NO_IMPLEMENTATION_OR_QUALIFICATION"
+}

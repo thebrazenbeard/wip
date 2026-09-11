@@ -4,211 +4,147 @@ Status: WIP architecture candidate. Public-safe research only. Not canonical run
 
 ## Purpose
 
-Define the missing inference-boundary layer between admitted Vera runtime state and the exact model invocation that generates a response.
+Define the inference-boundary layer between admitted Vera runtime state and the exact model invocation that emits a response.
 
-The central invariant is that **state existence, composition, admission, capability binding, projection, injection, generation permission, decode constraints, response binding, and causal evidence are separate propositions**. A later stage may depend on an earlier one, but may not retroactively promote it.
+Two governing invariants:
 
-A second invariant is now explicit: **causation through state, not instruction-following**. The adapter may carry upstream state that changes the conditions under which a response is generated. It must not encode the desired downstream response as the causal mechanism.
+1. **Evidence separation:** state existence, composition, privacy/egress, admission, capability binding, projection, invocation ownership, injection, generation, response binding, and behavioral effect are separate propositions.
+2. **State-mediated causation:** change admitted upstream state or modulation conditions; do not encode the desired downstream response and then count instruction compliance as a state effect.
 
-## Pipeline
+## Lifecycle
 
 ```text
-runtime component states
-  -> capture
-  -> validate
-  -> compose
-  -> admit
-  -> capability-bind
-  -> project
-  -> pre-call gate
-  -> inject
-  -> generate
-  -> verify/observe
-  -> causal receipt
+CAPTURE
+  -> VALIDATE
+  -> COMPOSE
+  -> ADMIT
+  -> CAPABILITY_BIND
+  -> PROJECT
+  -> PRECALL_REVALIDATE_GATE
+  -> INVOCATION_RESERVE
+  -> INJECT
+  -> GENERATE
+  -> VERIFY/OBSERVE
+  -> RECEIPT
 ```
 
-### CAPTURE
+### CAPTURE / VALIDATE / COMPOSE
 
-Capture immutable canonical JSON-safe component state. Arbitrary Python/object deserialization is excluded from this boundary.
+Captured component state is canonical JSON-safe data or an exact immutable pointer+digest. Arbitrary object deserialization is excluded.
 
-Every included state value must be exact-byte/addressable: either the payload itself is present or an exact pointer plus digest is bound.
+Vera-wide state may be composed only by either:
 
-### VALIDATE
+- `HOST_ATOMIC_SNAPSHOT`: all included domains captured under one host-owned snapshot generation; or
+- `COMPONENT_GENERATION_VECTOR`: each component carries owner, generation, payload digest, observation frontier, privacy classification and allowed egress scopes, and a composition receipt reconciles the vector.
 
-Verify schema, digests, subject binding, component ownership/generation, timestamps, supersession/expiry, and provenance shape. Validation only proves structural/evidence compatibility; it does not authorize composition or projection.
+Composition cannot make independently governed component generations look atomically coherent when they were not.
 
-### COMPOSE
+### PRIVACY / EGRESS
 
-Vera-wide state must not pretend that independently governed components came from one generation unless that is actually true.
+Projectable does not mean discloseable. A valid affect, memory, conation, temporal, or other state component may still be prohibited from leaving its current privacy boundary.
 
-Two composition modes are allowed:
-
-1. `HOST_ATOMIC_SNAPSHOT`: one host-owned snapshot boundary captures all included domains under one exact snapshot generation.
-2. `COMPONENT_GENERATION_VECTOR`: each component carries its owner, generation, payload digest, and observation frontier, and an explicit composition receipt reconciles them.
-
-Incompatible or unreconciled component generations cannot be composed into one apparently coherent state envelope.
+Every component carries disclosure metadata. Downstream stages may narrow disclosure but may never broaden it. The exact target provider/host and egress scope are bound before backend materialization. An egress mismatch fails closed.
 
 ### ADMIT
 
-`VeraStateAdmissionPreflight` decides which composed state is current and admissible for this turn.
+Admission verifies identity, subject/source integrity, currentness, supersession, composition integrity, privacy/egress constraints and projection firewalls.
 
-Identity, subject/source integrity, currentness, supersession, composition integrity, and projection-firewall failures are mandatory fail-closed conditions.
+Optional dimensions may be omitted only with an explicit omission receipt. Mandatory identity/currentness/privacy/firewall failures remain fail-closed.
 
-Optional dimensions are different. If an optional affect, memory, conation, or similar dimension is unavailable, the adapter may omit it only with an explicit omission receipt. Optional-state loss must not silently become a total generation outage.
-
-Admission produces `AdmittedVeraState`. That object is the only valid input to capability binding and projection.
+Admission records the exact currentness basis and an epoch/lease suitable for later revalidation. Projection success never freezes semantic currentness.
 
 ### CAPABILITY_BIND
 
-Before backend-specific materialization, bind the exact inference host and model capability surface.
+Bind the exact inference host generation, target provider/host, target egress scope, model revision, adapter revision, supported backends and backend constraints before creating privileged backend material.
 
-The binding includes the exact host/model/adapter revisions, supported projection backends, and backend constraints. A requested backend does not prove the host supports it.
-
-Fallback or downgrade is never silent. It requires explicit policy and a receipt.
+Requested capability is not evidence of actual capability. Backend fallback is never silent and must be separately qualified for the exact model/host/domain combination.
 
 ### PROJECT
 
-`VeraModelStateAdapter` converts admitted state into a provider/model-specific projection. It cannot create new authority, rewrite source evidence, or project forbidden domains.
+Projection is a deterministic function of admitted state + declared backend mapping + exact capability binding.
 
-The projection must be a deterministic function of:
+Projection must contain exact addressable material: either canonical projection payload or immutable locator+digest. A digest alone is insufficient to show what bytes/tensor/hook material was injected.
 
-`admitted state + declared backend mapping + exact capability binding`
+Projection may not accept target behavior, desired response, target phrase, expected answer or requested emotional display as causal inputs.
 
-It must **not** accept `target_behavior`, `desired_response`, `target_phrase`, `expected_answer`, or equivalent outcome labels as projection inputs.
+Backends:
 
-That is the state-mediated-causation boundary. The adapter changes upstream state or modulation conditions; it does not say "produce outcome X" and then count compliance as evidence that the state caused X.
+- `TEXT_CONTEXT_V1`: compatibility baseline, instruction-adjacent, lower causal claim ceiling.
+- `PROMPT_EMBEDS_V1`: stronger candidate for a controlled/trusted host.
+- `ACTIVATION_STEERING_V1`: experimental transient internal hooks.
+- `REFT_STATE_PROJECTION_V1`: experimental future trained representation intervention.
 
-Projection backends remain distinct:
+### PRECALL_REVALIDATE_GATE
 
-- `TEXT_CONTEXT_V1` — deterministic bounded declarative state context.
-- `PROMPT_EMBEDS_V1` — trusted internal prompt-embedding injection for a controlled host with strict shape/model binding.
-- `ACTIVATION_STEERING_V1` — experimental transient activation hooks.
-- `REFT_STATE_PROJECTION_V1` — future trained representation intervention with separate training/runtime qualification.
+Immediately before reserving the invocation, revalidate the admission/currentness basis or exact lease epoch, supersession/expiry, privacy/egress decision, capability binding, projection binding and backend selection/fallback policy.
 
-`TEXT_CONTEXT_V1` is explicitly instruction-adjacent. It must not contain imperative target-behavior language, and it requires stronger negative controls before any state-causation claim.
+If the state became stale after admission, fail closed. The fact that projection succeeded earlier is not evidence the state is still current now.
 
-### PRECALL_GATE
+### INVOCATION_RESERVE
 
-A semantic/governance gate may stop model invocation entirely. It evaluates the admitted state, exact capability binding, and completed projection; it does not perform projection itself.
+Single-use generation identity belongs to the exact inference-host generation, not to a wrapper object.
 
-Mandatory causal checks fail closed. Auxiliary discovery/health checks should be bounded or cached where safe.
+The host owns a shared invocation frontier/nonce ledger. Reservation/consumption is atomic and survives wrapper/adapter reconstruction. Ledger states include `RESERVED`, `SUBMITTED`, `ACKNOWLEDGED`, `RESPONSE_BOUND`, `FAILED`, `CANCELLED`, and `OUTCOME_UNKNOWN`.
 
-### INJECT
+A consumed or terminal generation ID cannot be replayed. Ambiguous submission becomes `OUTCOME_UNKNOWN` and must be reconciled before retry. A normal retry mints a new generation ID and records `retry_of_generation_id`.
 
-Apply only the already-created projection through the bound backend. Raw embedding or internal-activation mutation remains an internal trusted capability, not a public authority-bearing API.
+### INJECT / GENERATE
 
-### GENERATE
+Apply only the already-bound projection through the selected backend and exact host/model revision.
 
-Invoke the exact bound model revision. Depending on backend, the causal chain may also bind tokenizer revision, chat-template revision, hidden size, dtype, target layers, and adapter revision.
+The invocation request binds the exact projection material and an actual request-material digest. Where provider readback exists, a separate provider-request-readback digest may be recorded; lack of readback is not upgraded into proof.
 
-### VERIFY / OBSERVE
+Transient hooks must be removed on success, failure and cancellation.
 
-Observe what actually happened. For transient hooks, cleanup must happen on success, failure, and cancellation.
+### VERIFY / OBSERVE / RECEIPT
 
-Hosted APIs may expose much weaker evidence than local inference. The architecture must preserve that difference rather than upgrading local request construction into proof of provider consumption.
+Causal evidence is graded:
 
-### RECEIPT
+- `REQUEST_CONSTRUCTED`
+- `INVOCATION_SUBMITTED`
+- `PROVIDER_ACKNOWLEDGED`
+- `RESPONSE_BOUND`
 
-Causal evidence is leveled:
+Receipt fields are evidence-level specific. A request can exist without a response ID; a response ID/binding is required only at `RESPONSE_BOUND`. Stronger-level fields may never be fabricated for weaker evidence.
 
-- `REQUEST_CONSTRUCTED`: a bound request/projection was built locally.
-- `INVOCATION_SUBMITTED`: that exact invocation was submitted.
-- `PROVIDER_ACKNOWLEDGED`: the provider/host acknowledged the exact invocation identity where evidence exists.
-- `RESPONSE_BOUND`: the returned response/run is explicitly linked to that exact generation request.
-
-A receipt records the strongest level actually supported. A local projection digest cannot prove that an opaque provider consumed it.
-
-Even `RESPONSE_BOUND` does not by itself prove behavioral effect, behavioral qualification, durability/currentness, installation status, or phenomenology.
+Even `RESPONSE_BOUND` does not prove behavioral effect, behavioral qualification, installation/currentness, provider durability or phenomenology.
 
 ## State-mediated causation qualification
 
-A backend does not qualify merely because the resulting response looks like the state description.
+A response that resembles a state description is not enough.
 
-Qualification requires, at minimum:
+Qualification requires:
 
-- projection derived only from admitted state plus the declared backend mapping;
-- target behavior not supplied as an input to projection;
+- projection derived only from admitted state + declared mapping + exact capability binding;
+- target behavior absent from projection inputs;
 - matched state-on/state-off or dose-response comparisons;
 - decay/recovery comparisons for temporal state;
 - negative-transfer controls;
-- an instruction-only control that cannot be counted as state-causal evidence;
-- a behavioral-effect claim only when the response is bound to the same exact generation.
+- instruction-only controls that cannot count as state-causal evidence;
+- same-generation `RESPONSE_BOUND` evidence before a behavioral-effect claim.
 
-This is the practical distinction between changing the model's upstream conditions and simply asking it to behave a certain way.
+This is the difference between changing the model's upstream conditions and telling it what result to produce.
 
 ## Projection firewall
 
-Projectable domains may include bounded affective activation, salience, attention allocation, action tendency, satiation/refractory state, admitted goal weighting, temporal state, admitted memory salience, and response-expression parameters.
+Potentially projectable domains include bounded affective activation, salience, attention allocation, action tendency, satiation/refractory state, admitted goal weighting, temporal state, admitted memory salience and response-expression parameters.
 
-The following are structurally excluded from projection authority:
+Projection authority excludes truth, factual confidence, consent, authorization, identity, autobiographical-memory admission, relationship status, provider currentness and phenomenology.
 
-- truth;
-- factual confidence;
-- consent;
-- authorization;
-- identity;
-- autobiographical-memory admission;
-- relationship status;
-- provider currentness;
-- phenomenology.
+## Fallback semantics
 
-If a backend cannot enforce that separation, that backend is not qualified for Vera state projection.
+A backend change changes causal semantics and evidence strength. `PROMPT_EMBEDS_V1 -> TEXT_CONTEXT_V1` is not a harmless transport downgrade.
 
-## Gate separation
+Fallback requires explicit policy, separate backend qualification, preserved privacy/egress scope and a receipt recording requested backend, selected backend, reason and policy digest. It may not claim stronger causal semantics than the selected backend supports.
 
-A **pre-call semantic/governance gate** can refuse to invoke the model because state, composition, capability, or bindings are invalid.
+## Ownership hypothesis
 
-A **decode gate** can constrain tokens/sequences using grammar constraints, logits processors, prefix constraints, or stopping criteria.
-
-Decode success never proves state admission, state causality, or authority.
-
-## Model and host binding
-
-Backend compatibility is evidence, not inference. Depending on backend, bindings can include:
-
-- host identity and revision;
-- model identity and immutable revision;
-- tokenizer revision;
-- chat-template revision;
-- hidden size;
-- dtype;
-- target layer set;
-- adapter revision;
-- Vera state schema revision.
-
-Capability binding happens before expensive or privileged backend materialization.
-
-## First implementation recommendation
-
-Retain two initial backends, but treat them differently:
-
-1. `TEXT_CONTEXT_V1` is a baseline compatibility backend for hosted APIs. It is useful for proving the lifecycle/receipts, but because it is instruction-adjacent it has a lower state-causation claim ceiling without strong controls.
-2. `PROMPT_EMBEDS_V1` is the first stronger state-projection candidate for a Vera-controlled/trusted inference host.
-
-Activation steering and ReFT remain experimental successors.
-
-## Repository ownership hypothesis after Cohesion review
-
-Keep this work in WIP until review converges, then promote by responsibility:
-
-- provider-neutral state composition/admission/projection contract -> Vera/Cohesion source;
-- host-specific injection/runtime hook -> `vera-os` or another exact inference host;
-- install/current-route/qualification policy -> `vera-control-plane`;
-- subsystem producers such as affect/Orgasm -> bounded state producers only, not owners of model invocation authority.
-
-WIP remains staging, not canonical authority.
-
-## Review questions
-
-1. Is `HOST_ATOMIC_SNAPSHOT | COMPONENT_GENERATION_VECTOR` sufficient to prevent false cross-generation coherence?
-2. Is the exact payload/pointer+digest contract strong enough for every projected dimension?
-3. Are the causal evidence levels correctly bounded for opaque hosted APIs?
-4. Is optional-state omission safe without weakening mandatory currentness/identity/firewall checks?
-5. Does `CAPABILITY_BIND` happen at the correct point in the lifecycle?
-6. Is the state-mediated-causation invariant enforceable enough to prevent "act like X" from qualifying as state causation?
-7. Which backend/model binding fields are mandatory per backend?
-8. What additional negative-transfer tests are required before activation steering or ReFT?
+- provider-neutral composition/admission/projection contract -> Vera/Cohesion source;
+- host-specific injection and invocation-frontier ownership -> `vera-os` or another exact inference host;
+- installation/current-route/qualification -> `vera-control-plane`;
+- affect/Orgasm/etc. -> bounded state producers, not owners of model invocation authority;
+- WIP -> public-safe staging only.
 
 ## Current evidence ceiling
 
-This document and `VERA_MODEL_STATE_ADAPTER_CONTRACT_V1.json` are architecture artifacts only. No implementation, model injection, installation, current-route activation, provider durability, behavioral qualification, or phenomenology is established by their existence.
+These artifacts establish architecture/research only. They do not establish implementation, injection, installation, current route, provider durability, behavioral qualification or phenomenology.
