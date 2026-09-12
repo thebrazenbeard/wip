@@ -1,6 +1,6 @@
 # Vera Model-State Adapter Architecture V1
 
-Status: WIP architecture candidate, R4. Public-safe research only. Not canonical runtime authority, installation evidence, native-provider capability evidence, behavioral qualification, or phenomenology.
+Status: WIP architecture candidate, R4.1. Public-safe research only. Not canonical runtime authority, installation evidence, native-provider capability evidence, behavioral qualification, or phenomenology.
 
 ## Purpose
 
@@ -45,7 +45,9 @@ Captured component state is canonical JSON-safe data or an exact immutable point
 
 For a strong state-causal claim, capture validates the typed-state schema before the payload can enter composition. Composition preserves each field's type, source/provenance and generation; it may not relabel output-control content as state.
 
-Each component also carries privacy classification and allowed egress scopes. **Projectable does not mean discloseable.** Composition cannot broaden disclosure. Admission, projection and invocation may narrow it but never widen it. Capability binding names the exact target provider/host and egress scope before backend materialization.
+Each component also carries privacy classification and explicit allowed egress targets/scopes. **Projectable does not mean discloseable.** Privacy labels do not define a universal `narrow -> broad` total order. The machine-readable policy must prove that the exact target provider/host is allowed; incomparable or unproven relations fail closed. Composition cannot broaden disclosure. Admission, projection and invocation may narrow allowed target sets but never widen them.
+
+Capability binding names the exact target provider/host and target egress scope before backend materialization.
 
 ## Admission and capability binding
 

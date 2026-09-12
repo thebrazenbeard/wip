@@ -1,6 +1,6 @@
 # Resume
 
-<!-- wip:latest_checkpoint=cp-000007 -->
+<!-- wip:latest_checkpoint=cp-000008 -->
 
 Workspace: `vera-model-state-adapter-v1`
 Lifecycle: `ACTIVE`
@@ -11,11 +11,11 @@ Maintain the completed WIP research candidate for a governed inference-boundary 
 
 ## Current frontier
 
-- Latest checkpoint: `cp-000007`.
-- R4 source commit: `9b48f280de81a35f352b493fb64c20d64f5c9c5a`.
-- R4 automatic validation: GitHub Actions run `34700501115`, conclusion `success`.
-- Contract schema: `1.5`, blob `68a0c3069f883233113c763376e8a0cab73fc498`.
-- Architecture blob: `22fd1e95a5a1e23ba46239e0d0051ab522f4ce75`.
+- Latest checkpoint: `cp-000008`.
+- Final contract source: `d06ca5e1e8dbd7b1381914985a3e2a5c9f6fefe1`.
+- Final contract validation: GitHub Actions run `34700779770`, conclusion `success`.
+- Contract schema: `1.6`, blob `ad3d218e16240d6042c4f12cae1ccb00f77f28e2`.
+- Architecture R4.1 blob: `c84dc4e9cc30b0fd58e1563bdb8d004da3e93ea1`.
 - Qualification-spec blob: `556128b80fc2b177f134e73ae08d89b108fd4397`; execution status `NOT_RUN`.
 - WIP PR #1 remains draft and unmerged.
 - Core invariant: **state-mediated causation, not instruction-following**.
@@ -25,7 +25,8 @@ Maintain the completed WIP research candidate for a governed inference-boundary 
 The WIP research package now includes:
 
 - provider-neutral capture/composition/admission/capability/projection/invocation/receipt boundaries;
-- privacy/egress narrowing and exact target binding;
+- explicit-set privacy/egress policy: scope labels are not a universal total order, target membership must be proven by machine-readable policy, incomparable/unproven relations fail closed;
+- exact state and projection material binding;
 - host-owned single-use invocation identity and crash-safe `SUBMISSION_INTENT` semantics;
 - full-lineage anti-laundering from `CAPTURE` through `PROJECT`;
 - typed strong state-causal payloads with field provenance;
@@ -40,6 +41,10 @@ The WIP research package now includes:
 A strong `STATE_CAUSAL` path cannot contain free-form target-behavior or desired-output instructions anywhere in capture, validation, composition, admission, or projection. Renaming or nesting output-direction content does not turn it into state.
 
 `TEXT_CONTEXT_V1` remains a compatibility baseline with an instruction-conditioned claim ceiling. Stronger binding classes such as input embeddings, activation steering, or logits require direct evidence on the exact host/model/backend and do not transfer automatically to native ChatGPT.
+
+## Privacy/egress boundary
+
+Human-readable scope labels are illustrative identifiers, not a global ordinal lattice. Disclosure is allowed only when the machine-readable policy proves the exact provider/host target belongs to every applicable allowed-target set or another explicitly defined policy relation. Unknown or incomparable relations fail closed.
 
 ## Evidence ceiling
 
