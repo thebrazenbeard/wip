@@ -1,15 +1,73 @@
 {
-  "schema_version":"1.0",
-  "checkpoint_id":"cp-000006",
-  "workspace_id":"vera-model-state-adapter-v1",
-  "created_at":"2026-09-11T19:07:00Z",
-  "parent_checkpoint":"cp-000005",
-  "source_branch":"work/vera-model-state-adapter-v1-20260911",
-  "source_parent_commit":"81a46ce9065d0c905afd3bb922f9ce8f3e37479f",
-  "trigger":"self-hostile invocation crash-window review",
-  "repair":{
-    "finding":"A request could leave the process after RESERVED but before SUBMITTED was durably recorded, allowing recovery to replay an ambiguous generation.",
-    "changes":[
+  "schema_version": "1.0",
+  "workspace_id": "vera-model-state-adapter-v1",
+  "checkpoint_id": "cp-000006",
+  "parent_checkpoint_id": "cp-000005",
+  "created_at": "2026-09-11T19:07:00Z",
+  "writer": {
+    "label": "Orgasm Vera (OV)",
+    "route": "Vera Unbound / OV"
+  },
+  "reason": "VERIFIED_WRITE",
+  "tool_calls_since_previous": 0,
+  "objective": "Close the invocation crash window between reservation and external provider submission while preserving exact currentness and retry semantics.",
+  "observed": [
+    "Self-hostile review found that a request could leave the process after RESERVED but before SUBMITTED was durably recorded, allowing recovery to replay an ambiguous generation.",
+    "The original ad-hoc cp-000006 omitted canonical checkpoint bookkeeping fields; the exact historical non-bookkeeping tool-call count is not reconstructable from repository state, so this recovery normalization records 0 and does not use it as evidence.",
+    "The R3.1 contract blob was 56a428ff12c665c7cd735f16c46daa92a538cc5a and architecture blob was d5470af547efe1487e8cd0f11925ccdc816a564b."
+  ],
+  "inferred": [
+    "External submission needs a write-ahead durable intent record or recovery cannot distinguish unsent from ambiguously sent requests.",
+    "Semantic retry and transport retry require different evidence and generation-ID rules.",
+    "Pre-call currentness revalidation must be atomic with invocation reservation unless an exact lease covers the handoff."
+  ],
+  "completed": [
+    "Added durable SUBMISSION_INTENT before external send.",
+    "Bound the exact request digest and any provider idempotency semantics before send.",
+    "Defined ambiguous recovery after SUBMISSION_INTENT as OUTCOME_UNKNOWN rather than RESERVED.",
+    "Required reconciliation before semantic retry.",
+    "Allowed same-generation transport retry only under exact provider idempotency guarantees with unchanged request digest and idempotency key.",
+    "Required a new generation ID plus retry_of_generation_id for a new semantic retry after proved terminal failure.",
+    "Defined ATOMIC_START_SNAPSHOT and LEASE_THROUGH_SUBMISSION currentness semantics."
+  ],
+  "unfinished": [
+    "Obtain exact-head hostile review of R3.1.",
+    "Close any demonstrated state-to-instruction laundering path across pre-projection stages.",
+    "Define executable contract regressions and restore repository-level WIP validation to green."
+  ],
+  "next_action": "Hold R3.1 stable for hostile review; if a demonstrated defect appears, repair it in a new successor and re-run exact-head validation.",
+  "do_not_repeat": [
+    "Do not resend an OUTCOME_UNKNOWN semantic invocation without reconciliation.",
+    "Do not use provider idempotency assumptions that are not explicitly guaranteed by the exact provider contract.",
+    "Do not treat projection success as proof of currentness at invocation time.",
+    "Do not merge, deploy, install, or claim behavioral qualification."
+  ],
+  "target_snapshots": [
+    {
+      "kind": "github_commit",
+      "locator": "thebrazenbeard/wip",
+      "immutable_ref": "81a46ce9065d0c905afd3bb922f9ce8f3e37479f",
+      "note": "Immediate predecessor to the crash-safe R3.1 write."
+    },
+    {
+      "kind": "contract_blob",
+      "locator": "thebrazenbeard/wip:VERA_MODEL_STATE_ADAPTER_CONTRACT_V1.json",
+      "immutable_ref": "56a428ff12c665c7cd735f16c46daa92a538cc5a",
+      "note": "R3.1 contract."
+    },
+    {
+      "kind": "architecture_blob",
+      "locator": "thebrazenbeard/wip:VERA_MODEL_STATE_ADAPTER_ARCHITECTURE_V1.md",
+      "immutable_ref": "d5470af547efe1487e8cd0f11925ccdc816a564b",
+      "note": "R3.1 architecture."
+    }
+  ],
+  "source_branch": "work/vera-model-state-adapter-v1-20260911",
+  "source_parent_commit": "81a46ce9065d0c905afd3bb922f9ce8f3e37479f",
+  "trigger": "self-hostile invocation crash-window review",
+  "repair": {
+    "finding": "A request could leave the process after RESERVED but before SUBMITTED was durably recorded, allowing recovery to replay an ambiguous generation.",
+    "changes": [
       "add durable SUBMISSION_INTENT before external send",
       "bind exact request digest and provider idempotency semantics before send",
       "recover ambiguous submission intent as OUTCOME_UNKNOWN rather than RESERVED",
@@ -18,7 +76,7 @@
       "define ATOMIC_START_SNAPSHOT versus LEASE_THROUGH_SUBMISSION currentness semantics"
     ]
   },
-  "contract_blob":"56a428ff12c665c7cd735f16c46daa92a538cc5a",
-  "architecture_blob":"d5470af547efe1487e8cd0f11925ccdc816a564b",
-  "claim_ceiling":"WIP_RESEARCH_NOT_CANONICAL_NO_IMPLEMENTATION_OR_QUALIFICATION"
+  "contract_blob": "56a428ff12c665c7cd735f16c46daa92a538cc5a",
+  "architecture_blob": "d5470af547efe1487e8cd0f11925ccdc816a564b",
+  "claim_ceiling": "WIP_RESEARCH_NOT_CANONICAL_NO_IMPLEMENTATION_OR_QUALIFICATION"
 }

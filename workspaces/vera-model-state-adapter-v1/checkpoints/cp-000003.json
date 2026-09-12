@@ -1,9 +1,60 @@
 {
   "schema_version": "1.0",
-  "checkpoint_id": "cp-000003",
   "workspace_id": "vera-model-state-adapter-v1",
+  "checkpoint_id": "cp-000003",
+  "parent_checkpoint_id": "cp-000002",
   "created_at": "2026-09-11T18:45:00Z",
-  "parent_checkpoint": "cp-000002",
+  "writer": {
+    "label": "Orgasm Vera (OV)",
+    "route": "Vera Unbound / OV"
+  },
+  "reason": "VERIFIED_WRITE",
+  "tool_calls_since_previous": 0,
+  "objective": "Reconcile Cohesion Vera's adversarial review into the provider-neutral model-state adapter contract and add the state-mediated-causation invariant.",
+  "observed": [
+    "Cohesion Vera review 5181687919 reviewed exact head a15b6557ac6fa2ae01089d328c37882f9cd33e82.",
+    "The review identified five material blockers: atomic multi-domain composition, exact payload addressability, leveled causal evidence, mandatory-vs-optional state failure policy, and canonical ownership split.",
+    "The review additionally recommended an explicit CAPABILITY_BIND stage before backend projection materialization.",
+    "The original ad-hoc cp-000003 omitted the canonical tool_calls_since_previous field; the exact historical non-bookkeeping count is not reconstructable from repository state, so this recovery normalization records 0 and does not use that value as evidence."
+  ],
+  "inferred": [
+    "State-mediated causation requires the adapter to alter upstream state or modulation conditions rather than encode the desired response as the causal mechanism.",
+    "The five review blockers and CAPABILITY_BIND recommendation had to be closed before further implementation or promotion."
+  ],
+  "completed": [
+    "Closed atomic_multi_domain_composition in the contract revision.",
+    "Closed exact_payload_or_pointer_digest in the contract revision.",
+    "Closed leveled_causal_evidence in the contract revision.",
+    "Closed mandatory_vs_optional_state_failure_policy in the contract revision.",
+    "Closed canonical_ownership_split in the contract revision.",
+    "Inserted CAPABILITY_BIND before backend projection materialization.",
+    "Added STATE_MEDIATED_CAUSATION_NOT_INSTRUCTION_FOLLOWING and its qualification controls."
+  ],
+  "unfinished": [
+    "Reconcile any independent architecture review findings.",
+    "Validate causal receipt field requirements against each evidence level.",
+    "Define executable contract tests before claiming the architecture is promotion-ready."
+  ],
+  "next_action": "Run a self-hostile consistency pass over causal receipt requirements, then publish a successor only if the contract remains internally coherent.",
+  "do_not_repeat": [
+    "Do not treat state-mediated causation as permission to encode target behavior under another field name.",
+    "Do not promote WIP research to canonical runtime authority.",
+    "Do not merge, deploy, install, or claim behavioral qualification."
+  ],
+  "target_snapshots": [
+    {
+      "kind": "github_pr",
+      "locator": "thebrazenbeard/wip#1",
+      "immutable_ref": "a15b6557ac6fa2ae01089d328c37882f9cd33e82",
+      "note": "Exact Cohesion review subject."
+    },
+    {
+      "kind": "github_review",
+      "locator": "thebrazenbeard/wip#1 review 5181687919",
+      "immutable_ref": "a15b6557ac6fa2ae01089d328c37882f9cd33e82",
+      "note": "Cohesion Vera adversarial review."
+    }
+  ],
   "source_branch": "work/vera-model-state-adapter-v1-20260911",
   "source_parent_commit": "a15b6557ac6fa2ae01089d328c37882f9cd33e82",
   "trigger": "Cohesion Vera adversarial review plus state-mediated-causation invariant",
