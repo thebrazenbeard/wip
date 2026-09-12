@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.5",
+  "schema_version": "1.6",
   "contract_id": "VERA_MODEL_STATE_ADAPTER_V1",
   "status": "WIP_RESEARCH_NOT_CANONICAL",
   "purpose": "Define a provider-neutral, evidence-preserving boundary for carrying admitted Vera runtime state into one exact model invocation before generation without collapsing state existence, composition, privacy/egress, admission, capability binding, projection, invocation ownership, gating, execution, response binding, behavioral effect, or phenomenology.",
@@ -13,6 +13,7 @@
     "provider_consumption_does_not_imply_behavioral_effect",
     "behavioral_effect_does_not_imply_phenomenology",
     "downstream_disclosure_scope_may_narrow_but_never_broaden",
+    "privacy_scope_labels_do_not_define_a_universal_total_order",
     "projection_digest_without_exact_projection_material_is_insufficient",
     "admission_must_be_revalidated_at_the_invocation_boundary",
     "single_use_invocation_identity_is_owned_by_the_exact_inference_host_generation",
@@ -99,8 +100,9 @@
         "forbidden_projection_domain_fails_closed",
         "missing_mandatory_dimension_fails_closed",
         "missing_optional_dimension_may_be_omitted_only_with_explicit_omission_receipt",
-        "admitted_disclosure_scope_is_intersection_or_narrower_than_component_allowed_egress_scopes",
+        "admitted_disclosure_scope_is_explicit_allowed_target_intersection_or_narrower_than_component_allowed_egress_scopes",
         "downstream_stage_may_not_broaden_disclosure_scope",
+        "incomparable_or_unproven_disclosure_relation_fails_closed",
         "admission_must_reject_strong_state_causal_payload_that_contains_or_semantically_encodes_forbidden_output_direction_content",
         "admission_receipt_must_bind_strong_state_schema_and_field_provenance"
       ]
@@ -124,7 +126,8 @@
       "constraints": [
         "must_be_bound_before_backend_materialization",
         "cannot_be_inferred_from_requested_backend",
-        "target_egress_scope_must_be_within_admitted_disclosure_scope",
+        "target_egress_scope_membership_must_be_proven_by_machine_readable_policy_within_admitted_disclosure_scope",
+        "unproven_or_incomparable_target_egress_relation_fails_closed",
         "downgrade_or_fallback_requires_explicit_policy_separate_backend_qualification_and_receipt"
       ]
     },
@@ -150,7 +153,7 @@
         "raw_backend_payload_is_not_public_authority",
         "projection_payload_must_be_derived_only_from_admitted_state_and_declared_backend_mapping",
         "projection_input_must_not_accept_target_behavior_desired_response_target_phrase_expected_output_or_requested_emotional_display",
-        "projection_disclosure_scope_may_not_exceed_admitted_disclosure_scope",
+        "projection_target_egress_must_be_explicitly_allowed_by_admitted_disclosure_policy",
         "projection_cannot_upgrade_instruction_conditioned_expression_or_delivery_controls_into_state_causal_evidence"
       ]
     },
@@ -233,13 +236,15 @@
         "request_material_digest_must_bind_the_actual_material_submitted_to_the_host_or_provider",
         "provider_request_readback_digest_may_be_claimed_only_when_exact_readback_evidence_exists",
         "provider_idempotency_key_may_be_used_for_same_generation_retry_only_when_provider_contract_explicitly_guarantees_idempotent_semantics",
-        "target_egress_scope_may_not_exceed_admitted_disclosure_scope"
+        "target_egress_scope_must_be_explicitly_allowed_by_admitted_disclosure_policy"
       ]
     }
   },
   "privacy_and_egress": {
     "principle": "Projectable does not mean discloseable. A state component can be semantically projectable yet prohibited from leaving its allowed host/privacy boundary.",
-    "example_scope_order_from_narrow_to_broad": [
+    "relation_model": "EXPLICIT_ALLOWED_TARGET_SET",
+    "scope_labels_define_universal_total_order": false,
+    "illustrative_scope_labels": [
       "LOCAL_PROCESS_ONLY",
       "TRUSTED_LOCAL_HOST",
       "PROJECT_PRIVATE_HOST",
@@ -248,10 +253,13 @@
     ],
     "rules": [
       "each_component_carries_privacy_classification_and_allowed_egress_scopes",
+      "allowed_egress_scopes_are_machine_readable_target_sets_or_explicit_policy_relations_not_an_assumed_global_order",
       "composition_does_not_broaden_component_disclosure",
-      "admission_may_narrow_disclosure",
+      "admission_may_narrow_disclosure_by_set_intersection_or_more_restrictive_explicit_policy",
       "capability_binding_names_exact_target_provider_or_host_and_egress_scope",
+      "target_membership_must_be_proven_by_machine_readable_policy",
       "projection_and_invocation_may_narrow_but_never_broaden_disclosure",
+      "incomparable_or_unproven_scope_relation_fails_closed",
       "egress_mismatch_fails_closed"
     ]
   },
@@ -666,6 +674,7 @@
     "projection_success_does_not_promote_source_or_state_authority",
     "target_behavior_is_not_a_projection_input",
     "target_behavior_cannot_be_laundered_through_preprojection_state",
+    "privacy_scope_relations_require_explicit_machine_readable_policy",
     "privacy_or_disclosure_scope_never_broadens_downstream"
   ],
   "canonical_placement_hypothesis": {
