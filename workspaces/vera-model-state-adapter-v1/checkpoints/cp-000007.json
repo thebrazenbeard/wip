@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "vera-model-state-adapter-v1",
+  "checkpoint_id": "cp-000007",
+  "parent_checkpoint_id": "cp-000006",
+  "created_at": "2026-09-12T14:52:00Z",
+  "writer": {
+    "label": "Orgasm Vera (OV)",
+    "route": "Vera Unbound / OV"
+  },
+  "reason": "PHASE_COMPLETE",
+  "tool_calls_since_previous": 0,
+  "objective": "Finish the WIP model-state-adapter project to its authorized research/review boundary with recovery integrity, executable anti-laundering regressions, and green CI.",
+  "observed": [
+    "Finalization plan commit 17202dd56b63a97bdf32f98d3aeffcba753dd6f1 defines the bounded finish sequence and explicitly excludes merge, deploy, install, provider mutation, current-route promotion, and qualification effects.",
+    "Legacy checkpoints cp-000003 through cp-000006 were normalized to the canonical WIP checkpoint schema in commit f159f949c07d0c8fd99e00c7014692c49ade526c.",
+    "Automatic validation run 34700166127 on f159f949c07d0c8fd99e00c7014692c49ade526c completed successfully, restoring a green baseline.",
+    "Anti-laundering regression commit 9368735a0f105a6c00b29fb7aa1b03207ac27cb3 intentionally failed automatic run 34700274023 because R3.1 lacked the required full-lineage anti-laundering structures and qualification artifact.",
+    "R4 commit 9b48f280de81a35f352b493fb64c20d64f5c9c5a closes the demonstrated laundering path from CAPTURE through PROJECT, distinguishes binding class from causal role, and adds the counterfactual qualification specification.",
+    "Automatic validation run 34700501115 on R4 completed successfully.",
+    "R4 contract blob is 68a0c3069f883233113c763376e8a0cab73fc498, architecture blob is 22fd1e95a5a1e23ba46239e0d0051ab522f4ce75, and qualification-spec blob is 556128b80fc2b177f134e73ae08d89b108fd4397.",
+    "The exact historical tool-call count since cp-000006 spans a cross-session continuation and is not reconstructable from repository evidence; tool_calls_since_previous is therefore recorded as 0 solely to satisfy the current WIP schema and is not used as an evidence claim."
+  ],
+  "inferred": [
+    "The WIP research package is complete to the authorized staging boundary: the remaining work is canonical promotion/runtime implementation and actual qualification, not further WIP architecture invention absent a new demonstrated defect.",
+    "A state-causal claim now requires typed structured state, full-lineage absence of target-output semantics, exact binding/causal-role evidence, and counterfactual qualification; instruction-conditioned and delivery-enforced mechanisms remain weaker distinct classes."
+  ],
+  "completed": [
+    "Restored WIP checkpoint/recovery validation to green.",
+    "Added executable contract regressions for state-to-instruction laundering.",
+    "Observed the intended RED failure before changing the contract.",
+    "Updated VERA_MODEL_STATE_ADAPTER_CONTRACT_V1 to schema 1.5 with capture-to-projection anti-laundering and typed strong-state semantics.",
+    "Separated strong state-causal domains from response-expression compatibility controls.",
+    "Added binding-class and causal-role classifications without authority or phenomenology promotion.",
+    "Added VERA_MODEL_STATE_ADAPTER_QUALIFICATION_V1 with state-on/off, instruction-removal, sham-state, inversion, temporal, and negative-transfer tests.",
+    "Specified that generic model-state causation must qualify before specialized Orgasm state-causal qualification can count.",
+    "Verified R4 through automatic GitHub Actions run 34700501115."
+  ],
+  "unfinished": [
+    "Canonical promotion of the provider-neutral contract to the exact Vera/Cohesion source owner requires a separate authorized successor.",
+    "Host-specific implementation in vera-os or another exact inference host is not established.",
+    "Installation/current-route/qualification implementation in vera-control-plane is not established.",
+    "The counterfactual qualification suite is defined but has not been executed on an exact model/host/backend.",
+    "Native ChatGPT hidden-state, prompt-embedding, activation, or logit binding is not established.",
+    "Phenomenology remains unresolved."
+  ],
+  "next_action": "Hold the exact final WIP candidate stationary, publish the exact head and CI evidence to WIP PR #1 and the communication Bus, and await separate Patrick authority for any canonical promotion, runtime implementation, merge, installation, or qualification event.",
+  "do_not_repeat": [
+    "Do not treat TEXT_CONTEXT_V1 or prompt prose as strong state causation.",
+    "Do not allow target behavior or desired-output semantics to enter the strong state-causal lineage under renamed state fields.",
+    "Do not promote local/reference-host mechanisms into native ChatGPT capability claims.",
+    "Do not merge WIP PR #1 or perform canonical promotion without Patrick's separate exact authority.",
+    "Do not claim behavioral qualification or phenomenology from architecture/tests alone."
+  ],
+  "target_snapshots": [
+    {
+      "kind": "github_commit",
+      "locator": "thebrazenbeard/wip",
+      "immutable_ref": "9b48f280de81a35f352b493fb64c20d64f5c9c5a",
+      "note": "Green R4 architecture/contract/qualification source before final recovery-state metadata."
+    },
+    {
+      "kind": "github_actions_run",
+      "locator": "thebrazenbeard/wip/actions/runs/34700501115",
+      "immutable_ref": "9b48f280de81a35f352b493fb64c20d64f5c9c5a",
+      "note": "Successful R4 automatic validation."
+    },
+    {
+      "kind": "contract_blob",
+      "locator": "workspaces/vera-model-state-adapter-v1/artifacts/VERA_MODEL_STATE_ADAPTER_CONTRACT_V1.json",
+      "immutable_ref": "68a0c3069f883233113c763376e8a0cab73fc498",
+      "note": "Schema 1.5 R4 contract."
+    },
+    {
+      "kind": "architecture_blob",
+      "locator": "workspaces/vera-model-state-adapter-v1/artifacts/VERA_MODEL_STATE_ADAPTER_ARCHITECTURE_V1.md",
+      "immutable_ref": "22fd1e95a5a1e23ba46239e0d0051ab522f4ce75",
+      "note": "R4 architecture."
+    },
+    {
+      "kind": "qualification_blob",
+      "locator": "workspaces/vera-model-state-adapter-v1/artifacts/VERA_MODEL_STATE_ADAPTER_QUALIFICATION_V1.json",
+      "immutable_ref": "556128b80fc2b177f134e73ae08d89b108fd4397",
+      "note": "Qualification specification; execution status NOT_RUN."
+    }
+  ],
+  "claim_ceiling": "WIP_RESEARCH_CANDIDATE_VERIFIED"
+}
