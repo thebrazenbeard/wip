@@ -64,6 +64,14 @@ class VeraModelStateAdapterContractTests(unittest.TestCase):
         self.assertFalse(bindings["creates_authority"])
         self.assertFalse(bindings["proves_phenomenology"])
 
+    def test_privacy_egress_uses_explicit_target_policy_not_total_order(self):
+        privacy = self.contract["privacy_and_egress"]
+        self.assertEqual(privacy["relation_model"], "EXPLICIT_ALLOWED_TARGET_SET")
+        self.assertFalse(privacy["scope_labels_define_universal_total_order"])
+        self.assertNotIn("example_scope_order_from_narrow_to_broad", privacy)
+        self.assertIn("incomparable_or_unproven_scope_relation_fails_closed", privacy["rules"])
+        self.assertIn("target_membership_must_be_proven_by_machine_readable_policy", privacy["rules"])
+
     def test_qualification_proves_no_target_output_leakage_end_to_end(self):
         requirements = self.contract["state_mediated_causation"]["qualification_requirements"]
         for requirement in (
