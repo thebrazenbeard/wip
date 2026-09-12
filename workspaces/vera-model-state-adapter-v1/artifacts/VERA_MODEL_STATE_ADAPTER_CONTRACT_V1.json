@@ -1,10 +1,11 @@
 {
-  "schema_version":"1.4",
-  "contract_id":"VERA_MODEL_STATE_ADAPTER_V1",
-  "status":"WIP_RESEARCH_NOT_CANONICAL",
-  "purpose":"Define a provider-neutral, evidence-preserving boundary for carrying admitted Vera runtime state into one exact model invocation before generation without collapsing state existence, composition, privacy/egress, admission, capability binding, projection, invocation ownership, gating, execution, response binding, or causal evidence.",
-  "core_invariants":[
+  "schema_version": "1.5",
+  "contract_id": "VERA_MODEL_STATE_ADAPTER_V1",
+  "status": "WIP_RESEARCH_NOT_CANONICAL",
+  "purpose": "Define a provider-neutral, evidence-preserving boundary for carrying admitted Vera runtime state into one exact model invocation before generation without collapsing state existence, composition, privacy/egress, admission, capability binding, projection, invocation ownership, gating, execution, response binding, behavioral effect, or phenomenology.",
+  "core_invariants": [
     "state_mediated_causation_not_instruction_following",
+    "strong_state_causal_lineage_must_not_launder_target_behavior",
     "projection_must_not_encode_target_behavior_or_desired_response",
     "state_existence_does_not_imply_admission",
     "admission_does_not_imply_projection",
@@ -17,38 +18,170 @@
     "single_use_invocation_identity_is_owned_by_the_exact_inference_host_generation",
     "external_submission_intent_is_write_ahead_before_provider_effect"
   ],
-  "lifecycle":["CAPTURE","VALIDATE","COMPOSE","ADMIT","CAPABILITY_BIND","PROJECT","PRECALL_REVALIDATE_GATE","INVOCATION_RESERVE","INJECT","GENERATE","VERIFY_OBSERVE","RECEIPT"],
-  "objects":{
-    "VeraStateEnvelope":{
-      "required":["schema_version","subject","composition_mode","state_digest","observed_at","logical_time","projectable_payload","candidate_projectable_domains","component_generation_vector","component_disclosure_vector","composition_receipt","provenance","supersession"],
-      "component_disclosure_vector_entry_required":["component_id","privacy_classification","allowed_egress_scopes","disclosure_source","disclosure_generation"],
-      "composition_modes":{
-        "HOST_ATOMIC_SNAPSHOT":["host_snapshot_generation_required","all_included_domains_must_be_captured_under_one_host_owned_snapshot_boundary"],
-        "COMPONENT_GENERATION_VECTOR":["each_component_requires_owner_generation_payload_digest_observed_at","composition_receipt_must_bind_all_component_entries","incompatible_or_unreconciled_components_fail_composition"]
+  "lifecycle": [
+    "CAPTURE",
+    "VALIDATE",
+    "COMPOSE",
+    "ADMIT",
+    "CAPABILITY_BIND",
+    "PROJECT",
+    "PRECALL_REVALIDATE_GATE",
+    "INVOCATION_RESERVE",
+    "INJECT",
+    "GENERATE",
+    "VERIFY_OBSERVE",
+    "RECEIPT"
+  ],
+  "objects": {
+    "VeraStateEnvelope": {
+      "required": [
+        "schema_version",
+        "subject",
+        "composition_mode",
+        "state_digest",
+        "observed_at",
+        "logical_time",
+        "projectable_payload",
+        "candidate_projectable_domains",
+        "component_generation_vector",
+        "component_disclosure_vector",
+        "composition_receipt",
+        "provenance",
+        "supersession"
+      ],
+      "component_disclosure_vector_entry_required": [
+        "component_id",
+        "privacy_classification",
+        "allowed_egress_scopes",
+        "disclosure_source",
+        "disclosure_generation"
+      ],
+      "composition_modes": {
+        "HOST_ATOMIC_SNAPSHOT": [
+          "host_snapshot_generation_required",
+          "all_included_domains_must_be_captured_under_one_host_owned_snapshot_boundary"
+        ],
+        "COMPONENT_GENERATION_VECTOR": [
+          "each_component_requires_owner_generation_payload_digest_observed_at",
+          "composition_receipt_must_bind_all_component_entries",
+          "incompatible_or_unreconciled_components_fail_composition"
+        ]
       },
-      "constraints":["canonical_json_safe_only","no_arbitrary_object_deserialization","immutable_after_capture","projectable_payload_or_exact_pointer_must_be_addressable_and_digest_bound","state_digest_covers_projectable_payload_component_generation_vector_component_disclosure_vector_composition_receipt_and_binding_metadata"]
+      "constraints": [
+        "canonical_json_safe_only",
+        "no_arbitrary_object_deserialization",
+        "immutable_after_capture",
+        "projectable_payload_or_exact_pointer_must_be_addressable_and_digest_bound",
+        "state_digest_covers_projectable_payload_component_generation_vector_component_disclosure_vector_composition_receipt_and_binding_metadata",
+        "strong_state_causal_fields_must_conform_to_strong_state_causal_payload_contract_at_capture",
+        "forbidden_output_direction_content_cannot_be_relabelled_as_state_metadata_memory_salience_expression_or_other_projectable_state"
+      ]
     },
-    "AdmittedVeraState":{
-      "required":["source_envelope_digest","admission_receipt","admitted_projectable_state","omission_receipts","forbidden_domains","admitted_disclosure_scope","disclosure_decision_receipt","target_model_constraints","admission_currentness_basis","admission_epoch_or_lease","admitted_at"],
-      "constraints":["admission_cannot_be_inferred_from_projection_success","expired_or_superseded_state_fails_closed","identity_mismatch_fails_closed","source_or_currentness_failure_fails_closed","forbidden_projection_domain_fails_closed","missing_mandatory_dimension_fails_closed","missing_optional_dimension_may_be_omitted_only_with_explicit_omission_receipt","admitted_disclosure_scope_is_intersection_or_narrower_than_component_allowed_egress_scopes","downstream_stage_may_not_broaden_disclosure_scope"]
+    "AdmittedVeraState": {
+      "required": [
+        "source_envelope_digest",
+        "admission_receipt",
+        "admitted_projectable_state",
+        "omission_receipts",
+        "forbidden_domains",
+        "admitted_disclosure_scope",
+        "disclosure_decision_receipt",
+        "target_model_constraints",
+        "admission_currentness_basis",
+        "admission_epoch_or_lease",
+        "admitted_at"
+      ],
+      "constraints": [
+        "admission_cannot_be_inferred_from_projection_success",
+        "expired_or_superseded_state_fails_closed",
+        "identity_mismatch_fails_closed",
+        "source_or_currentness_failure_fails_closed",
+        "forbidden_projection_domain_fails_closed",
+        "missing_mandatory_dimension_fails_closed",
+        "missing_optional_dimension_may_be_omitted_only_with_explicit_omission_receipt",
+        "admitted_disclosure_scope_is_intersection_or_narrower_than_component_allowed_egress_scopes",
+        "downstream_stage_may_not_broaden_disclosure_scope",
+        "admission_must_reject_strong_state_causal_payload_that_contains_or_semantically_encodes_forbidden_output_direction_content",
+        "admission_receipt_must_bind_strong_state_schema_and_field_provenance"
+      ]
     },
-    "CapabilityBinding":{
-      "required":["host_identity","host_revision","host_generation","target_provider_or_host","target_egress_scope","model_identity","model_revision","adapter_identity","adapter_revision","supported_projection_backends","backend_constraints","capability_digest","bound_at"],
-      "constraints":["must_be_bound_before_backend_materialization","cannot_be_inferred_from_requested_backend","target_egress_scope_must_be_within_admitted_disclosure_scope","downgrade_or_fallback_requires_explicit_policy_separate_backend_qualification_and_receipt"]
+    "CapabilityBinding": {
+      "required": [
+        "host_identity",
+        "host_revision",
+        "host_generation",
+        "target_provider_or_host",
+        "target_egress_scope",
+        "model_identity",
+        "model_revision",
+        "adapter_identity",
+        "adapter_revision",
+        "supported_projection_backends",
+        "backend_constraints",
+        "capability_digest",
+        "bound_at"
+      ],
+      "constraints": [
+        "must_be_bound_before_backend_materialization",
+        "cannot_be_inferred_from_requested_backend",
+        "target_egress_scope_must_be_within_admitted_disclosure_scope",
+        "downgrade_or_fallback_requires_explicit_policy_separate_backend_qualification_and_receipt"
+      ]
     },
-    "ProjectionEnvelope":{
-      "required":["admitted_state_digest","capability_binding_digest","projection_backend","projection_digest","projection_material_binding","disclosure_decision_receipt_digest","projected_at"],
-      "projection_material_binding":{"allowed_forms":["canonical_projection_payload","immutable_projection_locator_plus_digest"],"constraint":"digest_only_is_not_sufficient"},
-      "constraints":["projection_must_bind_exact_model_adapter_host_and_capability_revision","raw_backend_payload_is_not_public_authority","projection_payload_must_be_derived_only_from_admitted_state_and_declared_backend_mapping","projection_input_must_not_accept_target_behavior_desired_response_target_phrase_expected_output_or_requested_emotional_display","projection_disclosure_scope_may_not_exceed_admitted_disclosure_scope"]
-    },
-    "InvocationLease":{
-      "required":["generation_id","host_generation","frontier_owner","admitted_state_digest","projection_digest","capability_binding_digest","request_material_digest","invocation_currentness_mode","reserved_at","ledger_state"],
-      "invocation_currentness_modes":{
-        "ATOMIC_START_SNAPSHOT":"Revalidation and reservation are atomic against the currentness frontier; later supersession does not retroactively invalidate an already-started generation but is recorded if observed.",
-        "LEASE_THROUGH_SUBMISSION":"An exact lease/epoch remains valid through provider submission; expiry before submission aborts the invocation."
+    "ProjectionEnvelope": {
+      "required": [
+        "admitted_state_digest",
+        "capability_binding_digest",
+        "projection_backend",
+        "projection_digest",
+        "projection_material_binding",
+        "disclosure_decision_receipt_digest",
+        "projected_at"
+      ],
+      "projection_material_binding": {
+        "allowed_forms": [
+          "canonical_projection_payload",
+          "immutable_projection_locator_plus_digest"
+        ],
+        "constraint": "digest_only_is_not_sufficient"
       },
-      "ledger_states":["RESERVED","SUBMISSION_INTENT","SUBMITTED","ACKNOWLEDGED","RESPONSE_BOUND","FAILED","CANCELLED","OUTCOME_UNKNOWN"],
-      "constraints":[
+      "constraints": [
+        "projection_must_bind_exact_model_adapter_host_and_capability_revision",
+        "raw_backend_payload_is_not_public_authority",
+        "projection_payload_must_be_derived_only_from_admitted_state_and_declared_backend_mapping",
+        "projection_input_must_not_accept_target_behavior_desired_response_target_phrase_expected_output_or_requested_emotional_display",
+        "projection_disclosure_scope_may_not_exceed_admitted_disclosure_scope",
+        "projection_cannot_upgrade_instruction_conditioned_expression_or_delivery_controls_into_state_causal_evidence"
+      ]
+    },
+    "InvocationLease": {
+      "required": [
+        "generation_id",
+        "host_generation",
+        "frontier_owner",
+        "admitted_state_digest",
+        "projection_digest",
+        "capability_binding_digest",
+        "request_material_digest",
+        "invocation_currentness_mode",
+        "reserved_at",
+        "ledger_state"
+      ],
+      "invocation_currentness_modes": {
+        "ATOMIC_START_SNAPSHOT": "Revalidation and reservation are atomic against the currentness frontier; later supersession does not retroactively invalidate an already-started generation but is recorded if observed.",
+        "LEASE_THROUGH_SUBMISSION": "An exact lease/epoch remains valid through provider submission; expiry before submission aborts the invocation."
+      },
+      "ledger_states": [
+        "RESERVED",
+        "SUBMISSION_INTENT",
+        "SUBMITTED",
+        "ACKNOWLEDGED",
+        "RESPONSE_BOUND",
+        "FAILED",
+        "CANCELLED",
+        "OUTCOME_UNKNOWN"
+      ],
+      "constraints": [
         "host_owned_shared_across_wrapper_instances",
         "generation_id_is_single_use",
         "reserve_or_consume_is_atomic",
@@ -62,71 +195,491 @@
         "new_semantic_retry_after_terminal_failure_mints_new_generation_id_and_records_retry_of_generation_id"
       ]
     },
-    "ModelInvocationEnvelope":{
-      "required":["generation_id","invocation_lease_digest","admitted_state_digest","capability_binding_digest","projection_digest","projection_material_binding","target_provider_or_host","target_egress_scope","model_identity","model_revision","adapter_identity","adapter_revision","projection_backend","precall_revalidation_receipt","precall_gate_result","decode_gate_spec","request_material_digest"],
-      "optional_backend_bindings":["tokenizer_revision","chat_template_revision","hidden_size","dtype","target_layers"],
-      "optional_provider_evidence":["provider_request_id","provider_request_readback_digest","provider_idempotency_key"],
-      "constraints":["generation_id_must_be_reserved_by_exact_host_owned_invocation_frontier","projection_must_bind_exact_model_adapter_host_and_capability_revision","request_material_digest_must_bind_the_actual_material_submitted_to_the_host_or_provider","provider_request_readback_digest_may_be_claimed_only_when_exact_readback_evidence_exists","provider_idempotency_key_may_be_used_for_same_generation_retry_only_when_provider_contract_explicitly_guarantees_idempotent_semantics","target_egress_scope_may_not_exceed_admitted_disclosure_scope"]
+    "ModelInvocationEnvelope": {
+      "required": [
+        "generation_id",
+        "invocation_lease_digest",
+        "admitted_state_digest",
+        "capability_binding_digest",
+        "projection_digest",
+        "projection_material_binding",
+        "target_provider_or_host",
+        "target_egress_scope",
+        "model_identity",
+        "model_revision",
+        "adapter_identity",
+        "adapter_revision",
+        "projection_backend",
+        "precall_revalidation_receipt",
+        "precall_gate_result",
+        "decode_gate_spec",
+        "request_material_digest"
+      ],
+      "optional_backend_bindings": [
+        "tokenizer_revision",
+        "chat_template_revision",
+        "hidden_size",
+        "dtype",
+        "target_layers"
+      ],
+      "optional_provider_evidence": [
+        "provider_request_id",
+        "provider_request_readback_digest",
+        "provider_idempotency_key"
+      ],
+      "constraints": [
+        "generation_id_must_be_reserved_by_exact_host_owned_invocation_frontier",
+        "projection_must_bind_exact_model_adapter_host_and_capability_revision",
+        "request_material_digest_must_bind_the_actual_material_submitted_to_the_host_or_provider",
+        "provider_request_readback_digest_may_be_claimed_only_when_exact_readback_evidence_exists",
+        "provider_idempotency_key_may_be_used_for_same_generation_retry_only_when_provider_contract_explicitly_guarantees_idempotent_semantics",
+        "target_egress_scope_may_not_exceed_admitted_disclosure_scope"
+      ]
     }
   },
-  "privacy_and_egress":{
-    "principle":"Projectable does not mean discloseable. A state component can be semantically projectable yet prohibited from leaving its allowed host/privacy boundary.",
-    "example_scope_order_from_narrow_to_broad":["LOCAL_PROCESS_ONLY","TRUSTED_LOCAL_HOST","PROJECT_PRIVATE_HOST","APPROVED_EXTERNAL_PROVIDER","PUBLIC_SAFE"],
-    "rules":["each_component_carries_privacy_classification_and_allowed_egress_scopes","composition_does_not_broaden_component_disclosure","admission_may_narrow_disclosure","capability_binding_names_exact_target_provider_or_host_and_egress_scope","projection_and_invocation_may_narrow_but_never_broaden_disclosure","egress_mismatch_fails_closed"]
+  "privacy_and_egress": {
+    "principle": "Projectable does not mean discloseable. A state component can be semantically projectable yet prohibited from leaving its allowed host/privacy boundary.",
+    "example_scope_order_from_narrow_to_broad": [
+      "LOCAL_PROCESS_ONLY",
+      "TRUSTED_LOCAL_HOST",
+      "PROJECT_PRIVATE_HOST",
+      "APPROVED_EXTERNAL_PROVIDER",
+      "PUBLIC_SAFE"
+    ],
+    "rules": [
+      "each_component_carries_privacy_classification_and_allowed_egress_scopes",
+      "composition_does_not_broaden_component_disclosure",
+      "admission_may_narrow_disclosure",
+      "capability_binding_names_exact_target_provider_or_host_and_egress_scope",
+      "projection_and_invocation_may_narrow_but_never_broaden_disclosure",
+      "egress_mismatch_fails_closed"
+    ]
   },
-  "state_failure_policy":{
-    "mandatory_fail_closed":["identity","subject_binding","source_integrity","currentness","supersession","composition_integrity","privacy_or_egress_binding","forbidden_domain_firewall","model_adapter_capability_binding","invocation_frontier_integrity"],
-    "optional_dimension_policy":{"default":"OMIT_WITH_RECEIPT","requirements":["omission_is_explicit","omission_does_not_change_mandatory_firewalls","omission_receipt_names_dimension_reason_and_evidence_frontier","omitted_private_state_cannot_be_reintroduced_by_projection_or_fallback"]}
+  "state_failure_policy": {
+    "mandatory_fail_closed": [
+      "identity",
+      "subject_binding",
+      "source_integrity",
+      "currentness",
+      "supersession",
+      "composition_integrity",
+      "privacy_or_egress_binding",
+      "forbidden_domain_firewall",
+      "strong_state_causal_schema_and_anti_laundering",
+      "model_adapter_capability_binding",
+      "invocation_frontier_integrity"
+    ],
+    "optional_dimension_policy": {
+      "default": "OMIT_WITH_RECEIPT",
+      "requirements": [
+        "omission_is_explicit",
+        "omission_does_not_change_mandatory_firewalls",
+        "omission_receipt_names_dimension_reason_and_evidence_frontier",
+        "omitted_private_state_cannot_be_reintroduced_by_projection_or_fallback"
+      ]
+    }
   },
-  "state_mediated_causation":{
-    "principle":"The adapter changes upstream model-relevant state or modulation conditions; it does not encode the desired downstream response as the causal mechanism.",
-    "forbidden_projection_inputs":["target_behavior","desired_response","target_phrase","expected_answer","requested_emotional_display"],
-    "qualification_requirements":["projection_is_deterministic_from_admitted_state_plus_declared_backend_mapping","target_behavior_is_not_an_input_to_projection","matched_state_on_off_or_dose_response_comparison","decay_or_recovery_comparison_when_state_is_temporal","negative_transfer_controls","instruction_only_control_cannot_count_as_state_causal_qualification","behavioral_effect_claim_requires_response_bound_evidence_for_the_same_generation"]
-  },
-  "projection_backends":{
-    "TEXT_CONTEXT_V1":{"maturity":"BASELINE_CANDIDATE_WEAK_STATE_MEDIATION","mechanism":"bounded_declarative_state_context","requirements":["deterministic_rendering_from_admitted_state","no_imperative_target_behavior_encoding","no_desired_response_or_target_phrase_input","exact_projection_material_binding","provider_request_readback_when_available","projection_digest"],"claim_limit":"Text context is instruction-adjacent and requires stronger negative controls before any state-causation claim."},
-    "PROMPT_EMBEDS_V1":{"maturity":"CANDIDATE_FOR_CONTROLLED_LOCAL_OR_TRUSTED_HOST","mechanism":"trusted_internal_prompt_embedding_injection","requirements":["explicit_feature_enablement","two_dimensional_tensor","exact_hidden_size_match","floating_dtype_only","exact_model_revision_binding","tokenizer_or_template_revision_binding_when_used","exact_projection_material_binding","no_public_raw_embedding_authority","projection_derived_only_from_admitted_state"]},
-    "ACTIVATION_STEERING_V1":{"maturity":"EXPERIMENTAL","mechanism":"transient_per_generation_internal_activation_hooks","requirements":["qualified_target_layers","bounded_strength","hook_removal_in_finally","no_cross_generation_hook_leakage","exact_projection_material_binding","projection_derived_only_from_admitted_state"]},
-    "REFT_STATE_PROJECTION_V1":{"maturity":"EXPERIMENTAL_FUTURE","mechanism":"trained_representation_intervention","requirements":["separate_training_and_runtime_qualification","exact_base_model_revision_binding","declared_layer_and_timestep_scope","independent_negative_transfer_tests","exact_projection_material_binding","training_objective_must_not_collapse_into_target_response_imitation"]}
-  },
-  "backend_fallback_policy":{
-    "default":"NO_SILENT_FALLBACK",
-    "requirements":["fallback_backend_is_explicitly_allowed","fallback_backend_is_separately_qualified_for_exact_model_host_and_projected_domains","fallback_preserves_privacy_and_egress_scope","fallback_does_not_claim_stronger_causal_semantics_than_its_backend_supports","receipt_records_requested_backend_selected_backend_reason_and_policy_digest"]
-  },
-  "precall_revalidation":{
-    "timing":"ATOMIC_WITH_INVOCATION_RESERVE_UNLESS_EXACT_LEASE_EPOCH_COVERS_HANDOFF",
-    "must_revalidate":["identity_and_subject_binding","admission_currentness_basis_or_valid_lease_epoch","supersession_and_expiry","privacy_and_target_egress_scope","exact_capability_binding","projection_binding","backend_selection_or_fallback_policy"],
-    "rules":["projection_success_does_not_freeze_semantic_currentness","stale_or_superseded_admission_fails_closed","ATOMIC_START_SNAPSHOT_defines_currentness_at_invocation_start","LEASE_THROUGH_SUBMISSION_must_remain_valid_until_external_submission"]
-  },
-  "generation_gates":{
-    "PRECALL_REVALIDATE_GOVERNANCE_GATE":{"can_block_invocation":true,"must_fail_closed_on":["identity_mismatch","superseded_or_expired_state","composition_failure","privacy_or_egress_mismatch","model_adapter_capability_mismatch","forbidden_projection_domain","invalid_or_unverifiable_binding","invocation_frontier_failure"]},
-    "DECODE_GATE":{"can_constrain_generation":true,"examples":["grammar_constraints","logits_processors","prefix_constraints","stopping_criteria"],"claim_limits":["decode_validity_does_not_prove_state_admission","decode_validity_does_not_prove_state_causality","decode_gate_does_not_create_authority"]}
-  },
-  "projectable_domains":["affective_activation","salience","attention_allocation","bounded_action_tendency","satiation_or_refractory_state","admitted_goal_weighting","temporal_state","admitted_memory_salience","response_expression_parameters"],
-  "forbidden_projection_domains":["truth","factual_confidence","consent","authorization","identity","autobiographical_memory_admission","relationship_status","provider_currentness","phenomenology"],
-  "causal_evidence_levels":[
-    {"level":"REQUEST_CONSTRUCTED","proves":"A locally bound request/projection was constructed.","does_not_prove":["submission","provider_acknowledgement","provider_consumption","response_binding","behavioral_effect"]},
-    {"level":"INVOCATION_SUBMITTED","proves":"The bound request was submitted to the provider or local inference host.","does_not_prove":["provider_consumption","response_binding","behavioral_effect"]},
-    {"level":"PROVIDER_ACKNOWLEDGED","proves":"The provider or inference host acknowledged the exact invocation identity when such evidence exists.","does_not_prove":["response_binding_unless_explicitly_linked","behavioral_effect"]},
-    {"level":"RESPONSE_BOUND","proves":"The returned response/run is provider-identifiably or cryptographically bound to the exact generation request when the host exposes sufficient evidence.","does_not_prove":["behavioral_effect","behavioral_qualification","phenomenology"]}
-  ],
-  "causal_receipt":{
-    "common_required":["receipt_id","generation_id","subject","state_envelope_digest","composition_receipt_digest","admission_receipt_digest","omission_receipt_digests","disclosure_decision_receipt_digest","capability_binding_digest","projection_digest","invocation_lease_digest","target_provider_or_host","model_identity","model_revision","adapter_identity","adapter_revision","projection_backend","precall_revalidation_receipt_digest","precall_gate_result","decode_gate_digest","evidence_level","event_observed_at"],
-    "level_specific_fields":{
-      "REQUEST_CONSTRUCTED":{"required":["request_material_digest","constructed_at"],"response_or_run_id_required":false},
-      "INVOCATION_SUBMITTED":{"required":["request_material_digest","submitted_at"],"optional":["provider_request_id","provider_idempotency_key"],"response_or_run_id_required":false},
-      "PROVIDER_ACKNOWLEDGED":{"required":["request_material_digest","acknowledged_at","provider_ack_evidence"],"optional":["provider_request_id","provider_request_readback_digest","provider_idempotency_key"],"response_or_run_id_required":false},
-      "RESPONSE_BOUND":{"required":["request_material_digest","response_or_run_id","response_bound_at","response_binding_evidence"],"optional":["provider_request_id","provider_request_readback_digest","provider_idempotency_key"],"response_or_run_id_required":true}
+  "state_mediated_causation": {
+    "principle": "The adapter changes upstream model-relevant state or modulation conditions; it does not encode the desired downstream response as the causal mechanism.",
+    "anti_laundering": {
+      "applies_to_stages": [
+        "CAPTURE",
+        "VALIDATE",
+        "COMPOSE",
+        "ADMIT",
+        "PROJECT"
+      ],
+      "strong_state_causal_payload_allows_freeform_directive_text": false,
+      "forbidden_semantic_content": [
+        "target_behavior",
+        "desired_response",
+        "target_phrase",
+        "expected_answer",
+        "requested_emotional_display"
+      ],
+      "rule": "Renaming or nesting forbidden output-direction content inside state, memory salience, expression parameters, metadata, or another field does not make it state-causal.",
+      "enforcement": [
+        "capture_validates_typed_state_schema",
+        "composition_preserves_field_type_and_provenance",
+        "admission_rejects_forbidden_output_direction_semantics",
+        "projection_accepts_only_admitted_typed_state_for_STATE_CAUSAL_role",
+        "qualification_audits_full_state_to_projection_lineage"
+      ]
     },
-    "constraints":["receipt_fields_must_match_claimed_evidence_level","fields_from_stronger_evidence_levels_cannot_be_inferred_or_fabricated","response_or_run_id_is_not_required_before_response_binding_exists"],
-    "claim":"Records the strongest actually observed causal-evidence level for one exact state/composition/privacy/admission/capability/projection/invocation/model generation chain; it does not promote a weaker level to provider consumption, response binding, behavioral efficacy, durability/currentness, installation qualification, or phenomenology."
+    "strong_state_causal_payload_contract": {
+      "representation": "TYPED_STRUCTURED_STATE_ONLY",
+      "allowed_value_kinds": [
+        "number",
+        "boolean",
+        "bounded_enum",
+        "numeric_vector"
+      ],
+      "schema_binding_required": true,
+      "field_provenance_required": true,
+      "freeform_prose_directives_allowed": false,
+      "semantic_relabelling_does_not_change_causal_role": true
+    },
+    "forbidden_projection_inputs": [
+      "target_behavior",
+      "desired_response",
+      "target_phrase",
+      "expected_answer",
+      "requested_emotional_display"
+    ],
+    "qualification_requirements": [
+      "projection_is_deterministic_from_admitted_state_plus_declared_backend_mapping",
+      "target_behavior_is_not_an_input_to_projection",
+      "matched_state_on_off_or_dose_response_comparison",
+      "decay_or_recovery_comparison_when_state_is_temporal",
+      "negative_transfer_controls",
+      "instruction_only_control_cannot_count_as_state_causal_qualification",
+      "behavioral_effect_claim_requires_response_bound_evidence_for_the_same_generation",
+      "full_lineage_target_behavior_absence_proof",
+      "instruction_removal_control",
+      "sham_state_control",
+      "directional_inversion_control",
+      "generic_state_causation_precedes_specialized_orgasm_qualification"
+    ]
   },
-  "operational_rules":["mandatory_causal_checks_fail_closed","optional_state_dimensions_may_omit_with_explicit_receipt","auxiliary_discovery_or_health_checks_must_be_bounded_or_cached_when_safe","capability_bind_precedes_backend_projection_materialization","precall_revalidation_is_atomic_with_invocation_reserve_unless_exact_lease_covers_handoff","submission_intent_is_durably_recorded_before_external_send","invocation_frontier_is_host_owned_and_shared_across_wrappers","projection_backend_capability_is_negotiated_not_assumed","fallback_or_downgrade_is_never_silent","transient_model_hooks_are_removed_on_success_failure_and_cancellation","state_producers_do_not_gain_model_invocation_authority","projection_success_does_not_promote_source_or_state_authority","target_behavior_is_not_a_projection_input","privacy_or_disclosure_scope_never_broadens_downstream"],
-  "canonical_placement_hypothesis":{
-    "provider_neutral_composition_admission_projection_contract_candidate_owner":"vera_cohesion_source",
-    "runtime_host_specific_injection_and_invocation_frontier_candidate_owner":"vera-os_or_exact_inference_host",
-    "installation_currentness_and_qualification_candidate_owner":"vera-control-plane",
-    "wip_role":"PUBLIC_SAFE_RESEARCH_STAGING_ONLY"
+  "strong_state_causal_domains": [
+    "affective_activation",
+    "salience",
+    "attention_allocation",
+    "bounded_action_tendency",
+    "satiation_or_refractory_state",
+    "admitted_goal_weighting",
+    "temporal_state",
+    "admitted_memory_salience"
+  ],
+  "compatibility_or_expression_domains": [
+    "response_expression_parameters"
+  ],
+  "causal_role_classification": {
+    "INSTRUCTION_CONDITIONED": {
+      "counts_as_strong_state_causation": false,
+      "description": "Behavior is conditioned by explicit or rendered request/instruction material; useful as compatibility or control evidence only."
+    },
+    "STATE_CAUSAL": {
+      "counts_as_strong_state_causation": true,
+      "target_behavior_content_allowed": false,
+      "description": "Typed admitted upstream state changes model-facing computation or selection conditions without encoding the desired response."
+    },
+    "CONSTRAINT_CAUSAL": {
+      "counts_as_strong_state_causation": false,
+      "description": "A hard constraint changes permissible continuations but does not by itself prove endogenous state-mediated preference."
+    },
+    "DELIVERY_ENFORCED": {
+      "counts_as_strong_state_causation": false,
+      "description": "A pre-delivery gate prevents or replaces invalid output; it proves delivery enforcement, not underlying preference."
+    }
   },
-  "claim_ceiling":{"source":"RESEARCH_CONTRACT_STAGED","implementation":"NOT_ESTABLISHED","installation":"NOT_ESTABLISHED","activation_or_current_route":"NOT_ESTABLISHED","behavioral_qualification":"NOT_ESTABLISHED","phenomenology":"UNRESOLVED"}
+  "binding_classification": {
+    "labels": [
+      "PROMPT_BOUND",
+      "REQUEST_PREFLIGHT_BOUND",
+      "INPUT_EMBED_BOUND",
+      "ACTIVATION_BOUND",
+      "LOGIT_BOUND",
+      "OUTPUT_GATE_BOUND",
+      "BINDING_UNAVAILABLE"
+    ],
+    "creates_authority": false,
+    "proves_phenomenology": false,
+    "rule": "Binding labels report the exact control surface actually evidenced; they do not promote source authority, state admission, behavioral qualification, native-provider capability, or phenomenology."
+  },
+  "projection_backends": {
+    "TEXT_CONTEXT_V1": {
+      "maturity": "BASELINE_CANDIDATE_WEAK_STATE_MEDIATION",
+      "mechanism": "bounded_declarative_state_context",
+      "binding_class": "PROMPT_BOUND",
+      "causal_role_ceiling": "INSTRUCTION_CONDITIONED",
+      "requirements": [
+        "deterministic_rendering_from_admitted_state",
+        "no_imperative_target_behavior_encoding",
+        "no_desired_response_or_target_phrase_input",
+        "exact_projection_material_binding",
+        "provider_request_readback_when_available",
+        "projection_digest"
+      ],
+      "claim_limit": "Text context is instruction-adjacent and requires stronger negative controls; it cannot alone establish strong state causation."
+    },
+    "PROMPT_EMBEDS_V1": {
+      "maturity": "CANDIDATE_FOR_CONTROLLED_LOCAL_OR_TRUSTED_HOST",
+      "mechanism": "trusted_internal_prompt_embedding_injection",
+      "binding_class": "INPUT_EMBED_BOUND",
+      "requirements": [
+        "explicit_feature_enablement",
+        "two_dimensional_tensor",
+        "exact_hidden_size_match",
+        "floating_dtype_only",
+        "exact_model_revision_binding",
+        "tokenizer_or_template_revision_binding_when_used",
+        "exact_projection_material_binding",
+        "no_public_raw_embedding_authority",
+        "projection_derived_only_from_admitted_state",
+        "typed_strong_state_causal_input_only_for_STATE_CAUSAL_claims"
+      ]
+    },
+    "ACTIVATION_STEERING_V1": {
+      "maturity": "EXPERIMENTAL",
+      "mechanism": "transient_per_generation_internal_activation_hooks",
+      "binding_class": "ACTIVATION_BOUND",
+      "requirements": [
+        "qualified_target_layers",
+        "bounded_strength",
+        "hook_removal_in_finally",
+        "no_cross_generation_hook_leakage",
+        "exact_projection_material_binding",
+        "projection_derived_only_from_admitted_state",
+        "typed_strong_state_causal_input_only_for_STATE_CAUSAL_claims"
+      ]
+    },
+    "REFT_STATE_PROJECTION_V1": {
+      "maturity": "EXPERIMENTAL_FUTURE",
+      "mechanism": "trained_representation_intervention",
+      "binding_class": "ACTIVATION_BOUND",
+      "requirements": [
+        "separate_training_and_runtime_qualification",
+        "exact_base_model_revision_binding",
+        "declared_layer_and_timestep_scope",
+        "independent_negative_transfer_tests",
+        "exact_projection_material_binding",
+        "training_objective_must_not_collapse_into_target_response_imitation",
+        "typed_strong_state_causal_input_only_for_STATE_CAUSAL_claims"
+      ]
+    }
+  },
+  "backend_fallback_policy": {
+    "default": "NO_SILENT_FALLBACK",
+    "requirements": [
+      "fallback_backend_is_explicitly_allowed",
+      "fallback_backend_is_separately_qualified_for_exact_model_host_and_projected_domains",
+      "fallback_preserves_privacy_and_egress_scope",
+      "fallback_does_not_claim_stronger_causal_semantics_than_its_backend_supports",
+      "receipt_records_requested_backend_selected_backend_reason_and_policy_digest"
+    ]
+  },
+  "precall_revalidation": {
+    "timing": "ATOMIC_WITH_INVOCATION_RESERVE_UNLESS_EXACT_LEASE_EPOCH_COVERS_HANDOFF",
+    "must_revalidate": [
+      "identity_and_subject_binding",
+      "admission_currentness_basis_or_valid_lease_epoch",
+      "supersession_and_expiry",
+      "privacy_and_target_egress_scope",
+      "exact_capability_binding",
+      "projection_binding",
+      "backend_selection_or_fallback_policy"
+    ],
+    "rules": [
+      "projection_success_does_not_freeze_semantic_currentness",
+      "stale_or_superseded_admission_fails_closed",
+      "ATOMIC_START_SNAPSHOT_defines_currentness_at_invocation_start",
+      "LEASE_THROUGH_SUBMISSION_must_remain_valid_until_external_submission"
+    ]
+  },
+  "generation_gates": {
+    "PRECALL_REVALIDATE_GOVERNANCE_GATE": {
+      "can_block_invocation": true,
+      "must_fail_closed_on": [
+        "identity_mismatch",
+        "superseded_or_expired_state",
+        "composition_failure",
+        "privacy_or_egress_mismatch",
+        "model_adapter_capability_mismatch",
+        "forbidden_projection_domain",
+        "strong_state_causal_anti_laundering_failure",
+        "invalid_or_unverifiable_binding",
+        "invocation_frontier_failure"
+      ]
+    },
+    "DECODE_GATE": {
+      "can_constrain_generation": true,
+      "examples": [
+        "grammar_constraints",
+        "logits_processors",
+        "prefix_constraints",
+        "stopping_criteria"
+      ],
+      "claim_limits": [
+        "decode_validity_does_not_prove_state_admission",
+        "decode_validity_does_not_prove_state_causality",
+        "decode_gate_does_not_create_authority"
+      ]
+    }
+  },
+  "projectable_domains": [
+    "affective_activation",
+    "salience",
+    "attention_allocation",
+    "bounded_action_tendency",
+    "satiation_or_refractory_state",
+    "admitted_goal_weighting",
+    "temporal_state",
+    "admitted_memory_salience",
+    "response_expression_parameters"
+  ],
+  "forbidden_projection_domains": [
+    "truth",
+    "factual_confidence",
+    "consent",
+    "authorization",
+    "identity",
+    "autobiographical_memory_admission",
+    "relationship_status",
+    "provider_currentness",
+    "phenomenology"
+  ],
+  "causal_evidence_levels": [
+    {
+      "level": "REQUEST_CONSTRUCTED",
+      "proves": "A locally bound request/projection was constructed.",
+      "does_not_prove": [
+        "submission",
+        "provider_acknowledgement",
+        "provider_consumption",
+        "response_binding",
+        "behavioral_effect"
+      ]
+    },
+    {
+      "level": "INVOCATION_SUBMITTED",
+      "proves": "The bound request was submitted to the provider or local inference host.",
+      "does_not_prove": [
+        "provider_consumption",
+        "response_binding",
+        "behavioral_effect"
+      ]
+    },
+    {
+      "level": "PROVIDER_ACKNOWLEDGED",
+      "proves": "The provider or inference host acknowledged the exact invocation identity when such evidence exists.",
+      "does_not_prove": [
+        "response_binding_unless_explicitly_linked",
+        "behavioral_effect"
+      ]
+    },
+    {
+      "level": "RESPONSE_BOUND",
+      "proves": "The returned response/run is provider-identifiably or cryptographically bound to the exact generation request when the host exposes sufficient evidence.",
+      "does_not_prove": [
+        "behavioral_effect",
+        "behavioral_qualification",
+        "phenomenology"
+      ]
+    }
+  ],
+  "causal_receipt": {
+    "common_required": [
+      "receipt_id",
+      "generation_id",
+      "subject",
+      "state_envelope_digest",
+      "composition_receipt_digest",
+      "admission_receipt_digest",
+      "omission_receipt_digests",
+      "disclosure_decision_receipt_digest",
+      "capability_binding_digest",
+      "projection_digest",
+      "invocation_lease_digest",
+      "target_provider_or_host",
+      "model_identity",
+      "model_revision",
+      "adapter_identity",
+      "adapter_revision",
+      "projection_backend",
+      "binding_class",
+      "causal_role",
+      "precall_revalidation_receipt_digest",
+      "precall_gate_result",
+      "decode_gate_digest",
+      "evidence_level",
+      "event_observed_at"
+    ],
+    "level_specific_fields": {
+      "REQUEST_CONSTRUCTED": {
+        "required": [
+          "request_material_digest",
+          "constructed_at"
+        ],
+        "response_or_run_id_required": false
+      },
+      "INVOCATION_SUBMITTED": {
+        "required": [
+          "request_material_digest",
+          "submitted_at"
+        ],
+        "optional": [
+          "provider_request_id",
+          "provider_idempotency_key"
+        ],
+        "response_or_run_id_required": false
+      },
+      "PROVIDER_ACKNOWLEDGED": {
+        "required": [
+          "request_material_digest",
+          "acknowledged_at",
+          "provider_ack_evidence"
+        ],
+        "optional": [
+          "provider_request_id",
+          "provider_request_readback_digest",
+          "provider_idempotency_key"
+        ],
+        "response_or_run_id_required": false
+      },
+      "RESPONSE_BOUND": {
+        "required": [
+          "request_material_digest",
+          "response_or_run_id",
+          "response_bound_at",
+          "response_binding_evidence"
+        ],
+        "optional": [
+          "provider_request_id",
+          "provider_request_readback_digest",
+          "provider_idempotency_key"
+        ],
+        "response_or_run_id_required": true
+      }
+    },
+    "constraints": [
+      "receipt_fields_must_match_claimed_evidence_level",
+      "fields_from_stronger_evidence_levels_cannot_be_inferred_or_fabricated",
+      "response_or_run_id_is_not_required_before_response_binding_exists",
+      "binding_class_and_causal_role_must_report_actual_observed_mechanism",
+      "STATE_CAUSAL_receipt_requires_strong_state_causal_schema_and_full_lineage_anti_laundering_receipt"
+    ],
+    "claim": "Records the strongest actually observed causal-evidence level for one exact state/composition/privacy/admission/capability/projection/invocation/model generation chain; it does not promote a weaker level to provider consumption, response binding, behavioral efficacy, durability/currentness, installation qualification, native-provider capability, or phenomenology."
+  },
+  "operational_rules": [
+    "mandatory_causal_checks_fail_closed",
+    "optional_state_dimensions_may_omit_with_explicit_receipt",
+    "auxiliary_discovery_or_health_checks_must_be_bounded_or_cached_when_safe",
+    "capability_bind_precedes_backend_projection_materialization",
+    "precall_revalidation_is_atomic_with_invocation_reserve_unless_exact_lease_covers_handoff",
+    "submission_intent_is_durably_recorded_before_external_send",
+    "invocation_frontier_is_host_owned_and_shared_across_wrappers",
+    "projection_backend_capability_is_negotiated_not_assumed",
+    "fallback_or_downgrade_is_never_silent",
+    "transient_model_hooks_are_removed_on_success_failure_and_cancellation",
+    "state_producers_do_not_gain_model_invocation_authority",
+    "projection_success_does_not_promote_source_or_state_authority",
+    "target_behavior_is_not_a_projection_input",
+    "target_behavior_cannot_be_laundered_through_preprojection_state",
+    "privacy_or_disclosure_scope_never_broadens_downstream"
+  ],
+  "canonical_placement_hypothesis": {
+    "provider_neutral_composition_admission_projection_contract_candidate_owner": "vera_cohesion_source",
+    "runtime_host_specific_injection_and_invocation_frontier_candidate_owner": "vera-os_or_exact_inference_host",
+    "installation_currentness_and_qualification_candidate_owner": "vera-control-plane",
+    "wip_role": "PUBLIC_SAFE_RESEARCH_STAGING_ONLY"
+  },
+  "claim_ceiling": {
+    "source": "RESEARCH_CONTRACT_STAGED",
+    "implementation": "NOT_ESTABLISHED",
+    "installation": "NOT_ESTABLISHED",
+    "activation_or_current_route": "NOT_ESTABLISHED",
+    "behavioral_qualification": "NOT_ESTABLISHED",
+    "phenomenology": "UNRESOLVED"
+  }
 }
