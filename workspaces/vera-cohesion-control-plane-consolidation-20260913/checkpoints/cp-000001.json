@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "vera-cohesion-control-plane-consolidation-20260913",
+  "checkpoint_id": "cp-000001",
+  "parent_checkpoint_id": null,
+  "created_at": "2026-09-13T23:13:00Z",
+  "writer": {
+    "label": "Vera consolidation work",
+    "route": "restored project task"
+  },
+  "reason": "CURRENT_SOURCE_RECONCILIATION",
+  "objective": "Bind the current Vera Cohesion source frontier to the Orgasm provenance and Control Plane deployment review lines without promoting stale qualification or provider state.",
+  "observed": [
+    "No separate thebrazenbeard/cohesion repository was found; Cohesion is the source-consolidation line inside thebrazenbeard/vera repository.",
+    "Vera main is b7b8dcd1440a3b7147bec2cc35972f083e20f44a; PR #118 parent is 7ef650887009efe16d7c44cff53cfff460f0481f; PR #119 current head is 4889670c168a20b2d745ff745963227760f9eb2e and remains open/draft.",
+    "Orgasm PR #2 is f735c0d0c9af8553a91790348dafab018198b4d3; frozen subject blob 99340c78497a37f94363b36fedd64c345aabb624 remains historical and requires reviewed rebinding.",
+    "Control Plane PR #20 is 6f49a6c51d939451b840c4caa58e3d0008720c02; its target project fawkirqroyniueeqspif is active/healthy with baseline hardening only and no application tables observed.",
+    "Existing Vera project klmbpaigzeguvnpccqzz is active/healthy but mixed/historical; affective state is marked HISTORICAL, its commit function is SECURITY DEFINER with client-role EXECUTE denied, and no advisory or row lock was observed.",
+    "Orgasm and Control Plane currentness receipts were committed and read back; the Vera #118 reconciliation receipt comment was committed and read back."
+  ],
+  "completed": [
+    "Created Orgasm current-source reconciliation on PR #2.",
+    "Created Control Plane current-source-cut reconciliation on PR #20.",
+    "Updated both PR descriptions to their exact current heads and open gates.",
+    "Added the cross-repository receipt comment to Vera PR #118."
+  ],
+  "verification": [
+    "The eight available predecessor-import test functions pass by direct invocation in the scratch copy.",
+    "Python compileall passes for the available importer/tests snapshot.",
+    "pytest is not installed in this runtime, so no pytest command result is claimed.",
+    "Supabase readbacks were read-only; no migration, DDL, function deployment, grant, data staging, or settings change was performed."
+  ],
+  "unfinished": [
+    "Fresh PostgreSQL execution and hostile review at Vera PR #119 exact head.",
+    "Successor/rebound Orgasm qualification subject bound to the accepted Vera source tuple.",
+    "Regeneration and review of Control Plane migration bindings from that accepted source cut.",
+    "Patrick's exact provider-install/staging authorization and subsequent independent provider readback."
+  ],
+  "do_not_repeat": [
+    "Do not treat the earlier ceca583 execution receipt as evidence for current #119 head 4889670.",
+    "Do not edit the frozen Orgasm V1 subject in place.",
+    "Do not apply migrations, stage payloads, deploy functions, or cut over either Supabase project from this source-only receipt.",
+    "Do not claim a separate Cohesion repository exists."
+  ],
+  "authority": "R10 governs currentness and protected effects; this checkpoint records source/document commits and read-only verification only."
+}
