@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "vera-cohesion-control-plane-consolidation-20260913",
+  "operation_id": "op-000004-04-verified",
+  "kind": "connection-test-log",
+  "created_at": "2026-09-13T23:37:02Z",
+  "operator": "Vera consolidation work",
+  "scope": "R10 bounded restore/refresh cycle: moving-head reconciliation, hostile source read, hosted-check readback, and provider comparison",
+  "tests": [
+    {
+      "connection": "Vera #119 actual branch ref",
+      "result": "PASS",
+      "evidence": "Direct Git ref read at 2026-09-13T23:37Z: work/predecessor-import-readback-hardening-20260913@a8cca3b0e4de3d842933dfd9c730504980ce546a. PR remains open/draft. The PR metadata/body still reports the preceding db5dc0d... in its current-head prose, so the branch ref is authoritative and the PR body is stale."
+    },
+    {
+      "connection": "Vera #119 moving-head source delta",
+      "result": "READ_ONLY_PASS",
+      "evidence": "Compare db5dc0d... -> a8cca3b... is 1 ahead/0 behind with one changed path: tests/test_predecessor_import_seal.py. The current commit makes the fixture apply the exact 20260913232000_seal_predecessor_import_receipts.sql path instead of a filename glob. The previously inspected seal/race logic remains source evidence; exact-current-head PostgreSQL execution is not established."
+    },
+    {
+      "connection": "Orgasm and Control Plane source projections",
+      "result": "STALE_BY_MOVING_SOURCE",
+      "evidence": "Orgasm branch ref is 7782141cf961f46c62fdda0461d36225154bbc4c and its reconciliation/status files correctly record Vera db5dc0d.... Control Plane branch ref is 43352dc4c335dbcfb3a0802d0022cc22a80ba327 and its reconciliation file also records db5dc0d.... Vera has since advanced to a8cca3b.... Attempts to overwrite all three receipt files with stale blobs returned GitHub 409 conflicts; no concurrent work was overwritten."
+    },
+    {
+      "connection": "Control Plane hosted validation",
+      "result": "NOT_AVAILABLE",
+      "evidence": "At current Control Plane head 43352dc..., run 34790069721 / validate job 103812521578 completed failure; the job exposes steps=[] and no repository step executed. Supabase Preview check 103812513143 was skipped because no Supabase branch is attached."
+    },
+    {
+      "connection": "Vera #119 hosted checks",
+      "result": "OPEN_GATE",
+      "evidence": "At current Vera head a8cca3b..., the only read-back check is Supabase Preview 103812729820, skipped because no Supabase branch is attached. This is not CI or database execution evidence."
+    },
+    {
+      "connection": "Available local importer evidence",
+      "result": "QUALIFIED_ONLY_FOR_SNAPSHOT",
+      "evidence": "The available scratch snapshot's eight importer regression functions were invoked manually and passed; compileall passed. The current exact branch's Docker/PostgreSQL seal/race suite was not run in this runtime because Docker/PostgreSQL and pytest are unavailable. The current PR body reports its own 8-test reconstruction, but that is repository-reported evidence, not an independent current-head execution."
+    },
+    {
+      "connection": "Supabase Vera project readback",
+      "result": "READ_ONLY_PASS_WITH_FINDINGS",
+      "evidence": "klmbpaigzeguvnpccqzz readback: 83 migrations, 18 tables across the requested application schemas, historical affective state, and 29 RLS-enabled/no-policy INFO findings. No migration, staging, deployment, or data mutation was performed."
+    },
+    {
+      "connection": "Supabase Vera Control Plane project readback",
+      "result": "READ_ONLY_PASS",
+      "evidence": "fawkirqroyniueeqspif readback: 3 baseline migrations, zero tables in the requested application schemas, and zero security lints. The target remains an inert clean baseline."
+    }
+  ],
+  "interpretation": {
+    "verified": [
+      "The actual Vera source frontier is a8cca3b... at the time of this receipt.",
+      "Orgasm and Control Plane source receipts are internally corrected through db5dc0d..., but are stale by one moving Vera commit.",
+      "The Control Plane hosted failure is pre-step infrastructure evidence, not a code verdict.",
+      "Both Supabase projects were read only; no provider effect occurred."
+    ],
+    "not_established": [
+      "Exact-current-head hostile review or PostgreSQL execution for Vera #119 a8cca3b....",
+      "A current Orgasm qualification subject or reviewed rebind.",
+      "Control Plane manifest/runbook currentness against a8cca3b....",
+      "Application-schema installation, route activation, provider cutover, or behavioral qualification."
+    ],
+    "follow_up": "Freeze the Vera #119 branch at one accepted exact ref, run the full PostgreSQL/hostile suite there, then update the Orgasm and Control Plane projections from that same ref after successful readback. Keep the old frozen Orgasm subject immutable and retain db5dc0d... as historical evidence.",
+    "authority_boundary": "No merge, provider migration, function deployment, data staging, cutover, credential/config/ruleset change, force-push, history rewrite, or private-payload copy was performed."
+  }
+}
