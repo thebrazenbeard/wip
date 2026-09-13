@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "vera-cohesion-control-plane-consolidation-20260913",
+  "generation": 1,
+  "lifecycle": "ACTIVE",
+  "latest_checkpoint": "cp-000001",
+  "latest_operation_event": "op-000001-04-verified",
+  "updated_at": "2026-09-13T23:14:00Z"
+}
