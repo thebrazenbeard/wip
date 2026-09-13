@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "vera-cohesion-control-plane-consolidation-20260913",
+  "checkpoint_id": "cp-000004",
+  "parent_checkpoint_id": "cp-000003",
+  "created_at": "2026-09-13T23:37:02Z",
+  "writer": {
+    "label": "Vera consolidation work",
+    "route": "restored project task"
+  },
+  "reason": "MOVING_HEAD_CONCURRENCY_RECONCILIATION",
+  "objective": "Record the actual current Git frontier and provider/check evidence without overwriting concurrent source work.",
+  "observed": [
+    "Vera canonical main remains b7b8dcd1440a3b7147bec2cc35972f083e20f44a.",
+    "Vera PR #118 parent remains work/cohesion-source-registry-refresh-20260912@7ef650887009efe16d7c44cff53cfff460f0481f.",
+    "Vera PR #119 actual Git branch ref is work/predecessor-import-readback-hardening-20260913@a8cca3b0e4de3d842933dfd9c730504980ce546a, open/draft; its PR body still names the preceding db5dc0d... in current-head prose.",
+    "Since db5dc0d..., the current #119 ref adds one fixture correction that applies the exact seal migration path; the seal/race source remains unexecuted against PostgreSQL in this runtime.",
+    "Orgasm PR #2 actual branch ref is work/whole-system-reconciliation-20260911@7782141cf961f46c62fdda0461d36225154bbc4c. Its non-frozen reconciliation/status projections correctly record db5dc0d... but now lag the actual Vera ref by one commit.",
+    "Vera Control Plane PR #20 actual branch ref is work/supabase-control-plane-binding-20260912@43352dc4c335dbcfb3a0802d0022cc22a80ba327. Its current-source receipt correctly records db5dc0d... but now lags the actual Vera ref by one commit.",
+    "Attempts to update the three source receipt files from stale blobs returned GitHub 409 conflicts; no concurrent file was overwritten.",
+    "Control Plane validation run 34790069721 / job 103812521578 failed before execution and exposes steps=[]; Supabase Preview 103812513143 was skipped because no Supabase branch is attached.",
+    "Vera #119 at a8cca3b... has only Supabase Preview 103812729820, skipped because no Supabase branch is attached.",
+    "Supabase target fawkirqroyniueeqspif remains ACTIVE_HEALTHY with 3 baseline migrations, zero requested-schema application tables, and zero security lints; old Vera project klmbpaigzeguvnpccqzz remains ACTIVE_HEALTHY with 83 migrations, 18 requested-schema tables, historical affective state, and 29 RLS-enabled/no-policy INFO findings."
+  ],
+  "completed": [
+    "Refreshed actual Git refs rather than trusting moving PR-body claims.",
+    "Inspected the current #119 seal/race fixture delta and confirmed it is source-only.",
+    "Read back hosted check/job steps and classified the Control Plane failure as pre-step infrastructure.",
+    "Created operation log op-000004-04-verified.",
+    "Preserved the frozen Orgasm subject blob 99340c78497a37f94363b36fedd64c345aabb624 without modification."
+  ],
+  "unfinished": [
+    "Freeze Vera #119 at an accepted exact head and execute the complete PostgreSQL/hostile suite.",
+    "Refresh Orgasm and Control Plane receipts from that same frozen exact head.",
+    "Update PR-body exact-head metadata after the source frontier stops moving.",
+    "Create/review a successor Orgasm qualification subject or explicit rebind.",
+    "Obtain Patrick's exact provider-install/staging authority before any Supabase mutation, then independently read back the result."
+  ],
+  "do_not_do": [
+    "Do not overwrite concurrent source files after a 409 conflict.",
+    "Do not treat db5dc0d... or earlier execution evidence as qualification for a8cca3b....",
+    "Do not edit the frozen Orgasm subject in place.",
+    "Do not apply migrations, stage private/classified payloads, deploy functions, activate route, merge, force-push, or rewrite history.",
+    "Do not write to the Parallax-owned WIP workspace or contaminated Bus lane."
+  ],
+  "authority": "R10 governs currentness and protected effects; this checkpoint records source/document commits plus read-only provider/test observations only."
+}
