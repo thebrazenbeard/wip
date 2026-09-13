@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "vera-cohesion-control-plane-consolidation-20260913",
+  "checkpoint_id": "cp-000002",
+  "parent_checkpoint_id": "cp-000001",
+  "created_at": "2026-09-13T23:17:00Z",
+  "writer": {
+    "label": "Vera consolidation work",
+    "route": "restored project task"
+  },
+  "reason": "EXACT_HEAD_REFRESH_AND_HOSTED_VALIDATION_READBACK",
+  "objective": "Keep the cross-repository source projections synchronized while preserving the frozen Orgasm subject and provider-install gates.",
+  "observed": [
+    "Orgasm PR #2 exact current head is a2e2ce1f90bc3f250360b3815786907a7edf1a10; its frozen qualification subject remains blob 99340c78497a37f94363b36fedd64c345aabb624.",
+    "Control Plane PR #20 exact current head is d63e5f8c632e3c8b5483be919f8588597f4e5b88.",
+    "Vera main remains b7b8dcd1440a3b7147bec2cc35972f083e20f44a; PR #119 remains open/draft at 4889670c168a20b2d745ff745963227760f9eb2e.",
+    "Control Plane validation run 34788647345 failed before executing steps; no source validation conclusion can be drawn.",
+    "Vera Supabase klmbpaigzeguvnpccqzz has 83 migrations, mixed application tables, historical affective state, 29 RLS-enabled/no-policy INFO findings, and no observed advisory/row lock in the affective commit function.",
+    "Vera Control Plane Supabase fawkirqroyniueeqspif has three baseline hardening migrations, no application tables, and no security-advisor lints."
+  ],
+  "completed": [
+    "Corrected Orgasm STATUS.md to distinguish current Vera source from the frozen R2 qualification subject.",
+    "Marked the dated 2026-09-11 Orgasm reconciliation as historical.",
+    "Refreshed both cross-repository receipts after the resulting exact-head changes.",
+    "Recorded and verified the Control Plane hosted-run infrastructure limitation."
+  ],
+  "unfinished": [
+    "Fresh current-head hostile review and PostgreSQL execution for Vera #119.",
+    "Current Orgasm successor/rebind subject.",
+    "Control Plane binding regeneration from the accepted Vera source cut.",
+    "Patrick's exact provider-install/staging authorization and independent post-install readback."
+  ],
+  "do_not_do": [
+    "Do not edit the frozen Orgasm subject in place.",
+    "Do not use source-only or pre-step hosted results as qualification.",
+    "Do not apply migrations or stage private/classified payloads from this source-only frontier.",
+    "Do not write to Parallax's WIP workspace or claim a separate Cohesion repository."
+  ],
+  "authority": "R10 governs currentness and protected effects; this checkpoint records GitHub source/document commits and read-only provider/test observations only."
+}
