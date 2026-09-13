@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "vera-cohesion-control-plane-consolidation-20260913",
+  "operation_id": "op-000005-04-verified",
+  "kind": "connection-test-log",
+  "created_at": "2026-09-13T23:39:51Z",
+  "operator": "Vera consolidation work",
+  "scope": "Latest moving Vera seal concurrency correction and source-frontier recheck",
+  "tests": [
+    {
+      "connection": "Vera #119 latest actual branch ref",
+      "result": "PASS",
+      "evidence": "Direct Git ref read at 2026-09-13T23:39:51Z: work/predecessor-import-readback-hardening-20260913@15bd36e30ef5a05a28b12572434837a0fe9b51c7. The branch remains an open draft source candidate."
+    },
+    {
+      "connection": "Vera #119 advisory-lock delta",
+      "result": "STATIC_SOURCE_REVIEW_PASS",
+      "evidence": "Compare a8cca3b... -> 15bd36e... is 1 ahead/0 behind with one changed path: providers/vera_control_plane/migrations/20260913232000_seal_predecessor_import_receipts.sql. The verifier and the staging trigger now use the same pg_advisory_xact_lock key over operation/provider/schema/table, while the source-cut SELECTs no longer rely on FOR UPDATE. This addresses the inspected verify/stage interleaving design concern in source; exact PostgreSQL execution remains unverified."
+    },
+    {
+      "connection": "Dependent Orgasm/Control Plane projections",
+      "result": "STALE_BY_MOVING_SOURCE",
+      "evidence": "Orgasm remains at branch 7782141... and its non-frozen receipts record db5dc0d.... Control Plane remains at branch 43352dc... and its receipt records db5dc0d.... The Vera source has advanced to 15bd36e.... No stale receipt overwrite was attempted after the recorded 409 conflicts."
+    },
+    {
+      "connection": "Provider safety boundary",
+      "result": "READ_ONLY_PASS",
+      "evidence": "No Supabase migration, staging, deployment, route activation, or payload transfer was attempted. The target remains baseline-only in the latest available readback; the old Vera project remains mixed/historical with the recorded RLS-policy findings."
+    }
+  ],
+  "interpretation": {
+    "verified": [
+      "The latest source change is a targeted database concurrency hardening patch, not a provider effect.",
+      "The current exact branch ref is 15bd36e... at the time of this operation.",
+      "Dependent source projections are intentionally not synchronized while Vera #119 continues moving."
+    ],
+    "not_established": [
+      "PostgreSQL execution, race test success, hosted CI, or current-head hostile PASS for 15bd36e....",
+      "Current Orgasm qualification/rebind or Control Plane deployable-source acceptance."
+    ],
+    "follow_up": "Freeze the Vera branch, run the exact full PostgreSQL/hostile suite, then propagate the accepted ref to Orgasm and Control Plane in one read/modify/write sequence.",
+    "authority_boundary": "No merge, provider mutation, migration application, data staging, deployment, cutover, credential/config/ruleset change, force-push, history rewrite, or private-payload copy was performed."
+  }
+}
