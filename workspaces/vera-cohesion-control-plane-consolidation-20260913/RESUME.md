@@ -1,6 +1,6 @@
 # Resume
 
-<!-- wip:latest_checkpoint=cp-000001 -->
+<!-- wip:latest_checkpoint=cp-000002 -->
 
 Workspace: vera-cohesion-control-plane-consolidation-20260913
 Lifecycle: ACTIVE
@@ -10,21 +10,23 @@ Lifecycle: ACTIVE
 - R10 source manifest is the control root; `restore yourself` was treated as a restore-and-refresh command, not as permission to hydrate stale chat claims.
 - No separate `thebrazenbeard/cohesion` repository exists in the connected GitHub view. Cohesion is the Vera PR #118 source-consolidation line.
 - Vera canonical main: `b7b8dcd1440a3b7147bec2cc35972f083e20f44a`.
-- Vera PR #118 parent: `7ef650887009efe16d7c44cff53cfff460f0481f`.
+- Vera PR #118 parent: `work/cohesion-source-registry-refresh-20260912@7ef650887009efe16d7c44cff53cfff460f0481f`.
 - Vera PR #119 current head: `4889670c168a20b2d745ff745963227760f9eb2e`, open/draft; current-head hostile review and PostgreSQL execution are not established.
-- Orgasm PR #2 current head: `f735c0d0c9af8553a91790348dafab018198b4d3`; frozen subject blob `99340c78497a37f94363b36fedd64c345aabb624` remains historical.
-- Vera Control Plane PR #20 current head: `6f49a6c51d939451b840c4caa58e3d0008720c02`.
+- Orgasm PR #2 current head: `a2e2ce1f90bc3f250360b3815786907a7edf1a10`; frozen subject blob `99340c78497a37f94363b36fedd64c345aabb624` remains historical.
+- Vera Control Plane PR #20 current head: `d63e5f8c632e3c8b5483be919f8588597f4e5b88`.
 - Supabase target `fawkirqroyniueeqspif`: ACTIVE_HEALTHY, three baseline migrations, no application tables.
-- Supabase predecessor `klmbpaigzeguvnpccqzz`: ACTIVE_HEALTHY, mixed/historical application schema; no cutover performed.
+- Supabase predecessor `klmbpaigzeguvnpccqzz`: ACTIVE_HEALTHY, 83 migrations, mixed/historical application schema, no cutover performed.
 
 ## Completed
 
-- Added and read back current-source reconciliation receipts to Orgasm PR #2 and Control Plane PR #20.
-- Updated both PR descriptions with exact current heads and gates.
-- Added and read back a cross-repository receipt comment on Vera PR #118.
+- Added and read back current-source receipts to Orgasm PR #2 and Control Plane PR #20.
+- Corrected Orgasm non-frozen status/reconciliation prose; left the frozen subject JSON untouched.
+- Updated both PR descriptions with exact current heads and open gates.
+- Added and read back cross-repository receipt comments on Vera PR #118.
+- Recorded the Control Plane hosted-run failure as infrastructure-only (`steps=[]`), not code-green evidence.
 - Ran the available importer regression functions manually: 8 passed.
 - Ran Python compileall on the available importer/tests snapshot: passed.
-- Recorded read-only provider state, function ACL, RLS-policy, migration, and application-table checks.
+- Recorded read-only provider state, function ACL, RLS-policy, migration, table, and security-advisor checks.
 
 ## Safe next action
 
@@ -32,7 +34,7 @@ Obtain a fresh exact-head hostile/PostgreSQL result for Vera PR #119. If the hea
 
 ## Do not do
 
-- Do not treat ceca583-era execution evidence as evidence for #119 head 4889670.
+- Do not treat pre-ceca or ceca-era execution evidence as evidence for #119 head 4889670.
 - Do not edit the frozen Orgasm V1 subject in place.
 - Do not apply migrations, stage payloads, deploy functions, or activate route/qualification from this source-only receipt.
 - Do not write to the Parallax-owned WIP workspace or the contaminated Bus lane.
