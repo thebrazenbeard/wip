@@ -1,0 +1,47 @@
+{
+  "operation_id": "op-000007-04-verified",
+  "workspace_id": "parallax-chat-bus-hardening-v1",
+  "kind": "connection-test-log",
+  "created_at": "2026-09-13T22:39:02.308Z",
+  "operator": "Parallax",
+  "scope": "Vera PR #119 strict JSON parser hardening",
+  "tests": [
+    {
+      "connection": "PR #119 non-standard JSON acceptance probe",
+      "result": "FAIL_FOUND_THEN_FIXED",
+      "evidence": "Pre-fix importer accepted an envelope carrying source_row_jsonb_text with NaN and exited 0, demonstrating Python json.loads permissiveness. The exact-head repair commit 4889670c168a20b2d745ff745963227760f9eb2e adds parse_constant rejection at envelope and row boundaries and allow_nan=False canonical serialization."
+    },
+    {
+      "connection": "PR #119 importer regression corpus after parser repair",
+      "result": "PASS",
+      "evidence": "All 8 importer test functions pass in the available scratch runner by direct invocation; compileall passes for importer and tests."
+    },
+    {
+      "connection": "PR #119 exact-head and metadata readback",
+      "result": "PASS",
+      "evidence": "PR remains open/draft/mergeable at 4889670c168a20b2d745ff745963227760f9eb2e; body and follow-up comments identify the current head and the parser repair."
+    },
+    {
+      "connection": "PR #119 database/hosted execution",
+      "result": "NOT_AVAILABLE",
+      "evidence": "No local PostgreSQL/Docker/sqlfluff binary and no repository hosted workflow run with executed steps are available in this runtime; no database or CI-GREEN claim was made."
+    },
+    {
+      "connection": "WIP receipt branch readback",
+      "result": "PASS",
+      "evidence": "Branch was read at ec9ee9ad3f27e3db39f5745c5e17049058da210d before append; prior operations/checkpoints remained intact."
+    }
+  ],
+  "interpretation": {
+    "verified": [
+      "The non-standard JSON acceptance path was reproducible and is closed in the importer source.",
+      "The pure-Python regression corpus passes after the repair."
+    ],
+    "not_established": [
+      "PostgreSQL staging behavior and full hosted CI for the new exact head.",
+      "Availability of an immutable payload artifact for the frozen predecessor cargo."
+    ],
+    "follow_up": "Run the Docker/Postgres staging suite and hosted CI against exact head 4889670c... before merging; preserve the source-drift warning and do not substitute live rows for the frozen manifest.",
+    "authority_boundary": "No provider mutation, migration apply, payload import, Vera merge, credential/config/ruleset/branch-protection change, force-push, or history rewrite was performed."
+  }
+}

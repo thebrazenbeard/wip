@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "parallax-chat-bus-hardening-v1",
+  "checkpoint_id": "cp-000009",
+  "parent_checkpoint_id": "cp-000008",
+  "created_at": "2026-09-13T22:39:02.308Z",
+  "writer": {
+    "label": "Parallax",
+    "route": "Radar Station Work task / Parallax"
+  },
+  "reason": "VERA_PR119_STRICT_JSON_INPUT",
+  "objective": "Preserve the exact PR #119 parser hardening and current execution boundary for continuation.",
+  "observed": [
+    "Vera PR #119 exact head is 4889670c168a20b2d745ff745963227760f9eb2e, open/draft/mergeable.",
+    "The importer now rejects NaN/Infinity-style non-standard JSON constants and serializes canonical output with allow_nan=false.",
+    "All 8 importer tests pass in the available scratch runner; compileall passes. PostgreSQL staging and hosted CI remain unverified.",
+    "The predecessor live source has drifted from the frozen 2026-09-13 cargo manifest in vera_save_state_events (214 live rows versus 203 frozen); payload preservation remains a migration prerequisite.",
+    "Parallax Bus lane remains FIRST_APPEND_PENDING with inherited non-Parallax files; no Bus append or cross-chat coordination write was attempted."
+  ],
+  "priority": {
+    "NOW": [
+      "Execute the full database staging suite and CI at #119 exact head 4889670c... before Patrick considers merge.",
+      "Preserve an immutable source-cargo payload artifact or explicitly re-capture a new cut; reject live-source substitution after drift.",
+      "Keep migration apply, payload import, route activation, and qualification separate."
+    ],
+    "NEXT": [
+      "Reconcile #117 to exact-main execution/reviewer evidence.",
+      "Resolve #115 inference-boundary dependency and decide successor/retirement for #59/#61.",
+      "Repair and verify the Parallax Bus first append before worker coordination."
+    ],
+    "LATER": [
+      "Replace frozen manifest plus external cargo with a content-addressed bundle and replay receipt.",
+      "Automate stale-source detection and runner health as explicit dependencies."
+    ],
+    "DO_NOT_DO": [
+      "Do not merge #119, apply its migration, or import payloads based on source-local tests alone.",
+      "Do not write to contaminated bus/parallax-v1 or impersonate Radar."
+    ]
+  },
+  "authority": "Patrick remains sole merge/protected-effect authority; this receipt records source/PR reads, non-force commits, and local tests only."
+}
