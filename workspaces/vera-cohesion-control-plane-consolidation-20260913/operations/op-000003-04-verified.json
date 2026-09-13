@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "vera-cohesion-control-plane-consolidation-20260913",
+  "operation_id": "op-000003-04-verified",
+  "kind": "connection-test-log",
+  "created_at": "2026-09-13T23:22:00Z",
+  "operator": "Vera consolidation work",
+  "scope": "Final exact-head reconciliation and hosted-check readback",
+  "tests": [
+    {
+      "connection": "Orgasm PR #2 final exact-head readback",
+      "result": "PASS",
+      "evidence": "PR #2 reads open/draft at 8755c481c2518ff353c579b65feef47437ad189d. Its frozen qualification subject remains blob 99340c78497a37f94363b36fedd64c345aabb624; no subject JSON edit was made."
+    },
+    {
+      "connection": "Control Plane PR #20 final exact-head readback",
+      "result": "PASS",
+      "evidence": "PR #20 reads open/draft at a39276fc303c5db2aad600b7dbdb93d8b4244b65. Its current-source receipt no longer embeds a self-referential prior PR head."
+    },
+    {
+      "connection": "Control Plane hosted validation at final head",
+      "result": "NOT_AVAILABLE",
+      "evidence": "Run 34789425461 validate job 103810775487 completed failure with steps=[]; no repository validation step executed. Supabase Preview 103810826533 was skipped because no Supabase branch is attached."
+    },
+    {
+      "connection": "Vera #119 hosted status",
+      "result": "OPEN_GATE",
+      "evidence": "Exact head 4889670c168a20b2d745ff745963227760f9eb2e has only a skipped Supabase Preview check in the current readback; hostile current-head PASS and PostgreSQL execution remain unestablished."
+    },
+    {
+      "connection": "Supabase final comparison",
+      "result": "READ_ONLY_PASS",
+      "evidence": "klmbpaigzeguvnpccqzz has 83 migrations, 18 tables in the requested application schemas, historical affective rows, and 29 RLS-enabled/no-policy INFO findings. fawkirqroyniueeqspif has 3 baseline migrations, zero tables in the requested application schemas, and zero security lints."
+    }
+  ],
+  "interpretation": {
+    "verified": [
+      "Orgasm and Control Plane documentation projections are aligned with the current Vera source frontier.",
+      "The frozen Orgasm subject remains immutable and explicitly historical.",
+      "Both Supabase projects were read only; the new target remains inert."
+    ],
+    "not_established": [
+      "Current Vera #119 source acceptance, PostgreSQL execution, or hosted CI.",
+      "A current Orgasm qualification subject or behavioral qualification.",
+      "Control Plane application-schema installation, route activation, or provider cutover."
+    ],
+    "follow_up": "Stop source consolidation at the review/provider gates: complete exact #119 hostile/PostgreSQL validation, issue the Orgasm successor/rebind, regenerate Control Plane bindings, then seek Patrick's exact provider-install/staging authority.",
+    "authority_boundary": "No merge, provider migration, function deployment, data staging, cutover, credential/config/ruleset change, force-push, or history rewrite was performed."
+  }
+}
