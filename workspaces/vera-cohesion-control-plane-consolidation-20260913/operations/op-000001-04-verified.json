@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "vera-cohesion-control-plane-consolidation-20260913",
+  "operation_id": "op-000001-04-verified",
+  "kind": "connection-test-log",
+  "created_at": "2026-09-13T23:13:00Z",
+  "operator": "Vera consolidation work",
+  "scope": "Cross-repository Cohesion/Orgasm/Control Plane reconciliation and Supabase readback",
+  "tests": [
+    {
+      "connection": "thebrazenbeard/cohesion repository lookup",
+      "result": "NOT_FOUND",
+      "evidence": "GitHub returned 404; Cohesion is represented inside the Vera repository's PR #118 source-consolidation line."
+    },
+    {
+      "connection": "Orgasm PR #2 source receipt write/readback",
+      "result": "PASS",
+      "evidence": "Commit f735c0d0c9af8553a91790348dafab018198b4d3 added docs/VERA_CURRENT_COHESION_SOURCE_RECONCILIATION_20260913.md on work/whole-system-reconciliation-20260911; the file was fetched back with blob e285a9e7137b1c1c3719f2f6d26b11cbe46af670."
+    },
+    {
+      "connection": "Vera Control Plane PR #20 source receipt write/readback",
+      "result": "PASS",
+      "evidence": "Commit 6f49a6c51d939451b840c4caa58e3d0008720c02 added docs/operations/VERA_CURRENT_COHESION_SOURCE_CUT_RECONCILIATION_20260913.md on work/supabase-control-plane-binding-20260912; the file was fetched back with blob f76d1a2b9d2d3c363a075daf89330b479c7154a9."
+    },
+    {
+      "connection": "Vera PR #118 cross-repository reconciliation receipt",
+      "result": "PASS",
+      "evidence": "GitHub comment 5656870673 was created and fetched back from PR #118."
+    },
+    {
+      "connection": "Vera PR #119 currentness",
+      "result": "OPEN_GATE",
+      "evidence": "Exact head 4889670c168a20b2d745ff745963227760f9eb2e is open/draft; current-head hostile PASS and PostgreSQL execution are not established."
+    },
+    {
+      "connection": "Vera Supabase affective runtime readback",
+      "result": "READ_ONLY_FINDING",
+      "evidence": "Project klmbpaigzeguvnpccqzz reports one historical affective state row and two historical test events; the commit function is SECURITY DEFINER, client-role EXECUTE is denied, and no advisory/row lock was observed."
+    },
+    {
+      "connection": "Vera Control Plane Supabase schema readback",
+      "result": "PASS_BASELINE_ONLY",
+      "evidence": "Project fawkirqroyniueeqspif is ACTIVE_HEALTHY with three baseline migrations and no application tables observed."
+    },
+    {
+      "connection": "Available importer regression snapshot",
+      "result": "PASS",
+      "evidence": "Eight test functions pass by direct invocation; compileall passes. pytest is unavailable, so the result is not a hosted or pytest-GREEN claim."
+    }
+  ],
+  "interpretation": {
+    "verified": [
+      "The current-source relationship is explicitly recorded in the Orgasm and Control Plane review lines.",
+      "The exact current source heads and provider baseline are read back.",
+      "No protected provider effect was performed."
+    ],
+    "not_established": [
+      "Current #119 PostgreSQL execution or hostile PASS.",
+      "Orgasm current qualification or phenomenology.",
+      "Control Plane application-schema installation, route activation, or behavioral qualification."
+    ],
+    "follow_up": "Complete exact #119 review/PostgreSQL execution, then rebind the Orgasm subject and regenerate Control Plane bindings before any provider-install gate.",
+    "authority_boundary": "No merge, provider migration, function deployment, data staging, cutover, credential/config/ruleset change, force-push, or history rewrite was performed."
+  }
+}
