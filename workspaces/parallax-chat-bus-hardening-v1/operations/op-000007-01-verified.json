@@ -1,0 +1,162 @@
+{
+  "operation_id": "op-000007-01-verified",
+  "workspace_id": "parallax-chat-bus-hardening-v1",
+  "kind": "connection-test-log",
+  "created_at": "2026-09-13T20:54:48.911Z",
+  "operator": "Parallax",
+  "scope": "Vera open-PR remediation, PR #119 exact-head validation, Bus topology/guard onboarding, and durable WIP receipt",
+  "tests": [
+    {
+      "connection": "GitHub Vera main ref",
+      "result": "PASS",
+      "evidence": "Fresh exact ref is b7b8dcd1440a3b7147bec2cc35972f083e20f44a."
+    },
+    {
+      "connection": "GitHub Vera open-PR inventory",
+      "result": "PASS",
+      "evidence": "Fresh search returns exactly six open PRs: #59, #61, #115, #117, #118, #119."
+    },
+    {
+      "connection": "Vera superseded PR closure readback",
+      "result": "PASS",
+      "evidence": "PRs #62, #64, #104, #113, and #114 are closed, unmerged, and retain their original heads/bases; closure timestamps are present. Branches and commits were not rewritten or deleted."
+    },
+    {
+      "connection": "Vera PR #59 currentness",
+      "result": "PASS_WITH_DEBT",
+      "evidence": "Head f72f03269e2efd64b2c7dd8f574a13916a3b155a remains open; fresh compare to current main is diverged (24 ahead/42 behind). Comment records clean-successor/review gate."
+    },
+    {
+      "connection": "Vera PR #61 currentness",
+      "result": "PASS_WITH_DEBT",
+      "evidence": "Head e8914eb723cd88e96af928330c1fe0b2c09d3414 remains open; fresh compare to current main is diverged (4 ahead/42 behind). Comment records clean-successor/review gate."
+    },
+    {
+      "connection": "Vera PR #115 currentness",
+      "result": "PASS_WITH_BLOCKER",
+      "evidence": "Head 8f1c1899f2b83b204903b53266c7e39c0c46d235 remains open; fresh compare to current main is diverged (2 ahead/22 behind). Whole-system closure remains suspended pending inference-boundary reconciliation."
+    },
+    {
+      "connection": "Vera PR #117 retarget",
+      "result": "PASS",
+      "evidence": "Base changed from stale work/vera-cohesion-r3-inference-boundary-20260911@481086a8bf05d053844d4d421d39fe9671db296d to main@b7b8dcd1440a3b7147bec2cc35972f083e20f44a. Head remains 5e2796bd5f93d504b743d1a1d0be410db0b172e9; no rebase/force-push; GitHub reports mergeable=true."
+    },
+    {
+      "connection": "Vera PR #117 patch and source readback",
+      "result": "PASS_WITH_EXECUTION_LIMIT",
+      "evidence": "Exact two changed paths and fail-closed requirement-class/forbidden-domain repair read from head; historical source-branch evidence is 53 unittest cases, compileall, and diff-check green. A new exact-main execution was not claimed because no Vera checkout is available and hosted runs stop before steps."
+    },
+    {
+      "connection": "Vera PR #118 parent metadata",
+      "result": "PASS",
+      "evidence": "Head 7ef650887009efe16d7c44cff53cfff460f0481f remains open on main@b7b8dcd...; child #119 is recorded as the importer/readback repair."
+    },
+    {
+      "connection": "Vera PR #119 exact metadata",
+      "result": "PASS",
+      "evidence": "Head ceca583b9f888794a9b2b70a7b32e616b4f0e8f1, parent 7ef650887009efe16d7c44cff53cfff460f0481f, open/draft/unmerged/mergeable=true. Body and exact-head repair receipt are current."
+    },
+    {
+      "connection": "Vera PR #119 importer regression tests",
+      "result": "PASS",
+      "evidence": "Fresh scratch copy: python -m pytest -q tests/test_predecessor_import_batch.py -> 7 passed in 0.29s."
+    },
+    {
+      "connection": "Vera PR #119 Python compile",
+      "result": "PASS",
+      "evidence": "Fresh scratch copy compileall for importer and importer tests exited 0."
+    },
+    {
+      "connection": "Vera PR #119 PostgreSQL migration parse",
+      "result": "PASS",
+      "evidence": "sqlfluff parse --dialect postgres exited 0; parser output was 90,834 bytes."
+    },
+    {
+      "connection": "Vera PR #119 workflow YAML parse",
+      "result": "PASS",
+      "evidence": "Manual-only workflow YAML parsed successfully; pytest is pinned to 8.3.5 for Python 3.11/3.12."
+    },
+    {
+      "connection": "Vera PR #119 full PostgreSQL staging tests",
+      "result": "NOT_AVAILABLE",
+      "evidence": "Docker, Postgres, psql, initdb, and pg_ctl are absent in this environment; no database execution was claimed."
+    },
+    {
+      "connection": "Vera PR #119 hosted Actions",
+      "result": "NOT_AVAILABLE",
+      "evidence": "Historical workflow attempts terminate before steps with steps=[] and runner_id=0/BlobNotFound; no CI-GREEN claim. Current exact head has no commit statuses."
+    },
+    {
+      "connection": "Vera PR #119 target Control Plane migration readback",
+      "result": "PASS_WITH_NOT_APPLIED",
+      "evidence": "Read-only Supabase state shows target fawkirqroyniueeqspif has only migrations 20260912170153, 20260912170345, and 20260912170408; predecessor-import staging migration is not applied."
+    },
+    {
+      "connection": "Supabase Vera/Control Plane discovery",
+      "result": "PASS",
+      "evidence": "Read-only project discovery resolved Vera klmbpaigzeguvnpccqzz and Vera Control Plane fawkirqroyniueeqspif; no provider mutation."
+    },
+    {
+      "connection": "GitHub chat-communication-bus main ref",
+      "result": "PASS",
+      "evidence": "Fresh exact main is aeab0f04fc9b4bd7c2945c9a53011c53fac809b4."
+    },
+    {
+      "connection": "Chat Bus topology and onboarding contracts",
+      "result": "PASS",
+      "evidence": "Fresh main read confirms Parallax is registered as bus/parallax-v1, lifecycle REGISTERED_INERT, onboarding FIRST_APPEND_PENDING, bootstrap cut b2950bcb547fb78d16e44cd94a6ba2164937bf44, and first_append_guard_verified=false."
+    },
+    {
+      "connection": "Chat Bus Parallax lane readback",
+      "result": "PASS_WITH_BLOCKER",
+      "evidence": "Fresh lane ref is 6620e9d9cc6662da2872d37b98747edb8476b04b; messages directory contains seven inherited BT2 files without canonical Parallax message IDs/headers. Current guard's historical scan therefore fails closed; no append or coordination write was attempted."
+    },
+    {
+      "connection": "Chat Bus current Writer Lane Guard source",
+      "result": "PASS",
+      "evidence": "Fresh guard source read shows topology-bound identity, append-only message paths, writer/message-ID namespace checks, duplicate detection, and bootstrap handling; it scans parent mailbox messages."
+    },
+    {
+      "connection": "Chat Bus Writer Lane Guard execution for Parallax",
+      "result": "NOT_RUN",
+      "evidence": "No local Bus checkout and hosted execution was not available; execution would fail on the contaminated inherited lane, so no first-append success was claimed."
+    },
+    {
+      "connection": "Chat Bus provider projection",
+      "result": "DEGRADED",
+      "evidence": "Prior readback remains issue #16: github-bus-ingest is active v3 with verify_jwt=true and projection is not established; no deploy or configuration change was performed."
+    },
+    {
+      "connection": "Linked Work-chat coordination routes",
+      "result": "NOT_AVAILABLE",
+      "evidence": "The supplied Work-chat/thread links have no callable cross-chat read/write API in this runtime. No impersonation and no false coordination claim."
+    },
+    {
+      "connection": "WIP branch readback",
+      "result": "PASS",
+      "evidence": "wip/parallax-chat-bus-hardening-v1 read at 71d34d57241aa5a43b2897a0171eeabb07a203a2; existing cp-000006 and op-000005-03-verified were preserved."
+    },
+    {
+      "connection": "WIP durable receipt write",
+      "result": "PENDING_THIS_COMMIT",
+      "evidence": "This new operation record is being created on wip/parallax-chat-bus-hardening-v1; resulting commit SHA will be verified after the write."
+    }
+  ],
+  "interpretation": {
+    "verified": [
+      "Vera's five superseded PRs are closed unmerged with provenance retained.",
+      "Vera's current open set is six PRs; #117 is current against main; #118/#119 parent-child ordering is explicit.",
+      "PR #119 source-local importer and SQL syntax checks pass at exact head; database execution and hosted CI are not established.",
+      "Bus topology/onboarding says Parallax remains inert; the inherited lane is not safe for a first append.",
+      "GitHub, Supabase read paths, and WIP writes are reachable."
+    ],
+    "not_established": [
+      "Vera PR #119 PostgreSQL staging behavior in a real database.",
+      "Vera PR #119 GitHub Actions green status.",
+      "Chat Bus Parallax first guarded append and provider projection.",
+      "Current GitHub branch-protection/ruleset state.",
+      "Direct coordination with the two linked Work chats."
+    ],
+    "authority_boundary": "Patrick remains sole merge/protected-effect authority. No Vera merge, Bus merge, provider deployment, migration apply, credential/ruleset/branch-protection change, force-push, history rewrite, payload import, or Parallax lane append was performed."
+  }
+}
