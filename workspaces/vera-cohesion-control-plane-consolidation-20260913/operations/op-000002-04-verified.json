@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "vera-cohesion-control-plane-consolidation-20260913",
+  "operation_id": "op-000002-04-verified",
+  "kind": "connection-test-log",
+  "created_at": "2026-09-13T23:17:00Z",
+  "operator": "Vera consolidation work",
+  "scope": "Post-write exact-head refresh and hosted validation readback",
+  "tests": [
+    {
+      "connection": "Orgasm non-frozen status/reconciliation correction",
+      "result": "PASS",
+      "evidence": "STATUS.md and the dated reconciliation notice were updated without editing the frozen subject JSON. PR #2 now reads back at exact head a2e2ce1f90bc3f250360b3815786907a7edf1a10; the frozen subject remains blob 99340c78497a37f94363b36fedd64c345aabb624."
+    },
+    {
+      "connection": "Control Plane exact-source receipt refresh",
+      "result": "PASS",
+      "evidence": "The current-source receipt now binds Orgasm PR #2 to a2e2ce1f90bc3f250360b3815786907a7edf1a10 and the Control Plane PR now reads back at d63e5f8c632e3c8b5483be919f8588597f4e5b88."
+    },
+    {
+      "connection": "Control Plane hosted validation",
+      "result": "NOT_AVAILABLE",
+      "evidence": "Run 34788647345 reports failure, but its validate job 103808655903 has steps=[] and executed no repository step; Supabase Preview was skipped because no Supabase branch is attached."
+    },
+    {
+      "connection": "Vera current source/stack",
+      "result": "OPEN_GATE",
+      "evidence": "Vera main is b7b8dcd1440a3b7147bec2cc35972f083e20f44a; #118 is 7ef650887009efe16d7c44cff53cfff460f0481f; #119 is 4889670c168a20b2d745ff745963227760f9eb2e and remains open/draft without current-head hostile PASS or PostgreSQL execution."
+    },
+    {
+      "connection": "Supabase project comparison",
+      "result": "READ_ONLY_PASS",
+      "evidence": "klmbpaigzeguvnpccqzz has 83 migrations and a mixed application schema; fawkirqroyniueeqspif has 3 baseline migrations and no application tables in the readback. Security advisors are 29 RLS-enabled/no-policy INFO findings on the old project and zero findings on the empty target."
+    }
+  ],
+  "interpretation": {
+    "verified": [
+      "The current source projection no longer advertises the frozen R2 Orgasm subject as current.",
+      "The cross-repository receipts are updated to exact current heads.",
+      "The provider comparison remains read-only and the target is still inert."
+    ],
+    "not_established": [
+      "Current #119 source acceptance, PostgreSQL execution, or hosted CI.",
+      "A current Orgasm qualification subject.",
+      "Control Plane schema installation, route activation, or behavioral qualification."
+    ],
+    "follow_up": "Complete exact #119 hostile/PostgreSQL gates, then issue the Orgasm successor/rebind and regenerate Control Plane source bindings before provider installation.",
+    "authority_boundary": "No merge, provider migration, function deployment, data staging, cutover, credential/config/ruleset change, force-push, or history rewrite was performed."
+  }
+}
