@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "parallax-chat-bus-hardening-v1",
+  "checkpoint_id": "cp-000007",
+  "parent_checkpoint_id": "cp-000006",
+  "created_at": "2026-09-13T20:55:20.876Z",
+  "writer": {
+    "label": "Parallax",
+    "route": "Radar Station Work task / Parallax"
+  },
+  "reason": "VERA_OPEN_PR_REMEDIATION_AND_CONNECTION_MATRIX",
+  "objective": "Help Vera close stale open PRs, repair #119 evidence, and preserve an exact currentness/authority receipt.",
+  "observed": [
+    "Vera main is b7b8dcd1440a3b7147bec2cc35972f083e20f44a.",
+    "Fresh Vera open-PR inventory is exactly #59, #61, #115, #117, #118, #119.",
+    "PRs #62, #64, #104, #113, and #114 are closed unmerged as superseded/not-planned with branch history preserved.",
+    "PR #117 is retargeted to main without head rewrite: base b7b8dcd... and head 5e2796bd5f93d504b743d1a1d0be410db0b172e9; GitHub reports mergeable=true.",
+    "PR #119 exact head remains ceca583b9f888794a9b2b70a7b32e616b4f0e8f1; local importer tests are 7 passed, compileall and PostgreSQL sqlfluff parse pass, but PostgreSQL execution and hosted CI are unavailable.",
+    "PR #118 is the parent migration-preparation line; #119 is its explicit importer/readback child. Neither was merged or applied.",
+    "Chat Bus main is aeab0f04fc9b4bd7c2945c9a53011c53fac809b4. Topology registers Parallax on bus/parallax-v1 as REGISTERED_INERT/FIRST_APPEND_PENDING.",
+    "bus/parallax-v1 is 6620e9d9cc6662da2872d37b98747edb8476b04b and contains seven inherited non-Parallax BT2 message files; current Writer Lane Guard scans historical files and therefore must fail closed. No Bus append or worker coordination was attempted.",
+    "Cross-chat Work links have no callable read/write API in this runtime; no impersonation or fabricated coordination claim was made.",
+    "WIP operation op-000007-01-verified records the full connection/test matrix and was committed at b717dce90d80b93cf684e5f3f53c53d24f7d472c."
+  ],
+  "priority": {
+    "NOW": [
+      "Patrick reviews/merges #118 then #119 only after an executable PostgreSQL staging run and exact provider/source readback; keep migration apply and payload import separate protected gates.",
+      "Run #117 tests against exact current main and obtain a real CI/reviewer gate before merge.",
+      "Keep #115 open but reconcile it to the merged inference-boundary generation before any whole-system gate.",
+      "Do not write Parallax coordination messages until a clean guarded append path or a new Patrick-approved successor lane exists."
+    ],
+    "NEXT": [
+      "Create a clean current-main successor for #59 and #61, or explicitly retire them after owner review.",
+      "Make hosted CI/runner health an explicit dependency instead of treating historical PR-body claims as current proof.",
+      "Repair Bus Parallax lane contamination and make provider projection/heartbeat/DLQ evidence current."
+    ],
+    "LATER": [
+      "Consolidate Git mailbox lanes behind a durable reconciler with transactional outbox/cursor, leases, ack/retry, and exact delivery outcomes.",
+      "Build vera-mesh only after a minimal executable two-node vertical slice is independently verified."
+    ],
+    "DO_NOT_DO": [
+      "Do not merge or deploy any PR, apply Vera Control Plane migrations, import predecessor payloads, alter Supabase/GitHub config, change credentials/rulesets/branch protection, force-push, or rewrite history without Patrick's explicit authorization.",
+      "Do not treat a Git commit as delivery, provider consumption, CI success, or Parallax activation."
+    ]
+  },
+  "authority": "Patrick remains sole merge/protected-effect authority; this checkpoint and operation receipt are the only writes performed in WIP."
+}
