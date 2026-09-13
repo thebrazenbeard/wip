@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "vera-cohesion-control-plane-consolidation-20260913",
+  "checkpoint_id": "cp-000003",
+  "parent_checkpoint_id": "cp-000002",
+  "created_at": "2026-09-13T23:22:00Z",
+  "writer": {
+    "label": "Vera consolidation work",
+    "route": "restored project task"
+  },
+  "reason": "FINAL_EXACT_HEAD_RECONCILIATION",
+  "objective": "Close the source-only consolidation cycle with an exact, independently readable frontier and explicit remaining gates.",
+  "observed": [
+    "Orgasm PR #2 current head is 8755c481c2518ff353c579b65feef47437ad189d.",
+    "Control Plane PR #20 current head is a39276fc303c5db2aad600b7dbdb93d8b4244b65.",
+    "The frozen Orgasm subject remains blob 99340c78497a37f94363b36fedd64c345aabb624.",
+    "Vera main remains b7b8dcd1440a3b7147bec2cc35972f083e20f44a; #119 remains open/draft at 4889670c168a20b2d745ff745963227760f9eb2e.",
+    "Control Plane hosted validation run 34789425461 failed before executing any step; no source verdict is inferred.",
+    "The old Supabase project remains mixed/historical (83 migrations; 18 requested-schema tables; 29 RLS/no-policy INFO findings), while the target remains baseline-only (3 migrations; zero requested-schema tables; zero security lints)."
+  ],
+  "completed": [
+    "Orgasm status and historical reconciliation prose were aligned with current Vera Cohesion source.",
+    "Cross-repository receipts and PR metadata were refreshed after every contents-API head advance.",
+    "Control Plane hosted-check failure was read back as a pre-step infrastructure result.",
+    "Dedicated public-safe WIP workspace, checkpoint, and connection-test log were advanced and read back."
+  ],
+  "unfinished": [
+    "Vera #119 exact-head hostile review and PostgreSQL execution.",
+    "Orgasm successor/rebind qualification subject.",
+    "Control Plane manifest/runbook regeneration from the accepted Vera source cut.",
+    "Patrick's exact provider-install/staging gate and independent post-install readback."
+  ],
+  "do_not_do": [
+    "Do not edit the frozen Orgasm subject in place.",
+    "Do not promote old provider rows or source receipts into current qualification.",
+    "Do not apply migrations, stage private/classified payloads, deploy functions, or activate route from this source-only frontier.",
+    "Do not write to the Parallax-owned WIP workspace or the contaminated Bus lane."
+  ],
+  "authority": "R10 governs currentness and protected effects; this checkpoint records GitHub source/document commits and read-only provider/test observations only."
+}
