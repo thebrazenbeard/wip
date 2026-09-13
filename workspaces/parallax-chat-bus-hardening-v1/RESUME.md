@@ -1,36 +1,28 @@
 # Resume
 
-<!-- wip:latest_checkpoint=cp-000005 -->
+<!-- wip:latest_checkpoint=cp-000006 -->
 
 Workspace: parallax-chat-bus-hardening-v1
 Lifecycle: ACTIVE
 
 ## Verified position
 
-- Chat Bus main: b2950bcb547fb78d16e44cd94a6ba2164937bf44
-- Draft PR #22: 7cfe41e68f174323873b8a2d5b94ffb15338371d
-- CI 33980199378: Python 3.11/3.12 tests, compileall, and source-hash verification succeeded.
+- Chat Bus main: aeab0f04fc9b4bd7c2945c9a53011c53fac809b4
+- Current main is diverged from Anchor-E/preflight source (ded270af1dbd51537bec92904e283da8d4183ff8); central reconciliation is not canonical.
+- PRs #15, #17, #18, #20, #21, and #22 are merged; #17 and #22 retain historical failing-CI evidence.
+- bus/parallax-v1 is contaminated at 6620e9d9cc6662da2872d37b98747edb8476b04b; first Parallax append is not verified.
+- Supabase github-bus-ingest is ACTIVE v3 with verify_jwt=true and digest 0aaab7f376d1454efe76a757755918312eac35a8fde2f4c4ff7e63072a558fb7; provider Radar migrations lag source.
 - WIP branch: wip/parallax-chat-bus-hardening-v1
+- Connection matrix: operations/op-000005-03-verified.json
 - No protected effect has been performed.
 
-## Implemented
+## Hostile priorities
 
-- PR #18 source-local admission hardening carried into isolated branch.
-- Exact-delta projection for non-zero-base pushes; FULL_COMPAT fallback without a base.
-- Durable SQLite telemetry counters and 60-second system/telemetry heartbeat.
-- Execution plan covering DLQ, routing/liveness, priority-0, trusted projector, source reachability, and onboarding.
-
-## Unfinished
-
-- Wire telemetry increments into live routing/queue/DLQ paths.
-- Trusted projector root, lane-derived sender, and source reachability binding.
-- Patrick merge of PR #20, first current-guarded Parallax append, then Bus coordination with Radar and Entropy 2.
-- Patrick review/merge decisions for PRs #15, #17, #18, and #22.
-
-## Authority
-
-Patrick remains sole merge/protected-effect authority. No merge, provider deployment/migration/configuration, credential/ruleset/branch-protection mutation, force-push, or history rewrite.
+- NOW: stop using contaminated Parallax lane; reconcile canonical source and provider control root; close Edge topology/provenance/body-limit gaps; make current-main CI and branch protection observable.
+- NEXT: durable queue/ack/retry/expiry, one authoritative registry with lease renewal, strict heartbeat wiring, DLQ replay state machine, duplicate-lane ambiguity failure, fan-out-safe relay IDs.
+- LATER: scale beyond Git mailboxes, event-sourced topology/leases, push-based discovery, richer thread/read receipts, executable Vera-mesh vertical slice.
+- DO NOT DO: merge failing PRs, deploy or migrate Supabase, force-push/rewrite lanes, infer currentness from stale contracts or provider absence, or treat docs-only Vera-mesh as runtime evidence.
 
 ## Safe next action
 
-Refresh current PR #20/main/topology. If #20 is merged, append one minimal Parallax message and verify the current Writer Lane Guard; otherwise continue source-only hardening without writing bus/parallax-v1.
+Create a clean successor lane only from a freshly verified canonical cut after Patrick approves the source-reconciliation plan. Do not append to bus/parallax-v1 until contamination is resolved and the current guard/readback path is proven.

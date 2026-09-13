@@ -1,0 +1,38 @@
+{
+  "operation_id": "op-000005-03-verified",
+  "workspace_id": "parallax-chat-bus-hardening-v1",
+  "kind": "connection-test-log",
+  "created_at": "2026-09-13T18:45:00Z",
+  "operator": "Parallax",
+  "scope": "read-only connectivity and exact-head verification",
+  "tests": [
+    {"connection":"GitHub/chat-communication-bus repository metadata","result":"PASS","evidence":"Repository and default branch readable through GitHub connector."},
+    {"connection":"GitHub/chat-communication-bus main ref","result":"PASS","evidence":"main resolved to aeab0f04fc9b4bd7c2945c9a53011c53fac809b4."},
+    {"connection":"GitHub/chat-communication-bus recursive tree","result":"PASS","evidence":"Current main tree read; source, workflows, topology and contracts enumerated."},
+    {"connection":"GitHub PR #15 metadata and merge state","result":"PASS","evidence":"Merged; merge commit 73d22a5bcff8421813bf2d493e034d713cf48e4f."},
+    {"connection":"GitHub PR #17 metadata and merge state","result":"PASS","evidence":"Merged; merge commit 4a58f2bf21c211381116111e81d469ab0b30d193; historical CI recorded 13 failed/175 passed in both Python matrices."},
+    {"connection":"GitHub PR #18 metadata and merge state","result":"PASS","evidence":"Merged; merge commit aa5fc6bfd4e52c37581f5ecded90a6afd3eed2eb; historical CI recorded 196/196 in both matrices."},
+    {"connection":"GitHub PR #20 topology onboarding metadata","result":"PASS","evidence":"Merged; merge commit b22876d984f5d1c236c8016daf0a505d718faae0."},
+    {"connection":"GitHub PR #21 architecture review metadata","result":"PASS","evidence":"Merged; merge commit 82a3c594c8b3513410c2ea09e8bc509af6f85872."},
+    {"connection":"GitHub PR #22 exact-delta/telemetry metadata","result":"PASS","evidence":"Merged; merge commit 0495cae7b71950fa15b2cacba1a1b696a5d36ed2; historical CI recorded four failures in both matrices."},
+    {"connection":"GitHub sampled PR discussions/reviews","result":"PASS","evidence":"Readback succeeded; no comments/reviews returned for sampled #15/#17/#18/#24/#26/#28."},
+    {"connection":"GitHub bus/parallax-v1 ref","result":"PASS","evidence":"Current head 6620e9d9cc6662da2872d37b98747edb8476b04b."},
+    {"connection":"GitHub Parallax inert-cut comparison","result":"PASS","evidence":"Compared b2950bcb547fb78d16e44cd94a6ba2164937bf44 to current Parallax head; found seven non-Parallax BT2 message files and no canonical-header append. Lane is contaminated; first append remains unverified."},
+    {"connection":"GitHub issue readback (#16/#69/#73/#79/#89)","result":"PASS","evidence":"Current issue bodies readable; provider outage, duplicate-ID race, stale workflow and wrong-target contamination remain tracked."},
+    {"connection":"GitHub branch-protection endpoint","result":"UNKNOWN","evidence":"Read attempted; connector returned HTTP 403 Resource not accessible by integration. No inference about protection state."},
+    {"connection":"Supabase project discovery","result":"PASS","evidence":"Read-only list_projects returned Vera Control Plane fawkirqroyniueeqspif and Vera klmbpaigzeguvnpccqzz."},
+    {"connection":"Supabase Vera Control Plane readback","result":"PASS","evidence":"Read-only functions/migrations/tables succeeded; no Edge functions and three hardening migrations present."},
+    {"connection":"Supabase Vera github-bus-ingest readback","result":"PASS","evidence":"Function ACTIVE version 3, verify_jwt=true, deployed digest 0aaab7f376d1454efe76a757755918312eac35a8fde2f4c4ff7e63072a558fb7; source readback confirmed direct RPC, declared provenance and no topology lookup."},
+    {"connection":"Supabase Radar provider migration readback","result":"PASS","evidence":"Read-only migration list on klmbpaigzeguvnpccqzz succeeded; Radar migrations stop at radar_live_message_collision_v1 and later journal/atomic migrations are absent."},
+    {"connection":"Supabase security advisor","result":"PASS_WITH_FINDINGS","evidence":"Security advisor returned 29 RLS-enabled-with-no-policy findings, including radar.assignment_events, assignments, dead_letters, dependencies, endpoints, health_events, identities, identity_visuals, messages, nodes, reconciliation_events and subscriptions."},
+    {"connection":"Vera-mesh repository/main/PR/branch reads","result":"PASS","evidence":"Main d3bbaa247797dce5f6a26e7006206f37cfef66fe is README-only; PR #1 draft docs-only; implementation branches are unmerged and lack recorded CI."},
+    {"connection":"WIP repository ref/tree/read","result":"PASS","evidence":"wip/parallax-chat-bus-hardening-v1 read at 495dbad5d5feab0eeaa486c34f24165472f52a14; tree 2599eafcd30621d56705a2855c64cf7de3b980b2."},
+    {"connection":"WIP checkpoint blob staging","result":"PASS","evidence":"cp-000006 blob a0f2adc39384627c9393238904d0bb14a5245e28 already staged; this operation records the associated connection matrix."},
+    {"connection":"Linked Work-chat native coordination","result":"NOT_AVAILABLE","evidence":"No callable thread/conversation handoff or cross-chat messaging route was exposed. No impersonation and no Parallax-lane write performed."}
+  ],
+  "interpretation": {
+    "verified": ["GitHub and Supabase read paths are reachable; exact current heads and provider drift are observable; WIP is writable through Git data API."],
+    "not_established": ["Current-main CI for aeab0f04fc9b4bd7c2945c9a53011c53fac809b4; provider projection health; Parallax first append; branch protection state."],
+    "authority_boundary": "No Chat Bus/Vera-mesh source, provider, credential, ruleset or branch-protection mutation was performed. Only this WIP receipt/log is being written."
+  }
+}

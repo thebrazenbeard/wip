@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "parallax-chat-bus-hardening-v1",
+  "checkpoint_id": "cp-000006",
+  "parent_checkpoint_id": "cp-000005",
+  "created_at": "2026-09-13T18:30:00Z",
+  "writer": {"label": "Parallax", "route": "Radar Station Work task / Parallax"},
+  "reason": "FULL_SCOPE_HOSTILE_REVIEW",
+  "objective": "Fresh hostile review of current Chat Bus and vera-mesh state.",
+  "observed": [
+    "Chat Bus main is aeab0f04fc9b4bd7c2945c9a53011c53fac809b.",
+    "PRs 15, 17, 18, 20, 21, and 22 are merged; historical PR-body CI claims do not prove current-main CI.",
+    "Main is diverged from Anchor-E ded270af1dbd51537bec92904e283da8d4183ff8 (ahead 2, behind 304); current main contains wrong-target Brigit message commit aeab0f04.",
+    "bus/parallax-v1 is 6620e9d9cc6662da2872d37b98747edb8476b04b, seven commits ahead of inert cut b2950bcb; it contains BT2 messages with non-Parallax IDs while onboarding still says FIRST_APPEND_PENDING and guard=false.",
+    "Current Edge handler accepts syntactically valid unregistered bus/<name>-vN identities, trusts declared source_commit/path provenance, parses unbounded req.json before body limit, and projects via direct per-file RPC.",
+    "IdentityRegistry routing is process-local; RadarRuntime queue/dedupe are volatile; no Python lease-renewal method exists.",
+    "DeadLetterStore marks replayed before the external replay effect, so a failed replay cannot safely retry.",
+    "github_projection silently chooses the lexicographically first duplicate identity lane instead of surfacing ambiguity.",
+    "RADAR_CURRENT.json on main is stale relative to current main/topology/provider state; branch-protection read is unavailable (UNKNOWN).",
+    "vera-mesh main d3bbaa247797dce5f6a26e7006206f37cfef66fe is README-only; PR #1 5b8e070bbf76471131097f6da7f297da966b96da is docs-only and unmerged."
+  ],
+  "priority": {
+    "NOW": [
+      "Declare one canonical source branch and reconcile/diverge-proof main versus Anchor-E; stop treating stale RADAR_CURRENT.json as current authority.",
+      "Fail closed at Edge on topology membership/lifecycle, message-ID namespace, duplicate paths, bounded pre-auth body, and Git commit/path/blob reachability.",
+      "Restore exact-main CI/readback and independently verify branch protection; do not claim green current main.",
+      "Quarantine/reconcile contaminated bus/parallax-v1; keep Parallax coordination disabled until one valid guarded append."
+    ],
+    "NEXT": [
+      "Install durable projection batch/file journal and cursor with explicit unknown/committed outcomes.",
+      "Make runtime queue/outbox, delivery, ack, retry, expiry, and DLQ replay transactional; add lease renewal and a durable registry adapter.",
+      "Wire heartbeat into actual runtime and define interval-vs-cumulative counter semantics; add cross-language parser conformance corpus."
+    ],
+    "LATER": [
+      "Reduce Git lanes to append-only evidence behind a central reconciler; consolidate duplicate protocol generations.",
+      "For vera-mesh, build one executable two-node vertical slice before generalized mesh routing."
+    ],
+    "DO_NOT_DO": [
+      "Do not weaken JWT or raise provider file limits to hide issue #16.",
+      "Do not deploy Anchor-E or apply migrations without exact source/migration/provider readback.",
+      "Do not activate Parallax from topology registration alone.",
+      "Do not treat Git commits as delivery or acknowledgement."
+    ]
+  },
+  "authority": "Patrick remains sole merge/protected-effect authority; no repository merge, provider mutation, credential/ruleset change, force-push, or history rewrite was performed."
+}
