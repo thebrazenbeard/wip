@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "parallax-chat-bus-hardening-v1",
+  "checkpoint_id": "cp-000008",
+  "parent_checkpoint_id": "cp-000007",
+  "created_at": "2026-09-13T22:34:34.036Z",
+  "writer": {
+    "label": "Parallax",
+    "route": "Radar Station Work task / Parallax"
+  },
+  "reason": "VERA_PR119_PRIVILEGE_BOUNDARY_AND_SOURCE_DRIFT",
+  "objective": "Continue Vera open-PR remediation with exact-head hostile review, close real privilege gaps, and preserve a durable source-drift receipt.",
+  "observed": [
+    "Vera main remains b7b8dcd1440a3b7147bec2cc35972f083e20f44a.",
+    "Vera PR #119 is open/draft/mergeable at a9d2cf37ed6949d890234a94df469a5bf2cd7fb6 after a non-force repair commit.",
+    "PR #119 now revokes default PUBLIC execution on the SECURITY DEFINER staging function and adds a direct database privilege regression; runtime execution and hosted CI remain unavailable.",
+    "Fresh read-only source query reproduced 8/9 frozen predecessor table digests; vera_save_state_events has drifted from the frozen 203-row cut to 214 rows, so live source is not an exact reconstruction input.",
+    "The WIP branch is the durable build receipt; no Bus append was attempted because bus/parallax-v1 remains contaminated and FIRST_APPEND_PENDING."
+  ],
+  "priority": {
+    "NOW": [
+      "Run the full PR #119 Docker/Postgres staging suite and hosted CI on exact head a9d2cf37... before merge; preserve MISMATCH/ERROR receipts as terminal evidence.",
+      "Obtain or create an immutable payload artifact for the frozen predecessor cargo before any provider migration; reject live-source substitution after observed drift.",
+      "Keep migration apply, payload import, route activation, and qualification as separate Patrick-authorized gates."
+    ],
+    "NEXT": [
+      "Retarget/reconcile PR #117 against exact current main and obtain a real execution/reviewer result.",
+      "Resolve #115's inference-boundary dependency, then decide whether #59/#61 need clean current-main successors or owner-approved retirement.",
+      "Repair the Parallax Bus lane contamination and verify its first guarded append before coordination traffic."
+    ],
+    "LATER": [
+      "Replace ad hoc frozen manifest-plus-external-cargo assumptions with an immutable, content-addressed cargo bundle and replay receipt.",
+      "Move hosted runner health into an explicit operational dependency and make stale-source detection automatic."
+    ],
+    "DO_NOT_DO": [
+      "Do not merge #119 or apply its migration based only on local static checks or historical PR-body claims.",
+      "Do not migrate current live rows under a historical manifest digest.",
+      "Do not append on bus/parallax-v1, impersonate Radar, or bypass the Bus guard."
+    ]
+  },
+  "authority": "Patrick remains sole merge/protected-effect authority; this checkpoint and operation receipt record source/PR reads and a non-force PR branch commit only."
+}
