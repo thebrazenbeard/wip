@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "vera-cohesion-control-plane-consolidation-20260913",
+  "checkpoint_id": "cp-000005",
+  "parent_checkpoint_id": "cp-000004",
+  "created_at": "2026-09-13T23:39:51Z",
+  "writer": {
+    "label": "Vera consolidation work",
+    "route": "restored project task"
+  },
+  "reason": "LATEST_SOURCE_CONCURRENCY_HARDENING",
+  "objective": "Record the latest exact Vera seal-lock correction while keeping dependent projections and providers fail-closed.",
+  "observed": [
+    "Vera canonical main remains b7b8dcd1440a3b7147bec2cc35972f083e20f44a.",
+    "Vera PR #119 actual Git ref is work/predecessor-import-readback-hardening-20260913@15bd36e30ef5a05a28b12572434837a0fe9b51c7, open/draft.",
+    "The 15bd36e... commit is one commit ahead of a8cca3b... and changes only providers/vera_control_plane/migrations/20260913232000_seal_predecessor_import_receipts.sql.",
+    "The latest SQL source uses a shared pg_advisory_xact_lock key in both the verifier and staging trigger for operation/provider/schema/table, replacing the earlier FOR UPDATE-based serialization assumption.",
+    "Orgasm PR #2 remains at work/whole-system-reconciliation-20260911@7782141cf961f46c62fdda0461d36225154bbc4c and its non-frozen receipts stop at Vera db5dc0d....",
+    "Control Plane PR #20 remains at work/supabase-control-plane-binding-20260912@43352dc4c335dbcfb3a0802d0022cc22a80ba327 and its current-source receipt stops at Vera db5dc0d....",
+    "The dependent receipts are therefore stale by two moving Vera commits relative to 15bd36e...; they remain historical/source-bound evidence, not a current deployable cut.",
+    "Exact-current-head PostgreSQL execution and hosted CI remain unestablished; the latest prior Control Plane hosted job failed before any step and the Vera preview check was skipped.",
+    "Supabase target fawkirqroyniueeqspif remains an inert three-migration baseline; old Vera project klmbpaigzeguvnpccqzz remains mixed/historical. No provider mutation occurred."
+  ],
+  "completed": [
+    "Read the latest Vera branch ref and exact commit diff.",
+    "Identified the advisory-lock correction as a targeted response to the seal interleaving concern.",
+    "Created operation log op-000005-04-verified and retained cp-000004 as the preceding time-stamped frontier.",
+    "Kept Orgasm's frozen qualification subject immutable and kept provider movement gated."
+  ],
+  "unfinished": [
+    "Freeze Vera #119 at an accepted exact ref and run the exact full PostgreSQL/hostile suite.",
+    "Propagate the accepted ref to Orgasm and Control Plane after a fresh read/modify/write.",
+    "Correct PR-body current-head metadata after the source frontier stops moving.",
+    "Create/review a successor Orgasm qualification subject or explicit rebind.",
+    "Obtain Patrick's exact provider-install/staging authority before any Supabase mutation."
+  ],
+  "do_not_do": [
+    "Do not treat source-static review of 15bd36e... as database execution or qualification.",
+    "Do not overwrite Orgasm/Control Plane receipt files while active concurrent writers can move their blobs.",
+    "Do not edit the frozen Orgasm subject in place.",
+    "Do not apply migrations, stage private/classified payloads, deploy functions, activate route, merge, force-push, or rewrite history.",
+    "Do not write to the Parallax-owned WIP workspace or contaminated Bus lane."
+  ],
+  "authority": "R10 governs currentness and protected effects; this checkpoint records source/document commits plus read-only provider/test observations only."
+}
