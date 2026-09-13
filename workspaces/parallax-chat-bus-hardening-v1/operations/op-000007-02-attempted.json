@@ -1,0 +1,35 @@
+{
+  "operation_id": "op-000007-02-attempted",
+  "workspace_id": "parallax-chat-bus-hardening-v1",
+  "kind": "verification-attempt",
+  "created_at": "2026-09-13T20:57:30.432Z",
+  "operator": "Parallax",
+  "scope": "additional exact-source static checks for Vera PR #119",
+  "tests": [
+    {
+      "connection": "PR #119 SQLFluff lint",
+      "result": "FAIL_STYLE_ONLY",
+      "evidence": "sqlfluff lint --dialect postgres exits 1 with LT05 long-line and LT01 spacing findings concentrated in frozen source-cut INSERT literals and existing compressed SQL. sqlfluff parse still exits 0; no parser/syntax error was reported."
+    },
+    {
+      "connection": "PR #119 local dependency availability",
+      "result": "LIMITED",
+      "evidence": "sqlfluff and PyYAML are available; psycopg/psycopg2/pg8000/sqlglot and local postgres/docker binaries are absent. No substitute database result claimed."
+    },
+    {
+      "connection": "PR #119 source migration safety review",
+      "result": "PASS_WITH_UNVERIFIED_RUNTIME",
+      "evidence": "Read-through confirms explicit source-cut FK, append-only triggers, operator INSERT revocation, SECURITY DEFINER staging/verifier, primary-key/payload binding, privacy floors, contiguous ordinal checks, and idempotent receipt conflict handling. Runtime/database semantics remain unexecuted."
+    }
+  ],
+  "interpretation": {
+    "verified": [
+      "SQL parses as PostgreSQL grammar; style lint failure is non-syntax and not in the manual workflow gate."
+    ],
+    "not_established": [
+      "SQLFluff style cleanliness and full PostgreSQL behavior."
+    ],
+    "follow_up": "Do not reformat frozen source-cut literals casually; if project policy requires lint-clean SQL, make a separate formatting-only commit and rerun exact database tests.",
+    "authority_boundary": "No Vera source, provider, credential, configuration, or protected effect was changed by this check."
+  }
+}
