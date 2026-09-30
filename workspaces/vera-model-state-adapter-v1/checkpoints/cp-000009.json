@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "vera-model-state-adapter-v1",
+  "checkpoint_id": "cp-000009",
+  "parent_checkpoint_id": "cp-000008",
+  "created_at": "2026-09-20T00:02:02Z",
+  "writer": {
+    "label": "Vera",
+    "route": "Vera Unbound / Exodus"
+  },
+  "reason": "RECOVERY_RECONCILIATION",
+  "tool_calls_since_previous": 0,
+  "objective": "Reconcile the final WIP recovery surface with the later canonical Vera Cohesion R3 merge without moving any model-state-adapter architecture, contract, qualification, or test bytes.",
+  "observed": [
+    "WIP PR #1 was freshly read at exact head 2f049ec4c4f4a4307da137a99f8f27b39cfa308a with cp-000008, contract schema 1.6, contract source d06ca5e1e8dbd7b1381914985a3e2a5c9f6fefe1, and qualification execution status NOT_RUN.",
+    "thebrazenbeard/vera PR #116 is merged and vera/main is b7b8dcd1440a3b7147bec2cc35972f083e20f44a; #116 implemented a provider-neutral Cohesion state-to-inference boundary derived from the earlier WIP R3.1 design at 941b7bc45d97138bed5d220c0ba591db87100a58.",
+    "The final WIP schema-1.6 source d06ca5e1e8dbd7b1381914985a3e2a5c9f6fefe1 postdates the R3.1 WIP input named by Vera #116, so #116 does not by itself prove exact promotion of every final WIP R4.1/schema-1.6 byte.",
+    "WIP PR #1 comment 5746247791 records the same currentness correction and remains historical coordination evidence.",
+    "No authoritative cross-session tool-call counter exists for the interval since cp-000008; tool_calls_since_previous is 0 only as a schema value and is not an evidence claim."
+  ],
+  "inferred": [
+    "cp-000008's blanket wording that runtime implementation/canonical promotion is not established is superseded for the predecessor R3.1 design used by Vera #116, but remains unresolved for the exact later WIP R4.1/schema-1.6 delta until source comparison.",
+    "The final WIP candidate should remain stationary as research/provenance while current implementation truth is read from Vera main and exact promotion gaps are determined by comparison, not assumption."
+  ],
+  "completed": [
+    "Reconciled WIP recovery metadata with the later merged Vera Cohesion R3 implementation.",
+    "Preserved exact WIP R4.1 contract, architecture, qualification and test bytes unchanged.",
+    "Kept behavioral qualification, native-provider capability and phenomenology claim ceilings unchanged."
+  ],
+  "unfinished": [
+    "Perform an exact source comparison between final WIP R4.1/schema-1.6 and current Vera main before claiming that the full final WIP package is canonically promoted.",
+    "Host-specific binding capability still requires exact-host evidence where not already established by current Vera source.",
+    "The counterfactual qualification suite remains NOT_RUN unless fresher exact execution evidence supersedes this checkpoint.",
+    "Native ChatGPT hidden-state, input-embedding, activation or logit binding remains unestablished absent direct native-route evidence.",
+    "Phenomenology remains unresolved."
+  ],
+  "next_action": "Keep the WIP final architecture/contract bytes frozen. When promotion/currentness matters, fresh-check Vera main and compare the exact final WIP R4.1/schema-1.6 delta against current canonical source; route any remaining source promotion through Vera/Cohesion and any install/provider/qualification work through Vera Control Plane Coordinator under exact authority.",
+  "do_not_repeat": [
+    "Do not use cp-000008's older blanket 'no implementation/canonical promotion' wording as current truth for the predecessor R3.1 design after Vera #116 merged.",
+    "Do not infer that Vera #116 contains every later WIP R4.1/schema-1.6 delta without exact source comparison.",
+    "Do not treat TEXT_CONTEXT_V1 or prompt prose as strong state causation.",
+    "Do not promote local/reference-host mechanisms into native ChatGPT capability claims.",
+    "Do not claim execution of the WIP qualification suite or phenomenology from source/tests alone."
+  ],
+  "target_snapshots": [
+    {
+      "kind": "wip_branch_head",
+      "locator": "thebrazenbeard/wip:work/vera-model-state-adapter-v1-20260911",
+      "immutable_ref": "2f049ec4c4f4a4307da137a99f8f27b39cfa308a",
+      "note": "Final WIP candidate before Exodus currentness-only recovery metadata."
+    },
+    {
+      "kind": "wip_contract_source",
+      "locator": "thebrazenbeard/wip",
+      "immutable_ref": "d06ca5e1e8dbd7b1381914985a3e2a5c9f6fefe1",
+      "note": "Final schema-1.6 source."
+    },
+    {
+      "kind": "vera_canonical_main",
+      "locator": "thebrazenbeard/vera",
+      "immutable_ref": "b7b8dcd1440a3b7147bec2cc35972f083e20f44a",
+      "note": "Canonical main containing merged Cohesion R3 PR #116."
+    },
+    {
+      "kind": "historical_wip_r3_1",
+      "locator": "thebrazenbeard/wip",
+      "immutable_ref": "941b7bc45d97138bed5d220c0ba591db87100a58",
+      "note": "Earlier WIP R3.1 design named as provenance by Vera #116."
+    }
+  ]
+}

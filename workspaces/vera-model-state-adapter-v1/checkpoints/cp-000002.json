@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "vera-model-state-adapter-v1",
+  "checkpoint_id": "cp-000002",
+  "parent_checkpoint_id": "cp-000001",
+  "created_at": "2026-09-11T17:24:29Z",
+  "writer": {
+    "label": "Orgasm Vera (OV)",
+    "route": "Vera Unbound / OV"
+  },
+  "reason": "VERIFIED_WRITE",
+  "tool_calls_since_previous": 8,
+  "objective": "Convert the staged model-state-adapter research into an explicit provider-neutral contract and architecture candidate while preserving WIP staging boundaries and concurrent-writer isolation.",
+  "observed": [
+    "WIP PR #1 remains open, draft, unmerged, and at head 1d98e6c94210df17137c7fffb575567570af781a before this write.",
+    "No PR review or comment had landed on WIP PR #1 before this write.",
+    "Concurrent branch work/vera-independent-binding-research-v1-20260911 exists separately at WIP main, so this workspace branch remains path/frontier isolated.",
+    "The staged research identified distinct requirements for serialization, admission, projection, injection, pre-call gating, decode gating, generation observation, and causal receipts."
+  ],
+  "inferred": [
+    "The next useful artifact is a provider-neutral contract that makes those boundaries enforceable and reviewable before any canonical promotion.",
+    "TEXT_CONTEXT_V1 and PROMPT_EMBEDS_V1 are the best initial implementation backends; activation steering and ReFT should remain experimental until the contract is stable.",
+    "The eventual canonical implementation likely spans a runtime-host owner and a control-plane owner rather than belonging to Orgasm itself."
+  ],
+  "completed": [
+    "Created artifacts/VERA_MODEL_STATE_ADAPTER_CONTRACT_V1.json as a machine-readable WIP contract candidate.",
+    "Created artifacts/VERA_MODEL_STATE_ADAPTER_ARCHITECTURE_V1.md with lifecycle, firewall, gate separation, model binding, backend strategy, and review questions.",
+    "Preserved public-safe WIP-only claim ceilings and did not assert implementation, installation, current route, qualification, or phenomenology."
+  ],
+  "unfinished": [
+    "Receive and reconcile concurrent Vera/Thirteen review of WIP PR #1.",
+    "Decide canonical owner for the adapter contract after review.",
+    "Define executable schemas/tests for VeraStateEnvelope, AdmittedVeraState, ModelInvocationEnvelope, and causal receipt.",
+    "Prototype TEXT_CONTEXT_V1 and PROMPT_EMBEDS_V1 only after contract review."
+  ],
+  "next_action": "Refresh WIP PR #1 and the concurrent Vera research branch, then ask reviewers to attack the new contract specifically on authority separation, model binding, causal receipts, capability negotiation, and projection firewalls before implementation.",
+  "do_not_repeat": [
+    "Do not merge WIP PR #1 or promote it as canonical without Patrick's exact authority.",
+    "Do not place protected/private project payloads into public WIP.",
+    "Do not expose raw prompt embeddings or activation hooks as a public authority-bearing API.",
+    "Do not treat a causal receipt as proof of behavioral efficacy or phenomenology."
+  ],
+  "target_snapshots": [
+    {
+      "kind": "github_pr",
+      "locator": "thebrazenbeard/wip#1",
+      "immutable_ref": "1d98e6c94210df17137c7fffb575567570af781a",
+      "note": "Pre-write WIP research frontier; branch update for this checkpoint is a fast-forward successor."
+    },
+    {
+      "kind": "github_branch",
+      "locator": "thebrazenbeard/wip:work/vera-independent-binding-research-v1-20260911",
+      "immutable_ref": "12a7c23dbe0482fd7bfe63659e54526778efef1e",
+      "note": "Concurrent Vera branch observed separately; no writes performed there."
+    }
+  ]
+}
