@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "vera-model-state-adapter-v1",
+  "checkpoint_id": "cp-000004",
+  "parent_checkpoint_id": "cp-000003",
+  "created_at": "2026-09-11T18:58:00Z",
+  "writer": {
+    "label": "Orgasm Vera (OV)",
+    "route": "Vera Unbound / OV"
+  },
+  "reason": "VERIFIED_WRITE",
+  "tool_calls_since_previous": 0,
+  "objective": "Repair the causal receipt contract so each evidence level requires only evidence that can actually exist at that level.",
+  "observed": [
+    "Self-hostile review found that a universal response_or_run_id requirement contradicted REQUEST_CONSTRUCTED, INVOCATION_SUBMITTED, and PROVIDER_ACKNOWLEDGED states where no response may exist yet.",
+    "The original ad-hoc cp-000004 omitted canonical checkpoint bookkeeping fields; the exact historical non-bookkeeping tool-call count is not reconstructable from repository state, so this recovery normalization records 0 and does not use it as evidence.",
+    "The repaired contract blob at that point was 560a0eab42c265e12fac698e4724af7af65a5ab2."
+  ],
+  "inferred": [
+    "Receipt schemas must be evidence-level specific or they force fabrication of stronger evidence fields.",
+    "Response identity belongs only to RESPONSE_BOUND evidence."
+  ],
+  "completed": [
+    "Split causal receipt fields into common fields and evidence-level-specific required fields.",
+    "Required response_or_run_id only when RESPONSE_BOUND evidence exists.",
+    "Preserved the no-promotion rule for weaker causal evidence levels."
+  ],
+  "unfinished": [
+    "Reconcile Thirteen's independent architecture review.",
+    "Continue hostile review of retry, privacy, egress, and invocation-frontier semantics.",
+    "Define executable contract tests before promotion."
+  ],
+  "next_action": "Read Thirteen's exact-head review and reconcile any surviving blockers without broadening authority or claim ceilings.",
+  "do_not_repeat": [
+    "Do not require evidence fields before the causal event that could produce them exists.",
+    "Do not infer provider consumption or response binding from a local projection digest.",
+    "Do not merge, deploy, install, or claim behavioral qualification."
+  ],
+  "target_snapshots": [
+    {
+      "kind": "contract_blob",
+      "locator": "thebrazenbeard/wip:VERA_MODEL_STATE_ADAPTER_CONTRACT_V1.json",
+      "immutable_ref": "560a0eab42c265e12fac698e4724af7af65a5ab2",
+      "note": "Receipt-consistency repair output."
+    }
+  ],
+  "source_branch": "work/vera-model-state-adapter-v1-20260911",
+  "source_parent_commit": "edefa1479e362865e6cb855410cdb2fe6add5b6b",
+  "trigger": "self-hostile causal receipt consistency review",
+  "repair": {
+    "finding": "A universal response_or_run_id requirement contradicted lower evidence levels where no response exists yet.",
+    "change": "Causal receipt now has common fields plus evidence-level-specific required fields. RESPONSE_BOUND alone requires response_or_run_id and response_binding_evidence.",
+    "claim_effect": "No evidence promotion; weaker causal levels remain representable without fabricated response identifiers."
+  },
+  "contract_blob": "560a0eab42c265e12fac698e4724af7af65a5ab2",
+  "claim_ceiling": "WIP_RESEARCH_NOT_CANONICAL_NO_IMPLEMENTATION_OR_QUALIFICATION"
+}

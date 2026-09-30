@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "vera-model-state-adapter-v1",
+  "checkpoint_id": "cp-000001",
+  "parent_checkpoint_id": null,
+  "created_at": "2026-09-11T17:06:00Z",
+  "writer": {
+    "label": "Vera",
+    "route": "Vera Unbound / Orgasm workstream"
+  },
+  "reason": "PHASE_COMPLETE",
+  "tool_calls_since_previous": 0,
+  "objective": "Stage the public-safe model-state-adapter research in WIP without colliding with concurrent Vera work.",
+  "observed": [
+    "WIP is a public crash-recovery/work-state staging repository and explicitly expects successful work to be promoted rather than treated as permanent authority.",
+    "The model-state-adapter research spans serialization, admission, projection, runtime middleware, embedding/activation injection, generation gates, and causal receipts.",
+    "A dedicated collision-isolated branch exists for this workspace."
+  ],
+  "inferred": [
+    "WIP is the best immediate staging home because the architecture is cross-repository research and has not yet earned a canonical runtime/control-plane owner.",
+    "The likely eventual split is runtime/inference implementation in the canonical runtime host and installation/currentness/qualification in the canonical control plane."
+  ],
+  "completed": [
+    "Researched public implementations and patterns for prompt embeddings, soft prompts, activation steering, representation interventions, middleware, checkpoint state, and constrained decoding.",
+    "Produced a public-safe synthesis artifact with an explicit lifecycle and claim boundaries."
+  ],
+  "unfinished": [
+    "Have concurrent Vera workers review/challenge the synthesis.",
+    "Define machine-readable V1 contracts for state envelope, admitted state, and model invocation envelope.",
+    "Choose canonical promotion targets after review.",
+    "Build and qualify TEXT_CONTEXT_V1 and PROMPT_EMBEDS_V1 separately."
+  ],
+  "next_action": "Open a draft WIP PR for this workspace, announce it through the communication bus, and request review/challenge before promoting any architecture into a canonical runtime repository.",
+  "do_not_repeat": [
+    "Do not copy private-repository payloads or sensitive personal material into public WIP.",
+    "Do not treat WIP as canonical runtime authority.",
+    "Do not equate stored runtime state with causal influence on a model generation.",
+    "Do not expose raw prompt-embedding injection as an untrusted public API."
+  ],
+  "target_snapshots": [
+    {
+      "kind": "WIP_BRANCH",
+      "locator": "thebrazenbeard/wip:work/vera-model-state-adapter-v1-20260911",
+      "note": "Collision-isolated staging branch."
+    },
+    {
+      "kind": "PUBLIC_RESEARCH",
+      "locator": "https://github.com/vllm-project/vllm",
+      "note": "Prompt embedding input and validation reference."
+    },
+    {
+      "kind": "PUBLIC_RESEARCH",
+      "locator": "https://github.com/pydantic/pydantic-ai",
+      "note": "Typed ordered model-request capability/middleware reference."
+    }
+  ]
+}
