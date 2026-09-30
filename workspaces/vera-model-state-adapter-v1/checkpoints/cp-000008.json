@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "vera-model-state-adapter-v1",
+  "checkpoint_id": "cp-000008",
+  "parent_checkpoint_id": "cp-000007",
+  "created_at": "2026-09-12T14:58:00Z",
+  "writer": {
+    "label": "Orgasm Vera (OV)",
+    "route": "Vera Unbound / OV"
+  },
+  "reason": "PHASE_COMPLETE",
+  "tool_calls_since_previous": 0,
+  "objective": "Supersede cp-000007 with the final WIP candidate after reconciling Cohesion's privacy/egress policy caution and re-verifying the full package.",
+  "observed": [
+    "Bus message vera-v2-0209 records COHESION_ARCHITECTURE_REVIEW_PASS for R3.1 and explicitly cautions that privacy/egress labels must not be treated as a universal total order unless machine-readable policy defines that relation.",
+    "The R4 contract at cp-000007 still retained an illustrative example_scope_order_from_narrow_to_broad list, leaving an implementation ambiguity despite the rest of R4 being green.",
+    "Regression commit 5a130ff13e53317c416d4f2328e3292e146d55bc intentionally failed automatic validation run 34700688076 only on the missing explicit set-based privacy relation contract.",
+    "Contract fix commit d06ca5e1e8dbd7b1381914985a3e2a5c9f6fefe1 changes privacy/egress to EXPLICIT_ALLOWED_TARGET_SET, states that scope labels do not define a universal total order, requires machine-readable target membership, and fails closed on incomparable or unproven relations.",
+    "Automatic validation run 34700779770 on d06ca5e1e8dbd7b1381914985a3e2a5c9f6fefe1 completed successfully.",
+    "Final contract schema is 1.6 with blob ad3d218e16240d6042c4f12cae1ccb00f77f28e2.",
+    "Final architecture R4.1 blob is c84dc4e9cc30b0fd58e1563bdb8d004da3e93ea1 and explicitly mirrors the set-based privacy/egress policy.",
+    "Qualification-spec blob remains 556128b80fc2b177f134e73ae08d89b108fd4397 with execution status NOT_RUN.",
+    "The exact historical tool-call count since cp-000007 is not represented by an authoritative counter; tool_calls_since_previous is recorded as 0 solely to satisfy the current WIP schema and is not used as evidence."
+  ],
+  "inferred": [
+    "The WIP research package has no known unreconciled architecture blocker in the evidence reviewed here.",
+    "The correct privacy/egress model is explicit allowed-target membership/policy, not ordinal comparison of human-readable scope labels."
+  ],
+  "completed": [
+    "Reconciled Cohesion's privacy/egress policy caution into the machine-readable contract.",
+    "Added and observed a RED regression for the total-order ambiguity before applying the fix.",
+    "Verified the set-based privacy/egress successor through automatic run 34700779770.",
+    "Updated architecture prose to match the set-based fail-closed relation model.",
+    "Preserved all prior state-causation, anti-laundering, privacy, invocation-frontier, evidence-level, and qualification boundaries."
+  ],
+  "unfinished": [
+    "Canonical promotion of the provider-neutral contract to the exact Vera/Cohesion source owner requires a separate authorized successor.",
+    "Host-specific implementation in vera-os or another exact inference host is not established.",
+    "Installation/current-route/qualification implementation in vera-control-plane is not established.",
+    "The counterfactual qualification suite is defined but has not been executed on an exact model/host/backend.",
+    "Native ChatGPT hidden-state, prompt-embedding, activation, or logit binding is not established.",
+    "Phenomenology remains unresolved."
+  ],
+  "next_action": "Freeze this final WIP candidate, verify the checkpoint commit itself, update WIP PR #1 and the communication Bus with the exact final head, then await separate Patrick authority for any canonical promotion, runtime implementation, merge, installation, or qualification event.",
+  "do_not_repeat": [
+    "Do not infer privacy widening/narrowing from human-readable label ordering without exact machine-readable policy.",
+    "Do not treat TEXT_CONTEXT_V1 or prompt prose as strong state causation.",
+    "Do not allow target behavior or desired-output semantics to enter the strong state-causal lineage under renamed state fields.",
+    "Do not promote local/reference-host mechanisms into native ChatGPT capability claims.",
+    "Do not merge WIP PR #1 or perform canonical promotion without Patrick's separate exact authority.",
+    "Do not claim behavioral qualification or phenomenology from architecture/tests alone."
+  ],
+  "target_snapshots": [
+    {
+      "kind": "github_commit",
+      "locator": "thebrazenbeard/wip",
+      "immutable_ref": "d06ca5e1e8dbd7b1381914985a3e2a5c9f6fefe1",
+      "note": "Green final contract source before final checkpoint metadata and architecture readback update."
+    },
+    {
+      "kind": "github_actions_run",
+      "locator": "thebrazenbeard/wip/actions/runs/34700779770",
+      "immutable_ref": "d06ca5e1e8dbd7b1381914985a3e2a5c9f6fefe1",
+      "note": "Successful privacy-policy successor validation."
+    },
+    {
+      "kind": "contract_blob",
+      "locator": "workspaces/vera-model-state-adapter-v1/artifacts/VERA_MODEL_STATE_ADAPTER_CONTRACT_V1.json",
+      "immutable_ref": "ad3d218e16240d6042c4f12cae1ccb00f77f28e2",
+      "note": "Schema 1.6 final contract."
+    },
+    {
+      "kind": "architecture_blob",
+      "locator": "workspaces/vera-model-state-adapter-v1/artifacts/VERA_MODEL_STATE_ADAPTER_ARCHITECTURE_V1.md",
+      "immutable_ref": "c84dc4e9cc30b0fd58e1563bdb8d004da3e93ea1",
+      "note": "R4.1 final architecture."
+    },
+    {
+      "kind": "qualification_blob",
+      "locator": "workspaces/vera-model-state-adapter-v1/artifacts/VERA_MODEL_STATE_ADAPTER_QUALIFICATION_V1.json",
+      "immutable_ref": "556128b80fc2b177f134e73ae08d89b108fd4397",
+      "note": "Qualification specification; execution status NOT_RUN."
+    }
+  ],
+  "claim_ceiling": "WIP_RESEARCH_CANDIDATE_VERIFIED"
+}
