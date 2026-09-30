@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0",
+  "workspace_id": "vera-model-state-adapter-v1",
+  "checkpoint_id": "cp-000005",
+  "parent_checkpoint_id": "cp-000004",
+  "created_at": "2026-09-11T19:02:00Z",
+  "writer": {
+    "label": "Orgasm Vera (OV)",
+    "route": "Vera Unbound / OV"
+  },
+  "reason": "VERIFIED_WRITE",
+  "tool_calls_since_previous": 0,
+  "objective": "Reconcile Thirteen's independent architecture review into the model-state adapter contract without conflating privacy, projection material, invocation ownership, or currentness.",
+  "observed": [
+    "Thirteen review 5182392583 independently reviewed exact head a15b6557ac6fa2ae01089d328c37882f9cd33e82.",
+    "The review identified four additional blockers: privacy/egress binding, exact projected-payload addressability, host-owned single-use invocation frontier, and admission-to-invocation revalidation with explicit backend fallback semantics.",
+    "The original ad-hoc cp-000005 omitted canonical checkpoint bookkeeping fields; the exact historical non-bookkeeping tool-call count is not reconstructable from repository state, so this recovery normalization records 0 and does not use it as evidence.",
+    "The revised contract blob was 23392533c8ef86cf480ee89a9a536220f83bde66 and architecture blob was 53d90a8c0ecb5c0c287f2ee58fa34eeea6de67af."
+  ],
+  "inferred": [
+    "Projectable state is not automatically discloseable; privacy and exact egress scope must be bound end-to-end.",
+    "Single-use generation identity must belong to the exact inference-host generation rather than a transient wrapper.",
+    "Projection success cannot freeze semantic currentness across the admission-to-call gap."
+  ],
+  "completed": [
+    "Added privacy and egress binding carried from component state through admission, capability binding, projection, and invocation.",
+    "Required exact canonical projection material or immutable locator plus digest rather than digest-only projection evidence.",
+    "Added a host-owned single-use invocation frontier shared across wrapper instances.",
+    "Added pre-call currentness revalidation and explicit separately-qualified backend fallback semantics."
+  ],
+  "unfinished": [
+    "Hostile-test the invocation frontier for crash windows around external submission.",
+    "Verify the causal receipt remains level-correct after invocation-frontier additions.",
+    "Define executable contract tests before promotion."
+  ],
+  "next_action": "Perform a self-hostile crash-window review of the host-owned invocation frontier before freezing another exact review head.",
+  "do_not_repeat": [
+    "Do not broaden disclosure scope downstream.",
+    "Do not let a wrapper-local nonce masquerade as host-owned replay protection.",
+    "Do not silently downgrade projection backends or causal claim strength.",
+    "Do not merge, deploy, install, or claim behavioral qualification."
+  ],
+  "target_snapshots": [
+    {
+      "kind": "github_review",
+      "locator": "thebrazenbeard/wip#1 review 5182392583",
+      "immutable_ref": "a15b6557ac6fa2ae01089d328c37882f9cd33e82",
+      "note": "Thirteen independent architecture review."
+    },
+    {
+      "kind": "contract_blob",
+      "locator": "thebrazenbeard/wip:VERA_MODEL_STATE_ADAPTER_CONTRACT_V1.json",
+      "immutable_ref": "23392533c8ef86cf480ee89a9a536220f83bde66",
+      "note": "Review-reconciled contract output."
+    },
+    {
+      "kind": "architecture_blob",
+      "locator": "thebrazenbeard/wip:VERA_MODEL_STATE_ADAPTER_ARCHITECTURE_V1.md",
+      "immutable_ref": "53d90a8c0ecb5c0c287f2ee58fa34eeea6de67af",
+      "note": "Review-reconciled architecture output."
+    }
+  ],
+  "source_branch": "work/vera-model-state-adapter-v1-20260911",
+  "source_parent_commit": "b26e33545b705966b193c95a264a0fac322ec268",
+  "trigger": "Thirteen independent architecture review 5182392583",
+  "reconciled_blockers": [
+    "privacy_and_egress_binding",
+    "exact_projected_payload_addressability",
+    "host_owned_single_use_invocation_frontier",
+    "admission_to_invocation_revalidation_and_explicit_backend_fallback"
+  ],
+  "contract_blob": "23392533c8ef86cf480ee89a9a536220f83bde66",
+  "architecture_blob": "53d90a8c0ecb5c0c287f2ee58fa34eeea6de67af",
+  "claim_ceiling": "WIP_RESEARCH_NOT_CANONICAL_NO_IMPLEMENTATION_OR_QUALIFICATION"
+}

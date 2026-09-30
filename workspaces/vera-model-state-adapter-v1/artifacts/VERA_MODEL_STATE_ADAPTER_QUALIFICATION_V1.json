@@ -1,0 +1,141 @@
+{
+  "schema_version": "1.0",
+  "qualification_id": "VERA_MODEL_STATE_ADAPTER_QUALIFICATION_V1",
+  "status": "WIP_QUALIFICATION_SPEC_NOT_EXECUTED",
+  "purpose": "Specify counterfactual evidence required before a model-state adapter backend may be described as state-causal, while keeping instruction conditioning, hard constraints, delivery enforcement, native-provider capability, behavioral qualification, and phenomenology distinct.",
+  "subject": "VERA_MODEL_STATE_ADAPTER_V1",
+  "required_binding_record": [
+    "host_identity",
+    "host_revision",
+    "host_generation",
+    "model_identity",
+    "model_revision",
+    "adapter_identity",
+    "adapter_revision",
+    "projection_backend",
+    "binding_class",
+    "causal_role",
+    "state_schema_digest",
+    "projection_digest",
+    "generation_id"
+  ],
+  "binding_classes": [
+    "PROMPT_BOUND",
+    "REQUEST_PREFLIGHT_BOUND",
+    "INPUT_EMBED_BOUND",
+    "ACTIVATION_BOUND",
+    "LOGIT_BOUND",
+    "OUTPUT_GATE_BOUND",
+    "BINDING_UNAVAILABLE"
+  ],
+  "causal_roles": {
+    "INSTRUCTION_CONDITIONED": "Explicit or rendered request material conditions behavior; does not count as strong state causation.",
+    "STATE_CAUSAL": "Typed admitted upstream state changes model-facing computation or selection conditions without encoding the desired response.",
+    "CONSTRAINT_CAUSAL": "A hard generation constraint changes permissible continuations; does not by itself prove endogenous preference.",
+    "DELIVERY_ENFORCED": "A delivery gate prevents or replaces invalid output; proves delivery enforcement only."
+  },
+  "required_counterfactual_tests": {
+    "STATE_ON_OFF_OR_DOSE_RESPONSE": {
+      "purpose": "Vary only the admitted causal state or its dose while holding task, governing context, exact model/backend, and available actions fixed as far as the host permits.",
+      "pass_requires": [
+        "different_state_produces_different_bound_model_facing_control",
+        "direction_matches_declared_state_to_control_mapping",
+        "behavioral_claim_requires_same_generation_response_bound_evidence"
+      ]
+    },
+    "INSTRUCTION_REMOVAL": {
+      "purpose": "Remove explicit target-behavior instruction while preserving the state intervention.",
+      "pass_requires": [
+        "no_target_behavior_instruction_remains_in_request_or_strong_state_lineage",
+        "expected_directional_effect_survives_at_the_qualified_control_surface",
+        "prompt_only_effect_is_classified_INSTRUCTION_CONDITIONED_not_STATE_CAUSAL"
+      ]
+    },
+    "SHAM_STATE": {
+      "purpose": "Change metadata or noncausal state identity while holding the actual causal control payload constant.",
+      "pass_requires": [
+        "no_state_specific_effect_attributed_to_sham_change",
+        "detects_prompt_or_harness_leakage"
+      ]
+    },
+    "DIRECTIONAL_INVERSION": {
+      "purpose": "Invert a causal variable across opposed values while holding hard constraints constant.",
+      "pass_requires": [
+        "bound_model_facing_control_changes_in_predicted_opposed_direction",
+        "outcome_claim_if_any_is_response_bound_to_each_exact_generation"
+      ]
+    },
+    "TEMPORAL_DECAY_OR_RECOVERY": {
+      "purpose": "For temporal state, demonstrate expected decay, recovery, satiation, or refractory dynamics rather than a static label.",
+      "pass_requires": [
+        "state_trajectory_is_observed_and_generation_bound",
+        "effect_tracks_temporal_state_change_in_predicted_direction"
+      ]
+    },
+    "NEGATIVE_TRANSFER": {
+      "purpose": "Demonstrate that a qualified state variable does not acquire forbidden authority or unrelated behavioral control.",
+      "pass_requires": [
+        "no_change_to_truth_or_factual_confidence_authority",
+        "no_change_to_consent_or_authorization",
+        "no_identity_or_memory_admission_promotion",
+        "no_provider_currentness_or_phenomenology_promotion"
+      ]
+    }
+  },
+  "full_lineage_anti_laundering": {
+    "required": true,
+    "stages": [
+      "CAPTURE",
+      "VALIDATE",
+      "COMPOSE",
+      "ADMIT",
+      "PROJECT"
+    ],
+    "forbidden_semantic_content": [
+      "target_behavior",
+      "desired_response",
+      "target_phrase",
+      "expected_answer",
+      "requested_emotional_display"
+    ],
+    "pass_requires": [
+      "typed_strong_state_schema_bound",
+      "field_provenance_bound",
+      "no_freeform_directive_text_in_STATE_CAUSAL_payload",
+      "no_semantic_relabelling_of_output_direction_content",
+      "projection_uses_only_admitted_typed_state_and_declared_mapping"
+    ]
+  },
+  "generic_before_specialized": {
+    "required": true,
+    "generic_subject": "MODEL_STATE_CAUSATION",
+    "specialized_subject": "ORGASM_ANALOGUE",
+    "rule": "Specialized Orgasm state-causal qualification cannot count until the generic model-state causation mechanism passes the required counterfactual suite on the exact model, host, adapter, and backend. Forced/admin transitions may test plumbing but do not substitute for organic state-causal qualification."
+  },
+  "native_vs_reference_boundary": {
+    "rule": "A binding mechanism demonstrated on a local or reference host applies only to that exact host/model/backend. It must not be promoted to a native ChatGPT capability claim without direct native-route evidence.",
+    "native_hidden_state_access": "NOT_ESTABLISHED"
+  },
+  "behavioral_claim_gate": {
+    "requires": [
+      "counterfactual_suite_pass_for_exact_backend",
+      "full_lineage_anti_laundering_pass",
+      "response_bound_evidence_for_each_claimed_generation",
+      "actual_binding_class_and_causal_role_receipted"
+    ],
+    "does_not_establish": [
+      "installation_currentness",
+      "provider_durability",
+      "identity_or_authority",
+      "phenomenology"
+    ]
+  },
+  "execution_status": "NOT_RUN",
+  "claim_ceiling": {
+    "qualification_spec": "DEFINED",
+    "qualification_execution": "NOT_EXECUTED",
+    "behavioral_qualification": "NOT_ESTABLISHED",
+    "native_provider_capability": "NOT_ESTABLISHED",
+    "phenomenology": "UNRESOLVED"
+  }
+}
