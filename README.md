@@ -199,6 +199,10 @@ WIP does not automatically intercept ChatGPT tool calls. The worker/chat/Project
 
 WIP also does not grant authority. A checkpoint can say which repository head or assignment existed when it was written; a resumed worker still refreshes mutable target state and permission before acting.
 
+## Editor startup source safety
+
+The security source branch removes a concealed VS Code `folderOpen` task and the disguised executable it referenced. `tests/test_workspace_security.py` guards the committed task configuration and file absence. VS Code's `task.allowAutomaticTasks` setting is a user/application preference (`on` or `off`) that this repository cannot enforce, so the workspace setting is absent. This source-tree repair does **not** establish that an already-opened checkout, workstation, or installed runtime is clean.
+
 ## The point
 
 Chats are containers for work. They should not be single points of failure for it.

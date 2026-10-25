@@ -19,9 +19,9 @@ class WorkspaceStartupSecurityTests(unittest.TestCase):
     def test_no_font_disguised_executable(self):
         self.assertFalse((ROOT / "public" / "fonts" / "fa-solid.lkf").exists())
 
-    def test_workspace_does_not_enable_auto_tasks(self):
+    def test_workspace_does_not_claim_user_permission(self):
         settings = json.loads((ROOT / ".vscode" / "settings.json").read_text(encoding="utf-8"))
-        self.assertEqual(settings.get("task.allowAutomaticTasks"), "off")
+        self.assertNotIn("task.allowAutomaticTasks", settings)
         self.assertNotIn("tasks", settings)
 
 
