@@ -2,6 +2,13 @@
 
 # Work in Progress
 
+> **Editor startup safety:** The tracked VS Code configuration does not run
+> tasks automatically when this repository opens. A concealed `folderOpen`
+> Node launcher and executable disguised as a font were removed from the
+> active tree; their prior source remains recoverable through Git history.
+> `tests/test_editor_startup_safety.py` guards this invariant in CI.
+> This is a source repair, not evidence the launcher previously executed.
+
 WIP is a durable crash-recovery layer for long-running ChatGPT and agentic work.
 
 The original idea is simple: Vera or any chat should be able to build something, keep its progress durably recorded, and pick the work back up if a response dies, a chat fills, a runtime changes, or a tool effect becomes ambiguous.
