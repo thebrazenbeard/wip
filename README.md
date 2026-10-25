@@ -9,6 +9,18 @@
 > `tests/test_editor_startup_safety.py` guards this invariant in CI.
 > This is a source repair, not evidence the launcher previously executed.
 
+The additional fail-closed `python tools/editor_startup_guard.py` CI check
+requires an empty tracked task list, disables automatic tasks in tracked
+settings, rejects concealed `folderOpen` markers (including Unicode escapes)
+throughout `.vscode`, and rejects new `.code-workspace` files pending review.
+It also rejects nested `.vscode` directories (which could become independent
+workspace roots), any source-tree symlink including dangling ancestors, and
+case-variant aliases that could behave differently on Windows or macOS than
+on Linux CI. These restrictions intentionally require review before new
+editor configurations or symlink-based layouts are admitted.
+These are checks of the committed source tree, not a runtime workstation scan;
+manual launch configurations remain opt-in.
+
 WIP is a durable crash-recovery layer for long-running ChatGPT and agentic work.
 
 The original idea is simple: Vera or any chat should be able to build something, keep its progress durably recorded, and pick the work back up if a response dies, a chat fills, a runtime changes, or a tool effect becomes ambiguous.
