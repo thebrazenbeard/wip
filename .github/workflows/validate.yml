@@ -18,5 +18,7 @@ jobs:
           python-version: "3.12"
       - name: Unit tests
         run: python -m unittest discover -s tests -v
+      - name: Editor startup source guard
+        run: python tools/editor_startup_guard.py
       - name: Repository validation
         run: python tools/wip.py validate .
