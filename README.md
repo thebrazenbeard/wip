@@ -225,3 +225,9 @@ Chats are containers for work. They should not be single points of failure for i
 Checkpoint the frontier. Record uncertain effects before they happen. Verify what actually landed. Resume from evidence instead of vibes.
 
 Then if the UI decides to throw **Message failed to deliver** after forty minutes of useful work, pick the shit back up and keep going.
+
+## Editor startup containment — tracked source (2026-11-20)
+
+The tracked `main` source formerly contained a concealed VS Code `folderOpen` task invoking obfuscated `.vscode/ini` through Node. The task list is now empty, `task.allowAutomaticTasks` is explicitly `"off"`, and the obfuscated file is removed from this source tree. Historical Git source remains for investigation.
+
+**Limits:** This is source-only containment, not proof that older checkouts, editor extensions, user/global settings, local credentials, or any previous host execution are safe. Do not execute historical suspect assets.
